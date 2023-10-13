@@ -1,9 +1,17 @@
-// Custom css properties.
-
 :root {
-  // Colors
-  --color-bg: white;
-
-  // Sizes
-  // Fonts
+  // Status colors
+  --color-danger: #f4303c;
+  --color-warning: #ffbe00;
+  --color-success: #389e73;
+  // Theme colors
+  --color-bg: #ffffff;
+  --color-bg-grey: #8d93a7;
+  --color-text: #111111;
+  --color-text-light: #626262;
+  --color-blue: #dbe3f5;
+  --color-blue-light: #f5f8fd;
+  --color-olive: #69864d;
+  // Use when style needs red or yellow but it's NOT a warning or error.
+  --color-red: var(--color-danger);
+  --color-yellow: var(--color-warning);
 }
