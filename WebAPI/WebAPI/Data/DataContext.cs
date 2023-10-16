@@ -12,7 +12,7 @@ public class DataContext : IdentityDbContext<IdentityUser>
     }
 
     public DbSet<CategoryEntity> Categories { get; set; }
-    public DbSet<ProductEntity> ProductEntities { get; set; }
+    public DbSet<ProductEntity> Products { get; set; }
     public DbSet<ProductImageEntity> ProductImages { get; set; }
     public DbSet<SizeEntity> Sizes { get; set; }
     public DbSet<TagEntity> Tags { get; set; }
