@@ -28,7 +28,10 @@ public class ProductsController : ControllerBase
         }
         catch
         {
-            return StatusCode(502, "Something went wrong when fethcing the data from the database. Please try again.");
+            return StatusCode(
+                502,
+                "Something went wrong when fetching the data from the database. Please try again."
+            );
         }
     }
 }
