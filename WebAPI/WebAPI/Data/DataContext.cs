@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using WebAPI.Helpers.Seeders;
 using WebAPI.Models.Entities;
 
 namespace WebAPI.Data;
@@ -32,5 +33,7 @@ public class DataContext : IdentityDbContext<IdentityUser>
         builder.Entity<SizeEntity>()
             .HasIndex(x => x.Name)
             .IsUnique();
+
+        Seeder.SeedAll(builder);
     }
 }

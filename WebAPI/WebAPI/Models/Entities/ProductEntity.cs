@@ -9,10 +9,10 @@ public class ProductEntity
     public required string Description { get; set; }
 
     [Column(TypeName = "money")]
-    public  decimal Price { get; set; }
+    public decimal Price { get; set; }
     public List<TagEntity> Tags { get; set; } = new();
     public int CategoryId { get; set; }
-    public required CategoryEntity Category { get; set; }
+    public CategoryEntity Category { get; set; } = null!;
     public List<ProductImageEntity> Images { get; set; } = new();
     public List<SizeEntity> AvailableSizes { get; set; } = new();
 }
