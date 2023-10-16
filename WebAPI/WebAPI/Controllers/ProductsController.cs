@@ -4,10 +4,10 @@ namespace WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class HelloWorldController : ControllerBase
+    public class ProductsController : ControllerBase
     {
         [HttpGet]
-        public IActionResult GetHelloWorld()
+        public IActionResult GetProducts()
         {
             return Ok("Hello World");
         }
