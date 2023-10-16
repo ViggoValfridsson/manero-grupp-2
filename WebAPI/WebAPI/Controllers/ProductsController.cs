@@ -1,15 +1,34 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using WebAPI.Helpers.Services;
 
-namespace WebAPI.Controllers
+namespace WebAPI.Controllers;
+
+[Route("api/[controller]")]
+[ApiController]
+public class ProductsController : ControllerBase
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class ProductsController : ControllerBase
+    private readonly ProductService _productService;
+
+    public ProductsController(ProductService productService)
     {
-        [HttpGet]
-        public IActionResult GetProducts()
+        _productService = productService;
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> GetProducts()
+    {
+        try
         {
-            return Ok("Hello World");
+            var products = await _productService.GetAllAsync();
+
+            if (products == null || !products.Any())
+                return NotFound("Could not find any products.");
+
+            return Ok(products);
+        }
+        catch
+        {
+            return StatusCode(502, "Something went wrong when fethcing the data from the database. Please try again.");
         }
     }
 }

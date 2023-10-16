@@ -17,10 +17,8 @@ public class ProductEntity
     public List<ProductImageEntity> Images { get; set; } = new();
     public List<SizeEntity> AvailableSizes { get; set; } = new();
 
-    public static implicit operator ProductDto?(ProductEntity entity)
+    public static implicit operator ProductDto(ProductEntity entity)
     {
-        if (entity == null) return null;
-
         return new ProductDto
         {
             Id = entity.Id,
