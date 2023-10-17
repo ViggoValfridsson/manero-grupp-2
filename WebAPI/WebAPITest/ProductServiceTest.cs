@@ -2,13 +2,6 @@ using Microsoft.EntityFrameworkCore;
 using WebAPI.Data;
 using WebAPI.Helpers.Services;
 using WebAPI.Models.Entities;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Moq;
-using WebAPI.Models;
-using WebAPI.Models.Dtos;
-using Xunit;
 
 namespace WebAPITest;
 
