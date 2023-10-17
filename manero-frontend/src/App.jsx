@@ -1,20 +1,33 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./scss/main.scss";
 import "@fontsource-variable/mulish";
-import Home from "./pages/Home";
+import useWindowResize from "./hooks/useWindowResize";
+import { useState } from "react";
+import LayoutMobile from "./components/Layout/LayoutMobile";
+import LayoutDesktop from "./components/Layout/LayoutDesktop";
+import routes from "./routes";
 
-const routes = [
-  { path: "/", element: <Home /> },
-  { path: "*", element: <h1>Not found</h1> },
-];
+// Added a global state for mobile/desktop
 
 function App() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useWindowResize(() => {
+    if (window.innerWidth < 800) {
+      setIsMobile(true);
+    } else {
+      setIsMobile(false);
+    }
+  }, true);
+
   return (
     <BrowserRouter>
       <Routes>
-        {routes.map((route) => (
-          <Route key={route.path} path={route.path} element={route.element} />
-        ))}
+        <Route path="/" element={isMobile ? <LayoutMobile /> : <LayoutDesktop />}>
+          {routes.map((route) => (
+            <Route key={route.path} path={route.path} element={route.element} />
+          ))}
+        </Route>
       </Routes>
     </BrowserRouter>
   );

@@ -14,4 +14,5 @@
   // Use when style needs red or yellow but it's NOT a warning or error.
   --color-red: var(--color-danger);
   --color-yellow: var(--color-warning);
+  --color-bg-overlay: rgba(0, 0, 0, 0.5);
 }

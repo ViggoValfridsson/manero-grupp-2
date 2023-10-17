@@ -1,0 +1,11 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+  align-items: center;
+  border-bottom: 2px solid var(--color-blue);
+
+  .logo {
+    height: 2rem;
+  }
+}

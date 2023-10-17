@@ -6,6 +6,10 @@
 
 // Components
 @use "components/button";
+@use "components/header";
+@use "components/layout";
+@use "components/nav";
+@use "components/contact-sidebar";
 
 // Pages
 @use "pages/home";
