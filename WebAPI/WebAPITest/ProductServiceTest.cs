@@ -40,7 +40,7 @@ public class ProductServiceTest
     }
 
     [Fact]
-    public async Task GetAllAsync_GetsData()
+    public async Task GetAllAsync_ShouldReturnAllProducts()
     {
         var options = new DbContextOptionsBuilder<DataContext>()
           .UseInMemoryDatabase(databaseName: "InMemoryDatabase")
