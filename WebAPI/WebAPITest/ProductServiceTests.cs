@@ -5,13 +5,13 @@ using WebAPI.Models.Entities;
 
 namespace WebAPITest;
 
-public class ProductServiceTest
+public class ProductServiceTests
 {
     private void SeedProductsMockDatabase(DataContext context)
     {
         var categories = new List<CategoryEntity>()
         {
-            new CategoryEntity { Id = 1, Name = "Red Pants"}
+            new CategoryEntity { Id = 1, Name = "Pants"}
         };
 
         var products = new List<ProductEntity>()
