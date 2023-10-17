@@ -44,5 +44,19 @@ public class ProductRepo : GenericRepo<ProductEntity>
             .Where(predicate)
             .ToListAsync();
     }
+    public async Task<List<ProductEntity>> GetAllAsync(List<Expression<Func<ProductEntity, bool>>> predicates)
+    {
+        var query = _context.Products
+            .Include(x => x.Tags)
+            .Include(x => x.Category)
+            .Include(x => x.Images)
+            .Include(x => x.AvailableSizes)
+            .AsQueryable();
+            
+        foreach (var predicate in predicates)
+            query = query.Where(predicate);
+
+        return await query.ToListAsync();
+    }
 
 }
