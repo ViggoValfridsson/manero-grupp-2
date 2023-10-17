@@ -15,6 +15,7 @@ builder.Services.AddDbContext<DataContext>(x => x.UseSqlite(builder.Configuratio
 
 // Add custom services
 builder.Services.AddScoped<ProductService>();
+builder.Services.AddScoped<CategoryService>();
 
 var app = builder.Build();
 
