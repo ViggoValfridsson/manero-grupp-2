@@ -34,16 +34,16 @@ public class ProductServiceTests
         Assert.Equal(4, result.Count);
     }
 
-    //[Theory]
-    //[InlineData("Pants", 2)]
-    //[InlineData("pAnTS", 2)]
-    //[InlineData("Shirts", 2)]
-    //[InlineData("Shoes", 0)]
-    //[InlineData("MadeUpCategory", 0)]
-    //public async Task GetAllByCategoryAsync_ShouldReturnAllRelevantProducts(string categoryName, int expectedAmount)
-    //{
-    //    var context = _fixture.CreateContext(); // Access the context from the fixture
-    //    var productRepo = new ProductRepo(context);
-    //    var productService = new ProductService(productRepo);
-    //}
+    [Theory]
+    [InlineData("Pants", 2)]
+    [InlineData("pAnTS", 2)]
+    [InlineData("Shirts", 2)]
+    [InlineData("Shoes", 0)]
+    [InlineData("MadeUpCategory", 0)]
+    public async Task GetAllByCategoryAsync_ShouldReturnAllRelevantProducts(string categoryName, int expectedAmount)
+    {
+        var result = await _productService.GetAllByCategoryAsync(categoryName);
+
+        Assert.Equal(expectedAmount, result.Count);
+    }
 }
