@@ -77,7 +77,7 @@ public class DatabaseFixture : IDisposable
                 Id = 4,
                 Name = "Red Shirt",
                 Description = "A red shirt.",
-                CategoryId = 1,
+                CategoryId = 2,
                 Price = 59.99m
             }
         };

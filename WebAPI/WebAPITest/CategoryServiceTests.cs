@@ -9,21 +9,23 @@ namespace WebAPITest;
 public class CategoryServiceTests
 {
     private readonly DatabaseFixture _fixture;
+    private readonly DataContext _context;
+    private readonly CategoryRepo _categoryRepo;
+    private readonly CategoryService _categoryService;
 
     public CategoryServiceTests(DatabaseFixture fixture)
     {
         _fixture = fixture;
+        _context = fixture.CreateContext();
+        _categoryRepo = new CategoryRepo(_context);
+        _categoryService = new CategoryService(_categoryRepo);
     }
 
     [Fact]
     public async Task GetAllAsync_ShouldReturnAllCategories()
     {
-        var context = _fixture.CreateContext(); // Access the context from the fixture
-        var categoryRepo = new CategoryRepo(context);
-        var categoryService = new CategoryService(categoryRepo);
-
         // Act
-        var result = await categoryService.GetAllAsync();
+        var result = await _categoryService.GetAllAsync();
 
         // Assert
         Assert.Equal(3, result.Count);

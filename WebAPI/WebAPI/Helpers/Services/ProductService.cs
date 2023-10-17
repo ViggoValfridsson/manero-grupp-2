@@ -25,10 +25,10 @@ public class ProductService
         return dtos;
     }
 
-    public async Task<List<ProductDto>> GetAllByCategory(string categoryName)
+    public async Task<List<ProductDto>> GetAllByCategoryAsync(string categoryName)
     {
         var dtos = new List<ProductDto>();
-        var entities = await _productRepo.GetAllAsync(x => x.Category.Name == categoryName);
+        var entities = await _productRepo.GetAllAsync(x => x.Category.Name.ToLower() == categoryName.ToLower());
 
         foreach (var entity in entities)
             dtos.Add(entity);
