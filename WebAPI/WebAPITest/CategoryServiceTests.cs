@@ -2,47 +2,30 @@
 using WebAPI.Data;
 using WebAPI.Helpers.Repositories;
 using WebAPI.Helpers.Services;
-using WebAPI.Models.Entities;
 
 namespace WebAPITest;
 
+[Collection("Database collection")]
 public class CategoryServiceTests
 {
-    private void SeedCategoriesMockDatabase (DataContext context)
-    {
-        var categories = new List<CategoryEntity>()
-        {
-            new CategoryEntity { Id = 1, Name = "Pants"},
-            new CategoryEntity { Id = 2, Name = "Shirts"},
-            new CategoryEntity { Id = 3, Name = "Jackets"}
-        };
+    private readonly DatabaseFixture _fixture;
 
-        context.Categories.AddRange(categories);
-        context.SaveChanges();
+    public CategoryServiceTests(DatabaseFixture fixture)
+    {
+        _fixture = fixture;
     }
 
     [Fact]
     public async Task GetAllAsync_ShouldReturnAllCategories()
     {
-        var options = new DbContextOptionsBuilder<DataContext>()
-       .UseInMemoryDatabase(databaseName: "InMemoryCategoryDatabase")
-       .Options;
+        var context = _fixture.CreateContext(); // Access the context from the fixture
+        var categoryRepo = new CategoryRepo(context);
+        var categoryService = new CategoryService(categoryRepo);
 
-        using (var context = new DataContext(options))
-        {
-            SeedCategoriesMockDatabase(context);
-        }
+        // Act
+        var result = await categoryService.GetAllAsync();
 
-        using (var context = new DataContext(options))
-        {
-            var categoryRepo = new CategoryRepo(context);
-            var categoryService = new CategoryService(categoryRepo);
-
-            // Act
-            var result = await categoryService.GetAllAsync();
-
-            // Assert
-            Assert.Equal(3, result.Count);
-        }
+        // Assert
+        Assert.Equal(3, result.Count);
     }
 }
