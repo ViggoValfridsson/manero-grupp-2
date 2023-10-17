@@ -23,14 +23,8 @@ public class ProductServiceTests
     [Fact]
     public async Task GetAllAsync_ShouldReturnAllProducts()
     {
-        //var context = _fixture.CreateContext(); // Access the context from the fixture
-        //var productRepo = new ProductRepo(context);
-        //var productService = new ProductService(productRepo);
-
-        // Act
         var result = await _productService.GetAllAsync();
 
-        // Assert
         Assert.Equal(4, result.Count);
     }
 
