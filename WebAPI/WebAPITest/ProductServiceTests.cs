@@ -5,13 +5,13 @@ using WebAPI.Models.Entities;
 
 namespace WebAPITest;
 
-public class ProductServiceTest
+public class ProductServiceTests
 {
     private void SeedProductsMockDatabase(DataContext context)
     {
         var categories = new List<CategoryEntity>()
         {
-            new CategoryEntity { Id = 1, Name = "Red Pants"}
+            new CategoryEntity { Id = 1, Name = "Pants"}
         };
 
         var products = new List<ProductEntity>()
@@ -40,7 +40,7 @@ public class ProductServiceTest
     }
 
     [Fact]
-    public async Task GetAllAsync_GetsData()
+    public async Task GetAllAsync_ShouldReturnAllProducts()
     {
         var options = new DbContextOptionsBuilder<DataContext>()
           .UseInMemoryDatabase(databaseName: "InMemoryDatabase")
