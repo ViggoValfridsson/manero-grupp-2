@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using WebAPI.Data;
+using WebAPI.Helpers.Repositories;
 using WebAPI.Helpers.Services;
 using WebAPI.Models.Entities;
 
@@ -24,7 +25,7 @@ public class CategoryServiceTests
     public async Task GetAllAsync_ShouldReturnAllCategories()
     {
         var options = new DbContextOptionsBuilder<DataContext>()
-       .UseInMemoryDatabase(databaseName: "InMemoryDatabase")
+       .UseInMemoryDatabase(databaseName: "InMemoryCategoryDatabase")
        .Options;
 
         using (var context = new DataContext(options))
@@ -34,7 +35,8 @@ public class CategoryServiceTests
 
         using (var context = new DataContext(options))
         {
-            var categoryService = new CategoryService(context);
+            var categoryRepo = new CategoryRepo(context);
+            var categoryService = new CategoryService(categoryRepo);
 
             // Act
             var result = await categoryService.GetAllAsync();
