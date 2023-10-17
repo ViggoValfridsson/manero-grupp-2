@@ -1,22 +1,23 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using WebAPI.Data;
+using WebAPI.Helpers.Repositories;
 using WebAPI.Models.Dtos;
 
 namespace WebAPI.Helpers.Services;
 
 public class CategoryService
 {
-    private readonly DataContext _context;
+    private readonly CategoryRepo _categoryRepo;
 
-    public CategoryService(DataContext context)
+    public CategoryService(CategoryRepo categoryRepo)
     {
-        _context = context;
+        _categoryRepo = categoryRepo;
     }
 
     public async Task<List<CategoryDto>> GetAllAsync()
     {
         var dtos = new List<CategoryDto>();
-        var entities = await _context.Categories.ToListAsync();
+        var entities = await _categoryRepo.GetAllAsync();
 
         foreach (var entity in entities)
             dtos.Add(entity);
