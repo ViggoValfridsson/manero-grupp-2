@@ -16,7 +16,7 @@ public class TagsController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult> GetCategories()
+    public async Task<ActionResult> GetTags()
     {
         try
         {
