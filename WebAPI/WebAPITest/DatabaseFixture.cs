@@ -46,6 +46,16 @@ public class DatabaseFixture : IDisposable
             new CategoryEntity { Id = 3, Name = "Shoes"}
         };
 
+        var tags = new List<TagEntity>()
+        {
+            new TagEntity { Id = 1, Name = "Featured" },
+            new TagEntity { Id = 2, Name = "Popular" },
+            new TagEntity { Id = 3, Name = "New" },
+            new TagEntity { Id = 4, Name = "Kids" },
+            new TagEntity { Id = 5, Name = "Unisex" },
+            new TagEntity { Id = 6, Name = "Sport" }
+        };
+
         var products = new List<ProductEntity>()
         {
             new ProductEntity
@@ -82,6 +92,22 @@ public class DatabaseFixture : IDisposable
             }
         };
 
+        // Add Featured, popular and new tags to all products
+        foreach (var product in products)
+        {
+            for (var i = 0; i < 3; i++)
+            {
+                product.Tags.Add(tags[i]);
+            }
+        }
+
+        // First item gets kids, second item gets unisex and third item gets sport tag.
+        for (var i = 0; i < 3; i++)
+        {
+            products[i].Tags.Add(tags[i + 3]);
+        }
+
+        context.Tags.AddRange(tags);
         context.Categories.AddRange(categories);
         context.Products.AddRange(products);
         context.SaveChanges();

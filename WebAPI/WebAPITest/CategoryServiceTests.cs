@@ -24,10 +24,8 @@ public class CategoryServiceTests
     [Fact]
     public async Task GetAllAsync_ShouldReturnAllCategories()
     {
-        // Act
         var result = await _categoryService.GetAllAsync();
 
-        // Assert
         Assert.Equal(3, result.Count);
     }
 }
