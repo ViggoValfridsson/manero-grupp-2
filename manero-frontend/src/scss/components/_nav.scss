@@ -1,22 +1,21 @@
-nav {
+.main-nav {
   display: flex;
-  justify-content: space-between;
-  padding: 1rem 1rem 1rem 1rem;
+  justify-content: space-around;
+  padding: 1rem;
   border-top: 1px solid var(--color-blue);
-  margin-top: 2rem;
   color: var(--color-text-light);
-  position: relative; 
+  position: sticky;
+  bottom: 0;
+  gap: 1rem;
 
   a {
+    gap: 0.5rem;
+    display: flex;
     position: relative;
-    padding: 0.25rem;
-    width: 2.5rem;
-    height: 2.5rem;
     padding: 0.5rem;
     &:hover {
       background-color: var(--color-blue);
-      border-radius: 1rem;
-      padding: 0.5rem;
+      border-radius: 2rem;
     }
   }
 }
