@@ -17,10 +17,12 @@ builder.Services.AddDbContext<DataContext>(x => x.UseSqlite(builder.Configuratio
 // Add repositories
 builder.Services.AddScoped<ProductRepo>();
 builder.Services.AddScoped<CategoryRepo>();
+builder.Services.AddScoped<TagRepo>();
 
 // Add custom services
 builder.Services.AddScoped<ProductService>();
 builder.Services.AddScoped<CategoryService>();
+builder.Services.AddScoped<TagService>();
 
 var app = builder.Build();
 
