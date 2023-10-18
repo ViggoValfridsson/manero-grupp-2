@@ -27,7 +27,7 @@ function LayoutMobile() {
           <ShoppingBag />
         </Link>
       </header>
-      <main>
+      <main className="container">
         <Outlet />
       </main>
       <footer>

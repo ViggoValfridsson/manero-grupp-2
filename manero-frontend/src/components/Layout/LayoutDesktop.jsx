@@ -12,7 +12,7 @@ function LayoutDesktop() {
         <Navbar />
         <ContactBurgerMenu />
       </header>
-      <main>
+      <main className="container">
         <Outlet />
       </main>
       <footer></footer>
