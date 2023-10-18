@@ -1,4 +1,4 @@
-import { Link, Outlet, useLocation } from "react-router-dom";
+import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import ContactBurgerMenu from "./ContactBurgerMenu";
 import { ChevronLeft, ShoppingBag } from "lucide-react";
 import Navbar from "./Navbar";
@@ -7,6 +7,7 @@ const navbarRoutes = ["/", "/search", "/cart", "/wishlist", "/profile"];
 
 function LayoutMobile() {
   const location = useLocation();
+  const navigate = useNavigate();
   return (
     <div className="layout layout-mobile">
       <header className="header mobile-header">
@@ -19,7 +20,9 @@ function LayoutMobile() {
           </>
         ) : (
           <>
-            <ChevronLeft />
+            <Link onClick={() => navigate(-1)}>
+              <ChevronLeft />
+            </Link>
             <h1>{location.pathname}</h1>
           </>
         )}
