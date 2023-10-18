@@ -16,4 +16,12 @@
   --color-red: var(--color-danger);
   --color-yellow: var(--color-warning);
   --color-bg-overlay: rgba(0, 0, 0, 0.5);
+  // Sizes
+  --max-content-width: 1280px;
+  // Font sizes
+  --font-size-xs: 0.75rem; // 12px
+  --font-size-s: 0.875rem; // 14px
+  --font-size-m: 1rem; // 16px
+  --font-size-l: 1.25rem; // 20px
+  --font-size-xl: 2rem; // 32px
 }
