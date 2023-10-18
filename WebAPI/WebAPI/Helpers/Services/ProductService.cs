@@ -27,17 +27,6 @@ public class ProductService
         return dtos;
     }
 
-    public async Task<List<ProductDto>> GetAllByCategoryAsync(string categoryName)
-    {
-        var dtos = new List<ProductDto>();
-        var entities = await _productRepo.GetAllAsync(x => x.Category.Name.ToLower() == categoryName.ToLower());
-
-        foreach (var entity in entities)
-            dtos.Add(entity);
-
-        return dtos;
-    }
-
     public async Task<List<ProductDto>> GetAllFilteredAsync(List<Expression<Func<ProductEntity, bool>>> predicates)
     {
         var dtos = new List<ProductDto>();
