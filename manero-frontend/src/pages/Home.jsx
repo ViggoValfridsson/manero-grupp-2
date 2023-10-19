@@ -1,14 +1,14 @@
 import { Link } from "react-router-dom";
-import Product from "../components/Product";
+//import Product from "../components/Product";
 import { apiDomain } from "../helpers/api-domain";
 import useFetch from "../hooks/useFetch";
+import DiscountCard from "../components/DiscountCard";
+import ProductCard from "../components/ProductCard";
 
 export default function Home() {
   const products = useFetch(`${apiDomain.https}/api/products`);
   const tags = useFetch(`${apiDomain.https}/api/tags`);
-
-  console.log(products.data);
-
+  const productsToDisplay = products.data?.slice(0, 4);
   return (
     <>
       <ul className="tags-container">
@@ -23,11 +23,23 @@ export default function Home() {
           </li>
         ))}
       </ul>
-      {products.isLoading && <h2>Loading</h2>}
+      <DiscountCard />
+
+      <section className="featured-products">
+        <div className="featured-header">
+          <h2>Featured products</h2>
+          <Link to={"/products?tagName=featured"}>view all</Link>
+        </div>
+        <div className="product-grid">
+          {productsToDisplay?.map((product) => (
+            <ProductCard key={product.id} product={product} />
+          ))}
+        </div>
+      </section>
+
+      {/* {products.isLoading && <h2>Loading</h2>}
       {products.error && <h2>Error</h2>}
-      {products.data?.map((product) => (
-        <Product key={product.id} product={product} />
-      ))}
+       */}
     </>
   );
 }
