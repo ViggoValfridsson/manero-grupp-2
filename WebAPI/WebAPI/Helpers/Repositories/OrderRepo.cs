@@ -13,7 +13,7 @@ public class OrderRepo : GenericRepo<OrderEntity>
         _context = context;
     }
 
-    public override async Task<OrderEntity?> CreateAsync(OrderEntity entity)
+    public override async Task<OrderEntity> CreateAsync(OrderEntity entity)
     {
         _context.Orders.Add(entity);
         await _context.SaveChangesAsync();
