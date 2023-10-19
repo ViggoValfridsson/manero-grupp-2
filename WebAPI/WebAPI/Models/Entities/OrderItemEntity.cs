@@ -1,6 +1,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.InteropServices;
 using Microsoft.EntityFrameworkCore;
+using WebAPI.Models.Dtos;
 
 namespace WebAPI.Models.Entities;
 
@@ -14,4 +15,14 @@ public class OrderItemEntity
     public int OrderId { get; set; }
     public OrderEntity Order { get; set; } = null!;
     public int Quantity { get; set; }
+
+    public static implicit operator OrderItemDto (OrderItemEntity entity)
+    {
+        return new OrderItemDto
+        {
+            Size = entity.Size.Name,
+            Product = entity.Product,
+            Quantity = entity.Quantity,
+        };
+    }
 }
