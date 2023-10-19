@@ -5,7 +5,7 @@ namespace WebAPI.Models.Entities;
 public class OrderEntity
 {
     public int Id { get; set; }
-    public DateTime OrderDate { get; set; }
+    public DateTime OrderDate { get; set; } = DateTime.Now;
     public int MyProperty { get; set; }
     [Column(TypeName = "money")]
     public decimal TotalPrice { get; set; }
