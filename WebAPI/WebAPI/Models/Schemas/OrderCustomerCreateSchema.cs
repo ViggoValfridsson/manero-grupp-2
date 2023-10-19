@@ -1,8 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using WebAPI.Models.Entities;
-
-namespace WebAPI.Models.Schemas;
+﻿namespace WebAPI.Models.Schemas;
 
 public class OrderCustomerCreateSchema
 {

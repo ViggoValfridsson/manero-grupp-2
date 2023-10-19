@@ -68,7 +68,7 @@ public class OrderService
             if (product == null)
                 throw new Exception();
 
-            totalPrice += product.Price;
+            totalPrice += (product.Price * orderItem.Quantity);
         }
 
         return totalPrice;

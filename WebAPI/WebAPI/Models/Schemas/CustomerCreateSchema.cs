@@ -27,7 +27,7 @@ public class CustomerCreateSchema
     [MinLength(10)]
     [MaxLength(20)]
     [RegularExpression(@"^(\+\d{1,4}\s?)?(\(?\d{1,}\)?[-.\s]?)+\d{1,}$")]
-    public required string PhoneNumber;
+    public required string PhoneNumber { get; set; }
 
     public static implicit operator CustomerEntity (CustomerCreateSchema schema)
     {
