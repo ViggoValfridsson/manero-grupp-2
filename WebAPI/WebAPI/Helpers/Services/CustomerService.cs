@@ -13,7 +13,7 @@ public class CustomerService
         _customerRepo = customerRepo;
     }
 
-    public async Task<CustomerEntity?> CreateCustomerAsync(CustomerCreateSchema schema)
+    public async Task<CustomerEntity> CreateCustomerAsync(CustomerCreateSchema schema)
     {
         var entity = await _customerRepo.CreateAsync(schema);
 

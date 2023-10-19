@@ -17,7 +17,7 @@ public class OrderEntity
 
     public static implicit operator OrderDto (OrderEntity entity)
     {
-        return new OrderDto
+        var dto = new OrderDto
         {
             OrderDate = entity.OrderDate,
             TotalPrice = entity.TotalPrice,
@@ -26,5 +26,10 @@ public class OrderEntity
             LastName = entity.Customer?.LastName,
             Email = entity.Customer?.Email
         };
+
+        foreach (var item in entity.Items) 
+            dto.Items.Add(item);
+
+        return dto;
     }
 }
