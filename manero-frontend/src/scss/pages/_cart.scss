@@ -36,8 +36,13 @@
 
 .cart-product-card {
   display: grid;
-  grid-template-columns: 100px 1fr auto;
+  grid-template-columns: 1fr auto;
   gap: 1rem;
+  & > a {
+    display: grid;
+    grid-template-columns: 100px auto;
+    gap: 1rem;
+  }
   .info {
     display: flex;
     flex-direction: column;
