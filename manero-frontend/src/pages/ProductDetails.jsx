@@ -25,6 +25,8 @@ export default function ProductDetails() {
     return <h1>Product not found</h1>;
   }
 
+  // TODO: FIX CONSOLE ERROR
+
   return (
     <div className="product-details-page">
       <div className="image-slider">

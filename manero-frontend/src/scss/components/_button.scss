@@ -1,5 +1,7 @@
-button {
-  all: unset;
+button,
+.button {
+  background-color: transparent;
+  border: none;
   box-sizing: border-box;
   cursor: pointer;
   border-radius: 2rem;
@@ -18,15 +20,23 @@ button {
 .button-black {
   background-color: var(--color-text);
   color: var(--color-bg);
-  &:hover {
+  &:hover,
+  &:focus-visible {
     background-color: var(--color-bg-grey);
+  }
+  &:active {
+    filter: brightness(0.8);
   }
 }
 
 .button-white {
   background-color: var(--color-bg);
-  &:hover {
+  &:hover,
+  &:focus-visible {
     background-color: var(--color-bg-grey);
     color: var(--color-bg);
+  }
+  &:active {
+    filter: brightness(0.8);
   }
 }
