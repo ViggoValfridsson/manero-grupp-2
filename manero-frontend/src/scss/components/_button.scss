@@ -1,20 +1,30 @@
 button {
+  all: unset;
+  box-sizing: border-box;
   cursor: pointer;
+  border-radius: 2rem;
+  padding: 1rem;
+  width: 100%;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  justify-content: center;
+  text-transform: uppercase;
+  transition-property: color, background-color;
+  transition-duration: 150ms;
+  transition-timing-function: ease;
 }
 
 .button-black {
+  background-color: var(--color-text);
+  color: var(--color-bg);
+  &:hover {
+    background-color: var(--color-bg-grey);
+  }
 }
 
 .button-white {
-  all: unset;
   background-color: var(--color-bg);
-  border-radius: 2rem;
-  width: 9rem;
-  height: 3.5rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
   &:hover {
     background-color: var(--color-bg-grey);
     color: var(--color-bg);

@@ -36,7 +36,7 @@ export default function Cart() {
       <div className="total">
         <div>
           <p>Total</p>
-          <span>${cart.reduce((a, b) => a + b.price, 0).toFixed(2)}</span>
+          <span>${cart.reduce((a, b) => a + b.price * b.amount, 0).toFixed(2)}</span>
         </div>
       </div>
     </div>
