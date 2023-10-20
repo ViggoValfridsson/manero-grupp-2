@@ -10,6 +10,7 @@
 @use "components/layout";
 @use "components/nav";
 @use "components/contact-sidebar";
+@use "components/page-icon-circle";
 @use "components/discount-card";
 @use "components/product-card";
 @use "components/product-grid";
@@ -17,3 +18,4 @@
 // Pages
 @use "pages/home";
 @use "pages/search";
+@use "pages/cart";
