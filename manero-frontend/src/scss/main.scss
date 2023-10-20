@@ -10,7 +10,9 @@
 @use "components/layout";
 @use "components/nav";
 @use "components/contact-sidebar";
+@use "components/page-icon-circle";
 
 // Pages
 @use "pages/home";
 @use "pages/search";
+@use "pages/cart";
