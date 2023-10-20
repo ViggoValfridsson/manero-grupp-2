@@ -1,6 +1,6 @@
-﻿namespace WebAPI.Models.Dtos;
+namespace WebAPI.Models.Entities;
 
-public class CategoryDto
+public class StatusEntity
 {
     public int Id { get; set; }
     public required string Name { get; set; }

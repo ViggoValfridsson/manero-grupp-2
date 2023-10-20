@@ -1,43 +1,18 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System.Threading.Tasks;
-using WebAPI.Data;
+﻿using WebAPI.Data;
 using WebAPI.Models.Entities;
 
-namespace WebAPITest;
+namespace WebAPITest.Helpers;
 
-
-[CollectionDefinition("Database collection")]
-public class DatbaseCollection : ICollectionFixture<DatabaseFixture>
+public class SeederTestDatabase
 {
-    // This class has no code, and is never created. Its purpose is simply to be the place to apply [CollectionDefinition] and all the interfaces
-}
+    private readonly DataContext _context;
 
-public class DatabaseFixture : IDisposable
-{
-    private DataContext _context;
-
-    public DatabaseFixture()
+    public SeederTestDatabase(DataContext context)
     {
-        var options = new DbContextOptionsBuilder<DataContext>()
-            .UseInMemoryDatabase(databaseName: "InMemoryDatabase")
-            .Options;
-
-        _context = new DataContext(options);
-
-        SeedProductsMockDatabase(_context);
+        _context = context;
     }
 
-    public DataContext CreateContext()
-    {
-        return _context;
-    }
-
-    public void Dispose()
-    {
-        _context.Dispose();
-    }
-
-    private void SeedProductsMockDatabase(DataContext context)
+    public void SeedProductsMockDatabase()
     {
         var categories = new List<CategoryEntity>()
         {
@@ -107,9 +82,9 @@ public class DatabaseFixture : IDisposable
             products[i].Tags.Add(tags[i + 3]);
         }
 
-        context.Tags.AddRange(tags);
-        context.Categories.AddRange(categories);
-        context.Products.AddRange(products);
-        context.SaveChanges();
+        _context.Tags.AddRange(tags);
+        _context.Categories.AddRange(categories);
+        _context.Products.AddRange(products);
+        _context.SaveChanges();
     }
 }
