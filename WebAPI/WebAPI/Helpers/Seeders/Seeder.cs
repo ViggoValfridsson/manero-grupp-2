@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json.Linq;
 using WebAPI.Models.Entities;
-using static WebAPI.Helpers.Seeders.Seeder;
 
 namespace WebAPI.Helpers.Seeders;
 
