@@ -10,21 +10,18 @@ export default function ProductDetails() {
   const [amount, setAmount] = useState(1);
   const [size, setSize] = useState("M");
   const cartState = useContext(CartContext);
-
   const { id } = useParams();
-  const products = useFetch(`${apiDomain.https}/api/products`);
-  const product = products.data && products.data[id - 1];
-  console.log(product);
-  // TODO: Use this when api is updated with GetById()
-  // const product = useFetch(`${apiDomain.https}/api/products/${id}`);
+  const product = useFetch(`${apiDomain.https}/api/products/${id}`);
 
-  // TODO: Change this
-  if (products.isLoading) {
+  if (product.isLoading) {
     return <h1>Loading...</h1>;
   }
 
-  // TODO: Change this
-  if (!product) {
+  if (product.error) {
+    return <h1>Something went wrong</h1>;
+  }
+
+  if (!product.data) {
     return <h1>Product not found</h1>;
   }
 
@@ -32,22 +29,22 @@ export default function ProductDetails() {
     <div className="product-details-page">
       <div className="image-slider">
         <div className="image-slider-images">
-          {product.imagePaths.map((path) => (
+          {product.data.imagePaths.map((path) => (
             <img key={path} src={apiDomain.https + path} alt="" />
           ))}
         </div>
-        {/* <div className="image-slider-buttons">
-          {product.imagePaths.map((_, i) => (
+        <div className="image-slider-buttons">
+          {product.data.imagePaths.map((_, i) => (
             <button key={i}>knapp!</button>
           ))}
-        </div> */}
+        </div>
       </div>
       <div className="product-details">
         <div className="product-name">
-          <h2>{product.name}</h2>
+          <h2>{product.data.name}</h2>
         </div>
         <div className="product-price-and-amount">
-          <span className="product-price">${product.price}</span>
+          <span className="product-price">${product.data.price}</span>
           <div className="product-amount">
             <button onClick={() => amount > 1 && setAmount(amount - 1)}>
               <Minus size={16} />
@@ -61,7 +58,7 @@ export default function ProductDetails() {
         <div className="product-size">
           <h3>Size</h3>
           <div>
-            {product.availableSizes.map((availableSize) => (
+            {product.data.availableSizes.map((availableSize) => (
               <button
                 key={availableSize}
                 className={availableSize == size && "active"}
@@ -74,10 +71,10 @@ export default function ProductDetails() {
         </div>
         <div className="product-description">
           <h3>Description</h3>
-          <p>{product.description}</p>
+          <p>{product.data.description}</p>
         </div>
         <button
-          onClick={() => handleAddToCart(cartState, product, amount, size)}
+          onClick={() => handleAddToCart(cartState, product.data, amount, size)}
           className="button button-black"
         >
           <Plus /> Add to cart
