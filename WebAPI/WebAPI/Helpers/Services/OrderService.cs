@@ -26,7 +26,7 @@ public class OrderService
     {
         var customer = await _customerService.CreateCustomerAsync(schema.Customer);
         // We don't need to display the address anywhere so it isn't saved
-        await _addressService.CreateCustomerAddress(schema.Address, customer.Id);
+        await _addressService.CreateCustomerAddressAsync(schema.Address, customer.Id);
 
         var orderEntity = await CreateOrderWithCustomerAsync(schema, customer);
 

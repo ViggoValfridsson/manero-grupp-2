@@ -14,7 +14,7 @@ public class AddressService
         _addressRepo = addressRepo;
     }
 
-    public async Task<AddressDto> CreateCustomerAddress(AddressCreateSchema schema, int customerId)
+    public async Task<AddressDto> CreateCustomerAddressAsync(AddressCreateSchema schema, int customerId)
     {
         var addressEntity = new AddressEntity
         {
