@@ -23,6 +23,7 @@ builder.Services.AddScoped<CustomerRepo>();
 builder.Services.AddScoped<OrderItemRepo>();
 builder.Services.AddScoped<OrderRepo>();
 builder.Services.AddScoped<StatusRepo>();
+builder.Services.AddScoped<SizeRepo>();
 
 // Add custom services
 builder.Services.AddScoped<ProductService>();
