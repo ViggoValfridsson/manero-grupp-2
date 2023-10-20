@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
-using WebAPI.Helpers;
 using WebAPI.Helpers.Services;
 using WebAPI.Models.Entities;
 
@@ -25,10 +23,12 @@ public class ProductsController : ControllerBase
         {
             List<Expression<Func<ProductEntity, bool>>> filters = new();
 
+            // Adds filtering based on tags if query isn't empty
             if (!string.IsNullOrWhiteSpace(tagName))
                 filters.Add(x => 
                     x.Tags.Any(tag => tag.Name.ToLower() == tagName.ToLower()));
 
+            // Adds filtering based on categories if query isn't empty
             if (!string.IsNullOrWhiteSpace(categoryName))
                 filters.Add(x => 
                     x.Category.Name.ToLower() == categoryName.ToLower());

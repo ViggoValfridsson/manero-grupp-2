@@ -3,21 +3,20 @@ using WebAPI.Data;
 using WebAPI.Helpers.Repositories;
 using WebAPI.Helpers.Services;
 using WebAPI.Models.Entities;
+using WebAPITest.Helpers;
 
-namespace WebAPITest;
+namespace WebAPITest.ServiceTests;
 
 [Collection("Database collection")]
 public class ProductServiceTests
 {
-    private readonly DatabaseFixture _fixture;
     private readonly DataContext _context;
     private readonly ProductRepo _productRepo;
     private readonly ProductService _productService;
 
     public ProductServiceTests(DatabaseFixture fixture)
     {
-        _fixture = fixture;
-        _context = _fixture.CreateContext();
+        _context = fixture.CreateContext();
         _productRepo = new ProductRepo(_context);
         _productService = new ProductService(_productRepo);
     }
@@ -25,8 +24,11 @@ public class ProductServiceTests
     [Fact]
     public async Task GetAllAsync_ShouldReturnAllProducts()
     {
+        // Assert is performed in the seed
+        // Act
         var result = await _productService.GetAllAsync();
 
+        // Assert
         Assert.Equal(4, result.Count);
     }
 
@@ -45,18 +47,23 @@ public class ProductServiceTests
     [InlineData("Shirts", "Sport", 1)]
     public async Task GetAllFilteredAsync_ShouldReturnAllRelevantProducts(string categoryName, string tagName, int expectedAmount)
     {
+        // Assert
         List<Expression<Func<ProductEntity, bool>>> filters = new();
 
+        // Add tag based filtering if query isn't empty
         if (!string.IsNullOrWhiteSpace(tagName))
             filters.Add(x =>
                 x.Tags.Any(tag => tag.Name.ToLower() == tagName.ToLower()));
 
+        // Add category based filtering if query isn't empty
         if (!string.IsNullOrWhiteSpace(categoryName))
             filters.Add(x =>
                 x.Category.Name.ToLower() == categoryName.ToLower());
 
+        // Act
         var result = await _productService.GetAllFilteredAsync(filters);
 
+        // Assert
         Assert.Equal(expectedAmount, result.Count);
     }
 }
