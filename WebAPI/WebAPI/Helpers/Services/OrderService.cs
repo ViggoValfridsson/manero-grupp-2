@@ -57,7 +57,7 @@ public class OrderService
         return orderEntity!;
     }
 
-    private async Task<decimal> CalculateTotalPriceAsync(List<OrderItemSchema> orderItems)
+    public async Task<decimal> CalculateTotalPriceAsync(List<OrderItemSchema> orderItems)
     {
         decimal totalPrice = 0;
 

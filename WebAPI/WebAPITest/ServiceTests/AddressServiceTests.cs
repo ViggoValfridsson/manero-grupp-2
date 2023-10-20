@@ -17,7 +17,6 @@ public class AddressServiceTests
     private readonly CustomerService _customerService;
     private readonly AddressRepo _addressRepo;
     private readonly AddressService _addressService;
-
     public AddressServiceTests(DatabaseFixture fixture)
     {
         _fixture = fixture;
