@@ -39,7 +39,8 @@ public class OrdersController : ControllerBase
 
             var orderDto = await _orderService.PlaceCustomerOrderAsync(schema);
 
-            return Ok(orderDto);
+            // Return created status code
+            return StatusCode(201, orderDto);
         }
         catch
         {
