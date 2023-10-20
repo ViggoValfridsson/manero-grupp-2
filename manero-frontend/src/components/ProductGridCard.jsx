@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 export default function ProductGridCard({ product }) {
   return (
-    <Link to={`/product/${product._id}`}>
+    <Link to={`/products/${product.id}`}>
       <div className="product-grid-card">
         <div className="product-card-image-wrapper">
           <img src={apiDomain.https + product.imagePaths[0]} alt={product.name} />
