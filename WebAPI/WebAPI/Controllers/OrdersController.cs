@@ -1,9 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using System.Linq.Expressions;
+﻿using Microsoft.AspNetCore.Mvc;
 using WebAPI.Helpers.Repositories;
 using WebAPI.Helpers.Services;
-using WebAPI.Models.Entities;
 using WebAPI.Models.Schemas;
 
 namespace WebAPI.Controllers;
