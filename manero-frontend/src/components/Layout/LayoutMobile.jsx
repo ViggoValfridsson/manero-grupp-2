@@ -6,7 +6,7 @@ import CartPreviewButton from "../CartPreviewButton";
 
 const navbarRoutes = ["/", "/search", "/cart", "/wishlist", "/profile"];
 
-function LayoutMobile() {
+function LayoutMobile({ sidebarOpenState }) {
   const location = useLocation();
   const navigate = useNavigate();
   return (
@@ -14,7 +14,7 @@ function LayoutMobile() {
       <header className="header mobile-header">
         {navbarRoutes.includes(location.pathname) ? (
           <>
-            <ContactBurgerMenu />
+            <ContactBurgerMenu sidebarOpenState={sidebarOpenState} />
             <Link to="/">
               <img className="logo" src="/images/manero-logo-mobile.svg" alt="" />
             </Link>

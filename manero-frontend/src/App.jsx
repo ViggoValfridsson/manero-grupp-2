@@ -11,6 +11,7 @@ import { CartContextProvider } from "./hooks/useCart";
 function App() {
   // Added state for mobile/desktop
   const [isMobile, setIsMobile] = useState(false);
+  const sidebarOpenState = useState(false);
 
   useWindowResize(() => {
     if (window.innerWidth < 800) {
@@ -24,7 +25,16 @@ function App() {
     <CartContextProvider>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={isMobile ? <LayoutMobile /> : <LayoutDesktop />}>
+          <Route
+            path="/"
+            element={
+              isMobile ? (
+                <LayoutMobile sidebarOpenState={sidebarOpenState} />
+              ) : (
+                <LayoutDesktop sidebarOpenState={sidebarOpenState} />
+              )
+            }
+          >
             {routes.map((route) => (
               <Route key={route.path} path={route.path} element={route.element} />
             ))}

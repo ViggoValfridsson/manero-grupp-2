@@ -28,6 +28,11 @@ export function CartContextProvider({ children }) {
     setCart([...cart.filter((x) => x.itemId !== itemId)]);
   };
 
+  // Doesn't take size into account
+  const removeProductFromCart = (productId) => {
+    setCart([...cart.filter((x) => x.id !== productId)]);
+  };
+
   const incrementCartItemAmount = (itemId) => {
     const cartItem = findCartItem(itemId);
     cartItem.amount += 1;
@@ -44,9 +49,21 @@ export function CartContextProvider({ children }) {
     }
   };
 
+  const isInCart = (productId) => {
+    return cart.some((item) => item.id === productId);
+  };
+
   return (
     <CartContext.Provider
-      value={{ cart, addToCart, removeFromCart, incrementCartItemAmount, decrementCartItemAmount }}
+      value={{
+        cart,
+        addToCart,
+        removeFromCart,
+        removeProductFromCart,
+        incrementCartItemAmount,
+        decrementCartItemAmount,
+        isInCart,
+      }}
     >
       {children}
     </CartContext.Provider>

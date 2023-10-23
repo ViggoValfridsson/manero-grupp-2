@@ -3,7 +3,7 @@ import Navbar from "./Navbar";
 import ContactBurgerMenu from "./ContactBurgerMenu";
 import CartPreviewButton from "../CartPreviewButton";
 
-function LayoutDesktop() {
+function LayoutDesktop({ sidebarOpenState }) {
   return (
     <div className="layout layout-desktop">
       <header className="header desktop-header">
@@ -13,7 +13,7 @@ function LayoutDesktop() {
         <Navbar />
         <div className="cart-and-burger-buttons">
           <CartPreviewButton />
-          <ContactBurgerMenu />
+          <ContactBurgerMenu sidebarOpenState={sidebarOpenState} />
         </div>
       </header>
       <main className="container">
