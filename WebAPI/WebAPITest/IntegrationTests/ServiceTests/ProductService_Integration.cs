@@ -8,13 +8,13 @@ using WebAPITest.Helpers;
 namespace WebAPITest.IntegrationTests.ServiceTests;
 
 [Collection("Database collection")]
-public class ProductService_Tests
+public class ProductService_Integration
 {
     private readonly DataContext _context;
     private readonly ProductRepo _productRepo;
     private readonly ProductService _productService;
 
-    public ProductService_Tests(DatabaseFixture fixture)
+    public ProductService_Integration(DatabaseFixture fixture)
     {
         _context = fixture.CreateContext();
         _productRepo = new ProductRepo(_context);

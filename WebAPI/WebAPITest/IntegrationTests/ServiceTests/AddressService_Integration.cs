@@ -7,14 +7,14 @@ using WebAPITest.Helpers;
 namespace WebAPITest.IntegrationTests.ServiceTests;
 
 [Collection("Database collection")]
-public class AddressService_Tests
+public class AddressService_Integration
 {
     private readonly DataContext _context;
     private readonly CustomerRepo _customerRepo;
     private readonly CustomerService _customerService;
     private readonly AddressRepo _addressRepo;
     private readonly AddressService _addressService;
-    public AddressService_Tests(DatabaseFixture fixture)
+    public AddressService_Integration(DatabaseFixture fixture)
     {
         _context = fixture.CreateContext();
         _customerRepo = new CustomerRepo(_context);

@@ -6,13 +6,13 @@ using WebAPITest.Helpers;
 namespace WebAPITest.IntegrationTests.ServiceTests;
 
 [Collection("Database collection")]
-public class CategoryService_Tests
+public class CategoryService_Integration
 {
     private readonly DataContext _context;
     private readonly CategoryRepo _categoryRepo;
     private readonly CategoryService _categoryService;
 
-    public CategoryService_Tests(DatabaseFixture fixture)
+    public CategoryService_Integration(DatabaseFixture fixture)
     {
         _context = fixture.CreateContext();
         _categoryRepo = new CategoryRepo(_context);
