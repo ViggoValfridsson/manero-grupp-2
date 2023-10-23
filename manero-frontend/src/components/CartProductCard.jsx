@@ -1,12 +1,10 @@
 import { Minus, Plus } from "lucide-react";
 import { apiDomain } from "../helpers/api-domain";
 import { Link } from "react-router-dom";
-import { handleAddToCart, handleRemoveFromCart } from "../helpers/add-to-cart";
-import { useContext } from "react";
-import { CartContext } from "../App";
+import { useCart } from "../hooks/useCart";
 
 export function CartProductCard({ cartItem }) {
-  const cartState = useContext(CartContext);
+  const { incrementCartItemAmount, decrementCartItemAmount } = useCart();
 
   return (
     <div className="cart-product-card">
@@ -19,11 +17,11 @@ export function CartProductCard({ cartItem }) {
         </div>
       </Link>
       <div className="buttons">
-        <button onClick={() => handleAddToCart(cartState, cartItem, 1, cartItem.size)}>
+        <button onClick={() => incrementCartItemAmount(cartItem.itemId)}>
           <Plus size={16} />
         </button>
         <span>{cartItem.amount}</span>
-        <button onClick={() => handleRemoveFromCart(cartState, cartItem)}>
+        <button onClick={() => decrementCartItemAmount(cartItem.itemId)}>
           <Minus size={16} />
         </button>
       </div>

@@ -1,10 +1,9 @@
 import { ShoppingBag } from "lucide-react";
-import { useContext } from "react";
 import { Link } from "react-router-dom";
-import { CartContext } from "../App";
+import { useCart } from "../hooks/useCart";
 
 export default function CartPreviewButton() {
-  const [cart] = useContext(CartContext);
+  const { cart } = useCart();
 
   return (
     <Link to="/cart" className={`cart-button ${cart.length == 0 ? "hidden" : ""}`}>

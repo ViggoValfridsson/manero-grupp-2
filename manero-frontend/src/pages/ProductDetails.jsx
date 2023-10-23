@@ -2,15 +2,14 @@ import { useParams } from "react-router-dom";
 import { apiDomain } from "../helpers/api-domain";
 import useFetch from "../hooks/useFetch";
 import { Minus, Plus } from "lucide-react";
-import { useContext, useState } from "react";
-import { CartContext } from "../App";
-import { handleAddToCart } from "../helpers/add-to-cart";
+import { useState } from "react";
+import { useCart } from "../hooks/useCart";
 
 export default function ProductDetails() {
   const [amount, setAmount] = useState(1);
   const [size, setSize] = useState("M");
-  const cartState = useContext(CartContext);
   const { id } = useParams();
+  const { addToCart } = useCart();
   const product = useFetch(`${apiDomain.https}/api/products/${id}`);
 
   if (product.isLoading) {
@@ -24,8 +23,6 @@ export default function ProductDetails() {
   if (!product.data) {
     return <h1>Product not found</h1>;
   }
-
-  // TODO: FIX CONSOLE ERROR
 
   return (
     <div className="product-details-page">
@@ -76,7 +73,7 @@ export default function ProductDetails() {
           <p>{product.data.description}</p>
         </div>
         <button
-          onClick={() => handleAddToCart(cartState, product.data, amount, size)}
+          onClick={() => addToCart(product.data, amount, size)}
           className="button button-black"
         >
           <Plus /> Add to cart
