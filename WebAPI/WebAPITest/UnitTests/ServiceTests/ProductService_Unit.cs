@@ -20,7 +20,7 @@ public class ProductService_Unit
     [Fact]
     public async Task GetAllAsync_ShouldReturnAllProducts()
     {
-        // Assert
+        // Arrange
         var response = new List<ProductEntity>()
         {
             new ProductEntity {
