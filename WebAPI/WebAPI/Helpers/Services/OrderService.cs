@@ -1,4 +1,5 @@
 ﻿using WebAPI.Helpers.Repositories;
+using WebAPI.Interface.Repositories;
 using WebAPI.Models.Dtos;
 using WebAPI.Models.Entities;
 using WebAPI.Models.Schemas;
@@ -7,13 +8,13 @@ namespace WebAPI.Helpers.Services;
 
 public class OrderService
 {
-    private readonly OrderRepo _orderRepo;
+    private readonly IOrderRepo _orderRepo;
     private readonly CustomerService _customerService;
-    private readonly OrderItemRepo _orderItemRepo;
-    private readonly ProductRepo _productRepo;
+    private readonly IOrderItemRepo _orderItemRepo;
+    private readonly IProductRepo _productRepo;
     private readonly AddressService _addressService;
 
-    public OrderService(OrderRepo orderRepo, CustomerService customerService, OrderItemRepo orderItemRepo, ProductRepo productRepo, AddressService addressService)
+    public OrderService(IOrderRepo orderRepo, CustomerService customerService, IOrderItemRepo orderItemRepo, IProductRepo productRepo, AddressService addressService)
     {
         _orderRepo = orderRepo;
         _customerService = customerService;

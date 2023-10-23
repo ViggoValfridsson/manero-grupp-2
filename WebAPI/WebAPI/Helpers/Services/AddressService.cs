@@ -1,4 +1,5 @@
 ﻿using WebAPI.Helpers.Repositories;
+using WebAPI.Interface.Repositories;
 using WebAPI.Models.Dtos;
 using WebAPI.Models.Entities;
 using WebAPI.Models.Schemas;
@@ -7,9 +8,9 @@ namespace WebAPI.Helpers.Services;
 
 public class AddressService
 {
-    private readonly AddressRepo _addressRepo;
+    private readonly IAddressRepo _addressRepo;
 
-    public AddressService(AddressRepo addressRepo)
+    public AddressService(IAddressRepo addressRepo)
     {
         _addressRepo = addressRepo;
     }

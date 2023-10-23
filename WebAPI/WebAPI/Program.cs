@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using WebAPI.Data;
 using WebAPI.Helpers.Repositories;
 using WebAPI.Helpers.Services;
+using WebAPI.Interface.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,15 +16,15 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<DataContext>(x => x.UseSqlite(builder.Configuration.GetConnectionString("Sqlite")));
 
 // Add repositories
-builder.Services.AddScoped<ProductRepo>();
-builder.Services.AddScoped<CategoryRepo>();
-builder.Services.AddScoped<TagRepo>();
-builder.Services.AddScoped<AddressRepo>();
-builder.Services.AddScoped<CustomerRepo>();
-builder.Services.AddScoped<OrderItemRepo>();
-builder.Services.AddScoped<OrderRepo>();
-builder.Services.AddScoped<StatusRepo>();
-builder.Services.AddScoped<SizeRepo>();
+builder.Services.AddScoped<IProductRepo, ProductRepo>();
+builder.Services.AddScoped<ICategoryRepo, CategoryRepo>();
+builder.Services.AddScoped<ITagRepo, TagRepo>();
+builder.Services.AddScoped<IAddressRepo, AddressRepo>();
+builder.Services.AddScoped<ICustomerRepo, CustomerRepo>();
+builder.Services.AddScoped<IOrderItemRepo, OrderItemRepo>();
+builder.Services.AddScoped<IOrderRepo, OrderRepo>();
+builder.Services.AddScoped<IStatusRepo, StatusRepo>();
+builder.Services.AddScoped<ISizeRepo, SizeRepo>();
 
 // Add custom services
 builder.Services.AddScoped<ProductService>();

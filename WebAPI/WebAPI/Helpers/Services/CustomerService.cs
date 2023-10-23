@@ -1,4 +1,5 @@
 ﻿using WebAPI.Helpers.Repositories;
+using WebAPI.Interface.Repositories;
 using WebAPI.Models.Entities;
 using WebAPI.Models.Schemas;
 
@@ -6,9 +7,9 @@ namespace WebAPI.Helpers.Services;
 
 public class CustomerService
 {
-    private readonly CustomerRepo _customerRepo;
+    private readonly ICustomerRepo _customerRepo;
 
-    public CustomerService(CustomerRepo customerRepo)
+    public CustomerService(ICustomerRepo customerRepo)
     {
         _customerRepo = customerRepo;
     }
