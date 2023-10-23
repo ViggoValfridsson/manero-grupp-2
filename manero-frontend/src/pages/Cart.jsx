@@ -1,12 +1,12 @@
 import { ShoppingBag } from "lucide-react";
 import PageIconCircle from "../components/PageIconCircle";
-import { useContext } from "react";
-import { CartContext } from "../App";
 import { CartProductCard } from "../components/CartProductCard";
 import { Link } from "react-router-dom";
+import { useCart } from "../hooks/useCart";
 
 export default function Cart() {
-  const [cart] = useContext(CartContext);
+  const { cart } = useCart();
+
   // Page if cart is empty
   if (cart.length == 0)
     return (
@@ -35,6 +35,11 @@ export default function Cart() {
           <p>Total</p>
           <span>${cart.reduce((a, b) => a + b.price * b.amount, 0).toFixed(2)}</span>
         </div>
+      </div>
+      <div className="checkout-button-wrapper">
+        <Link to="/checkout" className="button button-black">
+          Proceed to checkout
+        </Link>
       </div>
     </div>
   );
