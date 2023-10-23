@@ -30,7 +30,7 @@ public class AddressService_Unit
             City = "Alingsås",
             PostalCode = "441 41"
         };
-        var entity = new AddressEntity
+        var response = new AddressEntity
         {
             Id = 1,
             City = addressSchema.City,
@@ -39,15 +39,15 @@ public class AddressService_Unit
             CustomerId = customerId,
         };
 
-        _mockAddressRepo.Setup(x => x.CreateAsync(It.IsAny<AddressEntity>())).ReturnsAsync(entity);
+        _mockAddressRepo.Setup(x => x.CreateAsync(It.IsAny<AddressEntity>())).ReturnsAsync(response);
 
         //Act
         var result = await _addressService.CreateCustomerAddressAsync(addressSchema, customerId);
 
         // Assert
         Assert.NotNull(result);
-        Assert.Equal(entity.StreetName, result.StreetName);
-        Assert.Equal(entity.City, result.City);
-        Assert.Equal(entity.PostalCode, result.PostalCode);
+        Assert.Equal(response.StreetName, result.StreetName);
+        Assert.Equal(response.City, result.City);
+        Assert.Equal(response.PostalCode, result.PostalCode);
     }
 }
