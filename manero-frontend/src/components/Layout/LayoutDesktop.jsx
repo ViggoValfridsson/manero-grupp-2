@@ -1,6 +1,7 @@
 import { Link, Outlet } from "react-router-dom";
 import Navbar from "./Navbar";
 import ContactBurgerMenu from "./ContactBurgerMenu";
+import CartPreviewButton from "../CartPreviewButton";
 
 function LayoutDesktop() {
   return (
@@ -10,7 +11,10 @@ function LayoutDesktop() {
           <img className="logo" src="/images/manero-logo-desktop.svg" alt="" />
         </Link>
         <Navbar />
-        <ContactBurgerMenu />
+        <div className="cart-and-burger-buttons">
+          <CartPreviewButton />
+          <ContactBurgerMenu />
+        </div>
       </header>
       <main className="container">
         <Outlet />
