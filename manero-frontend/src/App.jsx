@@ -12,6 +12,7 @@ export const CartContext = createContext(null);
 function App() {
   // Added state for mobile/desktop
   const [isMobile, setIsMobile] = useState(false);
+  const sidebarOpenState = useState(false);
   const cartState = useState([]);
 
   useWindowResize(() => {
@@ -26,7 +27,16 @@ function App() {
     <CartContext.Provider value={cartState}>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={isMobile ? <LayoutMobile /> : <LayoutDesktop />}>
+          <Route
+            path="/"
+            element={
+              isMobile ? (
+                <LayoutMobile sidebarOpenState={sidebarOpenState} />
+              ) : (
+                <LayoutDesktop sidebarOpenState={sidebarOpenState} />
+              )
+            }
+          >
             {routes.map((route) => (
               <Route key={route.path} path={route.path} element={route.element} />
             ))}

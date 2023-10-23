@@ -2,7 +2,7 @@ import { Link, Outlet } from "react-router-dom";
 import Navbar from "./Navbar";
 import ContactBurgerMenu from "./ContactBurgerMenu";
 
-function LayoutDesktop() {
+function LayoutDesktop({ sidebarOpenState }) {
   return (
     <div className="layout layout-desktop">
       <header className="header desktop-header">
@@ -10,7 +10,7 @@ function LayoutDesktop() {
           <img className="logo" src="/images/manero-logo-desktop.svg" alt="" />
         </Link>
         <Navbar />
-        <ContactBurgerMenu />
+        <ContactBurgerMenu sidebarOpenState={sidebarOpenState} />
       </header>
       <main className="container">
         <Outlet />
