@@ -2,17 +2,15 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./scss/main.scss";
 import "@fontsource-variable/mulish";
 import useWindowResize from "./hooks/useWindowResize";
-import { createContext, useState } from "react";
+import { useState } from "react";
 import LayoutMobile from "./components/Layout/LayoutMobile";
 import LayoutDesktop from "./components/Layout/LayoutDesktop";
 import routes from "./routes";
-
-export const CartContext = createContext(null);
+import { CartContextProvider } from "./hooks/useCart";
 
 function App() {
   // Added state for mobile/desktop
   const [isMobile, setIsMobile] = useState(false);
-  const cartState = useState([]);
 
   useWindowResize(() => {
     if (window.innerWidth < 800) {
@@ -23,7 +21,7 @@ function App() {
   }, true);
 
   return (
-    <CartContext.Provider value={cartState}>
+    <CartContextProvider>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={isMobile ? <LayoutMobile /> : <LayoutDesktop />}>
@@ -33,7 +31,7 @@ function App() {
           </Route>
         </Routes>
       </BrowserRouter>
-    </CartContext.Provider>
+    </CartContextProvider>
   );
 }
 
