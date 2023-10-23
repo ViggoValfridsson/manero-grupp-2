@@ -31,8 +31,8 @@ export default function ProductDetails() {
     <div className="product-details-page">
       <div className="image-slider">
         <div className="image-slider-images">
-          {product.data.imagePaths.map((path) => (
-            <img key={path} src={apiDomain.https + path} alt="" />
+          {product.data.imagePaths.map((path, i) => (
+            <img key={i} src={apiDomain.https + path} alt="" />
           ))}
         </div>
         <div className="image-slider-buttons">
@@ -63,7 +63,7 @@ export default function ProductDetails() {
             {product.data.availableSizes.map((availableSize) => (
               <button
                 key={availableSize}
-                className={availableSize == size && "active"}
+                className={availableSize == size ? "active" : ""}
                 onClick={() => setSize(availableSize)}
               >
                 {availableSize}

@@ -7,7 +7,7 @@ function LayoutDesktop() {
     <div className="layout layout-desktop">
       <header className="header desktop-header">
         <Link>
-          <img className="logo" src="images/manero-logo-desktop.svg" alt="" />
+          <img className="logo" src="/images/manero-logo-desktop.svg" alt="" />
         </Link>
         <Navbar />
         <ContactBurgerMenu />
