@@ -36,6 +36,11 @@ export default function Cart() {
           <span>${cart.reduce((a, b) => a + b.price * b.amount, 0).toFixed(2)}</span>
         </div>
       </div>
+      <div className="checkout-button-wrapper">
+        <Link to="/checkout" className="button button-black">
+          Proceed to checkout
+        </Link>
+      </div>
     </div>
   );
 }
