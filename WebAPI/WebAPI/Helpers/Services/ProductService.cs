@@ -1,5 +1,6 @@
 ﻿using System.Linq.Expressions;
 using WebAPI.Helpers.Repositories;
+using WebAPI.Interface.Repositories;
 using WebAPI.Models.Dtos;
 using WebAPI.Models.Entities;
 
@@ -7,9 +8,9 @@ namespace WebAPI.Helpers.Services;
 
 public class ProductService
 {
-    private readonly ProductRepo _productRepo;
+    private readonly IProductRepo _productRepo;
 
-    public ProductService(ProductRepo productRepo)
+    public ProductService(IProductRepo productRepo)
     {
         _productRepo = productRepo;
     }
