@@ -3,6 +3,7 @@ using WebAPI.Data;
 using WebAPI.Helpers.Repositories;
 using WebAPI.Helpers.Services;
 using WebAPI.Interface.Repositories;
+using WebAPI.Interface.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,12 +28,12 @@ builder.Services.AddScoped<IStatusRepo, StatusRepo>();
 builder.Services.AddScoped<ISizeRepo, SizeRepo>();
 
 // Add custom services
-builder.Services.AddScoped<ProductService>();
-builder.Services.AddScoped<CategoryService>();
-builder.Services.AddScoped<TagService>();
-builder.Services.AddScoped<CustomerService>();
-builder.Services.AddScoped<OrderService>();
-builder.Services.AddScoped<AddressService>();
+builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.Services.AddScoped<ITagService, TagService>();
+builder.Services.AddScoped<ICustomerService, CustomerService>();
+builder.Services.AddScoped<IOrderService, OrderService>();
+builder.Services.AddScoped<IAddressService, AddressService>();
 
 var app = builder.Build();
 

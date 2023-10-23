@@ -1,10 +1,10 @@
-﻿using WebAPI.Helpers.Repositories;
-using WebAPI.Interface.Repositories;
+﻿using WebAPI.Interface.Repositories;
+using WebAPI.Interface.Services;
 using WebAPI.Models.Dtos;
 
 namespace WebAPI.Helpers.Services;
 
-public class TagService
+public class TagService : ITagService
 {
     private readonly ITagRepo _tagRepo;
 
