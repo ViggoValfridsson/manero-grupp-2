@@ -1,18 +1,18 @@
 import { Heart, ShoppingBag, Star } from "lucide-react";
 import { apiDomain } from "../helpers/api-domain";
 import { Link } from "react-router-dom";
-import { handleAddToCart } from "../helpers/add-to-cart";
-import { useContext, useState } from "react";
-import { CartContext } from "../App";
+import { useCart } from "../hooks/useCart";
 
 export default function ProductListCard({ product }) {
-  const cartState = useContext(CartContext);
-  const [isInCart, setIsInCart] = useState(false);
+  const { addToCart, isInCart, removeProductFromCart } = useCart();
 
   const handleShoppingBagClick = (e) => {
     e.preventDefault();
-    handleAddToCart(cartState, product);
-    setIsInCart(true);
+    if (isInCart(product.id)) {
+      removeProductFromCart(product.id);
+    } else {
+      addToCart(product);
+    }
   };
 
   return (
@@ -42,7 +42,9 @@ export default function ProductListCard({ product }) {
             <Heart />
           </button>
           <button onClick={handleShoppingBagClick}>
-            <ShoppingBag style={{ color: isInCart ? "green" : "var(--color-succes)" }} />
+            <ShoppingBag
+              style={{ color: isInCart(product.id) ? "green" : "var(--color-succes)" }}
+            />
           </button>
         </div>
       </div>
