@@ -1,11 +1,29 @@
 .header {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: minmax(160px, 1fr) auto 1fr;
   padding: 1rem;
   align-items: center;
   border-bottom: 2px solid var(--color-blue);
 
   .logo {
     height: 2rem;
+  }
+}
+
+.layout-desktop {
+  .header {
+    grid-template-columns: minmax(160px, 1fr) auto 1fr;
+  }
+  .contact-burger-button {
+    justify-self: end;
+  }
+}
+
+.layout-mobile {
+  .header {
+    grid-template-columns: 1fr auto 1fr;
+  }
+  .cart-button {
+    justify-self: end;
   }
 }
