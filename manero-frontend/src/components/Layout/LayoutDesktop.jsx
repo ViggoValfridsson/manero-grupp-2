@@ -15,7 +15,7 @@ function LayoutDesktop() {
       <main className="container">
         <Outlet />
       </main>
-      <footer></footer>
+      <footer className="footer"></footer>
     </div>
   );
 }

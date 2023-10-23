@@ -26,14 +26,14 @@ function LayoutMobile() {
             <h1>{location.pathname}</h1>
           </>
         )}
-        <Link to="/cart">
+        <Link to="/cart" className="cart-button">
           <ShoppingBag />
         </Link>
       </header>
       <main className="container">
         <Outlet />
       </main>
-      <footer>
+      <footer className="footer">
         <Navbar />
       </footer>
     </div>
