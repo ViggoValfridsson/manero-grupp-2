@@ -4,16 +4,16 @@ using WebAPI.Helpers.Services;
 using WebAPI.Models.Schemas;
 using WebAPITest.Helpers;
 
-namespace WebAPITest.ServiceTests;
+namespace WebAPITest.IntegrationTests.ServiceTests;
 
 [Collection("Database collection")]
-public class OrderServiceTests
+public class OrderService_Tests
 {
     private readonly DataContext _context;
     private readonly OrderRepo _orderRepo;
     private readonly OrderService _orderService;
 
-    public OrderServiceTests(DatabaseFixture fixture)
+    public OrderService_Tests(DatabaseFixture fixture)
     {
         _context = fixture.CreateContext();
         _orderRepo = new OrderRepo(_context);
