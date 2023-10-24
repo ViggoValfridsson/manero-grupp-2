@@ -22,7 +22,7 @@ public class ProductsController : ControllerBase
     {
         try
         {
-            var product = await _productService.GetById(id);
+            var product = await _productService.GetByIdAsync(id);
 
             if (product == null)
                 return NotFound($"Could not find product with id: {id}.");
