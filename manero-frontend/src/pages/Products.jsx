@@ -3,12 +3,13 @@ import ProductGridCard from "../components/ProductGridCard";
 import { apiDomain } from "../helpers/api-domain";
 import useFetch from "../hooks/useFetch";
 import useQuery from "../hooks/useQuery";
-import { SlidersHorizontal } from "lucide-react";
+import FilterBurgerMenu from "../components/Layout/FilterBurgerMenu";
 
 function Products() {
   const query = useQuery();
   const products = useFetch(`${apiDomain.https}/api/products?${query.toString()}`);
   const [sortBy, setSortBy] = useState("");
+  const filterMenuOpenState = useState(false);
 
   const handleChange = (event) => {
     setSortBy(event.target.value);
@@ -17,10 +18,8 @@ function Products() {
   return (
     <div className="products-page">
       <div className="filter-container">
-        <button>
-          <SlidersHorizontal />
-          Filters
-        </button>
+        <FilterBurgerMenu filterMenuOpenState={filterMenuOpenState} />
+
         {/* To Do Add functionality */}
         <select value={sortBy} onChange={handleChange}>
           <option value="" disabled hidden>

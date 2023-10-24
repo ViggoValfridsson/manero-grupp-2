@@ -17,8 +17,8 @@
     button,
     select {
       all: unset;
-      background-color: var(--color-bg);
       font-size: var(--font-size-l);
+      cursor: pointer;
     }
 
     button {
@@ -29,6 +29,7 @@
 
     // Adds back arrow on select
     select {
+      background-color: var(--color-bg);
       text-align: end;
       -webkit-appearance: auto;
       appearance: auto;
