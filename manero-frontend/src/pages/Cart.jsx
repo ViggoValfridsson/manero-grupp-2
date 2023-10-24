@@ -27,7 +27,7 @@ export default function Cart() {
     <div className="cart-page not-empty">
       <div className="cart">
         {cart.map((cartItem) => (
-          <CartProductCard key={cartItem.id + cartItem.size} cartItem={cartItem} />
+          <CartProductCard key={cartItem.id} cartItem={cartItem} />
         ))}
       </div>
       <div className="total">
@@ -37,7 +37,7 @@ export default function Cart() {
         </div>
       </div>
       <div className="checkout-button-wrapper">
-        <Link to="/checkout" className="button button-black">
+        <Link to="/Checkout" className="button button-black">
           Proceed to checkout
         </Link>
       </div>
