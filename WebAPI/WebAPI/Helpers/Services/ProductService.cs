@@ -24,16 +24,6 @@ public class ProductService : IProductService
         return entity;
     }
 
-    public async Task<ProductDto?> GetById(int id)
-    {
-        var entity = await _productRepo.GetAsync(x => x.Id == id);
-
-        if (entity == null)
-            return null;
-
-        return entity;
-    }
-
     public async Task<List<ProductDto>> GetAllAsync()
     {
         var dtos = new List<ProductDto>();
