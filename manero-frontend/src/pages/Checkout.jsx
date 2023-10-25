@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { useCart } from "../hooks/useCart";
 import { ChevronRight } from "lucide-react";
 import CheckoutItem from "../components/CheckoutItem";
-// import CheckoutItem from "../components/CheckoutItem";
 
 function Checkout() {
   const { cart } = useCart();
@@ -47,10 +46,11 @@ function Checkout() {
       </section>
       <section className="container-bottom">
         <div className="comment-field">
+          <label>Comment</label>
           <input placeholder="Write your comment"></input>
         </div>
         <div className="order-button ">
-          <button className="button button-black">Place order</button>
+          <Link to="/handle-order" className="button button-black">Place order</Link>
         </div>
       </section>
     </div>
