@@ -14,7 +14,7 @@ function App() {
   const sidebarOpenState = useState(false);
 
   useWindowResize(() => {
-    if (window.innerWidth < 800) {
+    if (window.innerWidth < 840) {
       setIsMobile(true);
     } else {
       setIsMobile(false);
