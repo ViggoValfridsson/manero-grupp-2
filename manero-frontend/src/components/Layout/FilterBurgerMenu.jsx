@@ -61,7 +61,7 @@ function FilterBurgerMenu({ filterMenuOpenState }) {
         className={`${sidebarOpen ? "open" : "closed"} filter-bg`}
       ></div>
       <div className={`${sidebarOpen ? "open" : "closed"} filter-sidebar`}>
-        <div className="container">
+        <div className="container-filter-menu">
           <div className="category-container">
             <h2>Categories</h2>
             {categories.data?.map((category) => (
