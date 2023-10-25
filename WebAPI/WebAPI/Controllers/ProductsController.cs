@@ -54,9 +54,6 @@ public class ProductsController : ControllerBase
 
             var products = await _productService.GetAllFilteredAsync(filters);
 
-            if (products == null || !products.Any())
-                return NotFound("Could not find any products.");
-
             return Ok(products);
         }
         catch
