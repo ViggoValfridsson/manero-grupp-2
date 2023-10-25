@@ -26,7 +26,7 @@ export default function ProductListCard({ product }) {
             {product.name}
           </p>
           <p id="c" className="product-price">
-            {product.price}
+            $ {product.price}
           </p>
           <div id="a" className="product-card-rating">
             <Star color="orange" />
