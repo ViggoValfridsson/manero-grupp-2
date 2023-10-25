@@ -14,7 +14,7 @@ public class ProductService : IProductService
     {
         _productRepo = productRepo;
     }
-    public async Task<ProductDto?> GetById(int id)
+    public async Task<ProductDto?> GetByIdAsync(int id)
     {
         var entity = await _productRepo.GetAsync(x => x.Id == id);
 
