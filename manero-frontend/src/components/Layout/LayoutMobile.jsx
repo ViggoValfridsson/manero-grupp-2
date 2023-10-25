@@ -12,22 +12,24 @@ function LayoutMobile({ sidebarOpenState }) {
   return (
     <div className="layout layout-mobile">
       <header className="header mobile-header">
-        {navbarRoutes.includes(location.pathname) ? (
-          <>
-            <ContactBurgerMenu sidebarOpenState={sidebarOpenState} />
-            <Link to="/">
-              <img className="logo" src="/images/manero-logo-mobile.svg" alt="" />
-            </Link>
-          </>
-        ) : (
-          <>
-            <Link onClick={() => navigate(-1)}>
-              <ChevronLeft />
-            </Link>
-            <h1>{location.pathname}</h1>
-          </>
-        )}
-        <CartPreviewButton />
+        <div className="container">
+          {navbarRoutes.includes(location.pathname) ? (
+            <>
+              <ContactBurgerMenu sidebarOpenState={sidebarOpenState} />
+              <Link to="/">
+                <img className="logo" src="/images/manero-logo-mobile.svg" alt="" />
+              </Link>
+            </>
+          ) : (
+            <>
+              <Link onClick={() => navigate(-1)}>
+                <ChevronLeft />
+              </Link>
+              <h1>{location.pathname}</h1>
+            </>
+          )}
+          <CartPreviewButton />
+        </div>
       </header>
       <main className="container">
         <Outlet />
