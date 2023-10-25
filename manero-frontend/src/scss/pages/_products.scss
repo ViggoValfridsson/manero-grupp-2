@@ -1,7 +1,7 @@
 @use "../core/breakpoints" as *;
 
 .products-page {
-  padding-inline: 1.5rem;
+  padding-inline: 1rem;
 
   @include xxl {
     padding-inline: 0rem;
@@ -39,11 +39,19 @@
 
   .product-card-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    grid-template-columns: 1fr 1fr;
     gap: 0.5rem;
 
     @include sm {
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    @include lg {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    @include lg {
+      grid-template-columns: repeat(5, 1fr);
     }
   }
 }

@@ -17,7 +17,7 @@ function FilterBurgerMenu({ filterMenuOpenState }) {
     if (e.target.classList.contains("open")) setSidebarOpen(false);
   };
 
-  const handleQueries = (queryName, queryValue) => {
+  const handleQueryClick = (queryName, queryValue) => {
     const currentUrl = new URL(window.location.href);
     // Make everything lowercase otherwise queries.has() won't match
     let queries = new URLSearchParams(currentUrl.search.toLowerCase());
@@ -56,7 +56,7 @@ function FilterBurgerMenu({ filterMenuOpenState }) {
               {categories.data?.map((category) => (
                 <button
                   key={category.name}
-                  onClick={() => handleQueries("categoryName", category.name)}
+                  onClick={() => handleQueryClick("categoryName", category.name)}
                 >
                   {category.name}
                 </button>
@@ -65,7 +65,7 @@ function FilterBurgerMenu({ filterMenuOpenState }) {
             <div className="tag-container">
               <h2>Tags</h2>
               {tags.data?.map((tag) => (
-                <button key={tag.name} onClick={() => handleQueries("tagName", tag.name)}>
+                <button key={tag.name} onClick={() => handleQueryClick("tagName", tag.name)}>
                   {tag.name}
                 </button>
               ))}
