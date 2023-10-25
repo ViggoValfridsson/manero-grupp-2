@@ -5,6 +5,7 @@ const CartContext = createContext(null);
 
 export function CartContextProvider({ children }) {
   const [cart, setCart] = useState([]);
+  const [toast, setToast] = useState(null);
 
   const findCartItem = (itemId) => cart.find((item) => item.itemId === itemId);
 
@@ -22,6 +23,13 @@ export function CartContextProvider({ children }) {
     } else {
       setCart([...cart, newCartItem]);
     }
+
+    setToast(`Added ${incomingProduct.name} to cart!`);
+    setTimeout(() => {
+      if (toast === null) {
+        setToast(null);
+      }
+    }, 1500);
   };
 
   const removeFromCart = (itemId) => {
@@ -65,6 +73,7 @@ export function CartContextProvider({ children }) {
         isInCart,
       }}
     >
+      <div className="toasts">{toast && <div className="toast">{toast}</div>}</div>
       {children}
     </CartContext.Provider>
   );
