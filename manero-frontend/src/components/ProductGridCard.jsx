@@ -44,7 +44,7 @@ export default function ProductGridCard({ product }) {
             {product.name}
           </p>
           <p id="c" className="product-price">
-            {product.price}
+            $ {product.price}
           </p>
         </div>
       </div>
