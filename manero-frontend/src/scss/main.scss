@@ -17,10 +17,12 @@
 @use "components/product-list-card";
 @use "components/product-grid-card";
 @use "components/product-list";
+@use "components/filter-sidebar";
 
 // Pages
 @use "pages/home";
 @use "pages/search";
 @use "pages/cart";
 @use "pages/product-details";
+@use "pages/products";
 @use "pages/checkout";

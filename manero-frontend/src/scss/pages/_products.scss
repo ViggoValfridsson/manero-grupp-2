@@ -1,0 +1,57 @@
+@use "../core/breakpoints" as *;
+
+.products-page {
+  padding-inline: 1rem;
+
+  @include xxl {
+    padding-inline: 0rem;
+  }
+
+  .filter-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-block: 1.5rem;
+    color: var(--color-text-light);
+
+    button,
+    select {
+      all: unset;
+      font-size: var(--font-size-l);
+      cursor: pointer;
+    }
+
+    button {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    // Adds back arrow on select
+    select {
+      background-color: var(--color-bg);
+      text-align: end;
+      -webkit-appearance: auto;
+      appearance: auto;
+      width: fit-content;
+    }
+  }
+
+  .product-card-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+
+    @include sm {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    @include lg {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    @include lg {
+      grid-template-columns: repeat(5, 1fr);
+    }
+  }
+}
