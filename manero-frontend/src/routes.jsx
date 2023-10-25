@@ -5,14 +5,15 @@ import ProductDetails from "./pages/ProductDetails";
 import Search from "./pages/Search";
 import Products from "./pages/Products";
 
+// If no title is set, the manero logo will show instead
 const routes = [
   { path: "/", element: <Home /> },
   { path: "/search", element: <Search /> },
   { path: "/cart", element: <Cart /> },
-  { path: "/products", element: <Products /> },
+  { path: "/products", element: <Products />, title: "Products" },
   { path: "/products/:id", element: <ProductDetails /> },
-  { path: "/Checkout", element: <Order /> },
-  { path: "*", element: <h1>Not found</h1> },
+  { path: "/checkout", element: <Order />, title: "Checkout" },
+  { path: "*", element: <h1>Not found</h1>, title: "Not Found" },
 ];
 
 export default routes;
