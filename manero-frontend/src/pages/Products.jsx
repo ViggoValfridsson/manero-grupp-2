@@ -28,6 +28,12 @@ function Products() {
           <option value="highest">Highest Price</option>
         </select>
       </div>
+      {products.data?.length == 0 && (
+        <div className="no-products-container">
+          <h1>We Could Not Find Any Products Based on Your Filtering</h1>
+          <p>Please try again with other filtering options.</p>
+        </div>
+      )}
       <div className="product-card-container">
         {products.data?.map((product) => (
           <ProductGridCard key={product.id} product={product} />
