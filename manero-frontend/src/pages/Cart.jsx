@@ -37,7 +37,7 @@ export default function Cart() {
         </div>
       </div>
       <div className="checkout-button-wrapper">
-        <Link to="/Checkout" className="button button-black">
+        <Link to="/checkout" className="button button-black">
           Proceed to checkout
         </Link>
       </div>

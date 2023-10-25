@@ -5,12 +5,12 @@ import ProductDetails from "./pages/ProductDetails";
 import Search from "./pages/Search";
 
 const routes = [
-  { path: "/", element: <Home /> },
-  { path: "/search", element: <Search /> },
-  { path: "/cart", element: <Cart /> },
-  { path: "/products/:id", element: <ProductDetails /> },
-  { path: "/Checkout", element: <Order /> },
-  { path: "*", element: <h1>Not found</h1> },
+  { path: "/", element: <Home />, title: null },
+  { path: "/search", element: <Search />, title: null },
+  { path: "/cart", element: <Cart />, title: null },
+  { path: "/products/:id", element: <ProductDetails />, title: null },
+  { path: "/checkout", element: <Order />, title: "Checkout" },
+  { path: "*", element: <h1>Not found</h1>, title: "Not Found" },
 ];
 
 export default routes;
