@@ -33,6 +33,24 @@
     }
   }
 
+  .no-products-container {
+    padding-block: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    h1 {
+      width: 100%;
+      text-align: center;
+    }
+
+    p {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--color-text-light);
+    }
+  }
+
   .product-card-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
