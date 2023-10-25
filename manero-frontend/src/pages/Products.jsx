@@ -19,8 +19,7 @@ function Products() {
     <div className="products-page">
       <div className="filter-container">
         <FilterBurgerMenu filterMenuOpenState={filterMenuOpenState} />
-
-        {/* To Do Add functionality */}
+        {/* To Do Add functionality For Sorting */}
         <select value={sortBy} onChange={handleChange}>
           <option value="" disabled hidden>
             Order By
