@@ -21,7 +21,7 @@
   // Sizes
   --max-content-width: 1280px;
   --section-padding-inline: 1.25rem;
-  @include lg {
+  @media (min-width: calc(1280px + 1.25rem)) {
     --section-padding-inline: 0;
   }
   // Font sizes
