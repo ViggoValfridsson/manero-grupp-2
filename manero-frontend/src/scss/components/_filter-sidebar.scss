@@ -1,3 +1,5 @@
+@use "../core/breakpoints" as *;
+
 .filter-sidebar {
   position: fixed;
   top: 0;
@@ -17,9 +19,52 @@
   .container {
     padding-top: 6rem;
     height: 100%;
-    display: flex;
-    flex-direction: column;
-    padding-left: 1.25rem;
+    width: fit-content;
+    margin: 0;
+    display: grid;
+    grid-template-rows: auto 1fr; 
+    padding-left: 1.75rem;
+    gap: 1em;
+
+    @include sm {
+      grid-template-columns: 1fr 1fr;
+      column-gap: 4em;
+      margin-inline: auto;
+      padding-left: 0;
+    }
+
+    .category-container,
+    .tag-container {
+      display: grid;
+      width: 100%;
+      max-width: 100%;
+      height: fit-content;
+
+      h2 {
+        margin-bottom: 0.25rem;
+      }
+
+      button {
+        font-size: 18px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+
+        &:hover {
+          text-decoration: underline;
+        }
+
+        .checkbox-container {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+
+          .lucide-check {
+            position: absolute;
+          }
+        }
+      }
+    }
   }
 }
 

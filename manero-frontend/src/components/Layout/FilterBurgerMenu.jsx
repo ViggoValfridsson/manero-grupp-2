@@ -1,4 +1,4 @@
-import { SlidersHorizontal, Check } from "lucide-react";
+import { SlidersHorizontal, Check, Square } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
 import { apiDomain } from "../../helpers/api-domain";
@@ -68,8 +68,13 @@ function FilterBurgerMenu({ filterMenuOpenState }) {
               <button
                 key={category.name}
                 onClick={() => handleQueryClick("categoryName", category.name)}
+                aria-checked={isCurrentQuery("categoryName", category.name) ? true : false}
               >
-                {category.name} {isCurrentQuery("categoryName", category.name) && <Check />}
+                {category.name}
+                <div className="checkbox-container">
+                  <Square size={20} />
+                  {isCurrentQuery("categoryName", category.name) && <Check size={20} />}
+                </div>
               </button>
             ))}
           </div>
@@ -77,7 +82,11 @@ function FilterBurgerMenu({ filterMenuOpenState }) {
             <h2>Tags</h2>
             {tags.data?.map((tag) => (
               <button key={tag.name} onClick={() => handleQueryClick("tagName", tag.name)}>
-                {tag.name} {isCurrentQuery("tagName", tag.name) && <Check />}
+                {tag.name}
+                <div className="checkbox-container">
+                  <Square size={20} />
+                  {isCurrentQuery("tagName", tag.name) && <Check size={18} />}
+                </div>
               </button>
             ))}
           </div>
