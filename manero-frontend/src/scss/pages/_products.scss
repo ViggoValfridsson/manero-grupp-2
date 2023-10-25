@@ -1,11 +1,7 @@
 @use "../core/breakpoints" as *;
 
 .products-page {
-  padding-inline: 1rem;
-
-  @include xxl {
-    padding-inline: 0rem;
-  }
+  padding-inline: var(--section-padding-inline);
 
   .filter-container {
     display: flex;
