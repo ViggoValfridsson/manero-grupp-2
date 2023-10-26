@@ -14,14 +14,16 @@ public class OrderService : IOrderService
     private readonly IOrderItemRepo _orderItemRepo;
     private readonly IProductRepo _productRepo;
     private readonly IAddressService _addressService;
+    private readonly ISizeRepo _sizeRepo;
 
-    public OrderService(IOrderRepo orderRepo, ICustomerService customerService, IOrderItemRepo orderItemRepo, IProductRepo productRepo, IAddressService addressService)
+    public OrderService(IOrderRepo orderRepo, ICustomerService customerService, IOrderItemRepo orderItemRepo, IProductRepo productRepo, IAddressService addressService, ISizeRepo sizeRepo)
     {
         _orderRepo = orderRepo;
         _customerService = customerService;
         _orderItemRepo = orderItemRepo;
         _productRepo = productRepo;
         _addressService = addressService;
+        _sizeRepo = sizeRepo;
     }
 
     public async Task<OrderDto> PlaceCustomerOrderAsync(OrderCustomerCreateSchema schema)
@@ -83,9 +85,11 @@ public class OrderService : IOrderService
             {
                 OrderId = orderId,
                 ProductId = orderItemSchema.ProductId,
-                SizeId = orderItemSchema.SizeId,
+                //SizeId = orderItemSchema.SizeId,
                 Quantity = orderItemSchema.Quantity
             };
+
+            entity.SizeId = (await _sizeRepo.GetAsync(x => x.Name == orderItemSchema.Size.ToUpper()))!.Id;
 
             entity = await _orderItemRepo.CreateAsync(entity);
 
@@ -100,7 +104,7 @@ public class OrderService : IOrderService
         foreach (var item in items)
         {
             var isValidProduct = await _productRepo.AnyAsync(x => x.Id == item.ProductId);
-            var isValidProductSize = await _productRepo.AnyAsync(x => x.Id == item.ProductId && x.AvailableSizes.Any(x => x.Id == item.SizeId));
+            var isValidProductSize = await _productRepo.AnyAsync(x => x.Id == item.ProductId && x.AvailableSizes.Any(x => x.Name.ToLower() == item.Size.ToLower()));
             
             if (!isValidProduct || !isValidProductSize)
                 return false;
