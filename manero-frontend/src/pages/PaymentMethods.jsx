@@ -1,24 +1,50 @@
-import { CreditCard, Plus } from "lucide-react";
+import { Check, PenLine, Plus } from "lucide-react";
+import PaymentCard from "../components/PaymentCard";
 
 function PaymentMethods() {
   return (
     <div className="payment-method-page">
-      <div className="options-container">
-        <div className="container">
-          <h3>Cards</h3>
-          <p>Add a new card</p>
+      <div className="card-title-container inline-padding">
+        <p>Cards</p>
+        <button>
+          Add a new card
           <Plus />
-        </div>
-        <div className="card-container">
-          <CreditCard />
-          <p>1111 2222 3333 4444</p>
-          <p>KRISTIN</p>
-          <p>EXP. END</p>
-        </div>
+        </button>
       </div>
-      <div className="option-container">Apple Pay</div>
-      <div className="option-container">Pay pal</div>
-      <div className="option-container">Payoneer</div>
+      <div className="card-container">
+        <PaymentCard />
+        <PaymentCard />
+      </div>
+
+      {/* TEST JUST FOR DESIGN BELOW */}
+      <div className="payment-alternative">
+        <div className="payment-method-name">
+          <p>Apple Pay</p>
+          <span>
+            <Check />
+          </span>
+        </div>
+        <button>
+          <PenLine />
+        </button>
+      </div>
+      <div className="payment-alternative">
+        <div className="payment-method-name">
+          <p>Apple Pay</p>
+          <span>
+            <Check />
+          </span>
+        </div>
+        <button>
+          <PenLine />
+        </button>
+      </div>
+      <div className="payment-alternative">
+        <p>Payoneer</p>
+        <button>
+          <Plus />
+        </button>
+      </div>
     </div>
   );
 }
