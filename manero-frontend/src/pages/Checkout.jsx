@@ -32,7 +32,7 @@ function Checkout() {
             </div>
           </div>
         </Link>
-        <Link to="/payment">
+        <Link to="/checkout/payments">
           <div className="container">
             <div className="info">
               <h2>Payment Details</h2>
@@ -50,7 +50,9 @@ function Checkout() {
           <input placeholder="Write your comment"></input>
         </div>
         <div className="order-button ">
-          <Link to="/handle-order" className="button button-black">Place order</Link>
+          <Link to="/handle-order" className="button button-black">
+            Place order
+          </Link>
         </div>
       </section>
     </div>
