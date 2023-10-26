@@ -1,4 +1,5 @@
-﻿using WebAPI.Interface.Repositories;
+﻿using WebAPI.Helpers.Repositories;
+using WebAPI.Interface.Repositories;
 using WebAPI.Interface.Services;
 using WebAPI.Models.Dtos;
 using WebAPI.Models.Entities;
@@ -92,5 +93,19 @@ public class OrderService : IOrderService
         }
 
         return orderItems;
+    }
+
+    public async Task<bool> AllProductItemsValidAsync(List<OrderItemSchema> items)
+    {
+        foreach (var item in items)
+        {
+            var isValidProduct = await _productRepo.AnyAsync(x => x.Id == item.ProductId);
+            var isValidProductSize = await _productRepo.AnyAsync(x => x.Id == item.ProductId && x.AvailableSizes.Any(x => x.Id == item.SizeId));
+            
+            if (!isValidProduct || !isValidProductSize)
+                return false;
+        }
+
+        return true;
     }
 }

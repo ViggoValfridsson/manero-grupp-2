@@ -56,4 +56,9 @@ public abstract class GenericRepo<T> : IRepo<T> where T : class
         }
         catch { return false; }
     }
+
+    public Task<bool> AnyAsync(Expression<Func<T, bool>> predicate)
+    {
+        return _context.Set<T>().AnyAsync(predicate); 
+    }
 }

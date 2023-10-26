@@ -11,14 +11,10 @@ namespace WebAPI.Controllers;
 public class OrdersController : ControllerBase
 {
     private readonly IOrderService _orderService;
-    private readonly IProductRepo _productRepo;
-    private readonly ISizeRepo _sizeRepo;
 
-    public OrdersController(IOrderService orderService, ProductService productService, ISizeRepo sizeRepo, IProductRepo productRepo)
+    public OrdersController(IOrderService orderService)
     {
         _orderService = orderService;
-        _sizeRepo = sizeRepo;
-        _productRepo = productRepo;
     }
 
     [HttpPost]
@@ -29,14 +25,8 @@ public class OrdersController : ControllerBase
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            foreach (var item in schema.Products)
-            {
-                var product = await _productRepo.GetAsync(x => x.Id == item.ProductId);
-                var size = await _sizeRepo.GetAsync(x => x.Id == item.SizeId);
-
-                if (product == null || size == null)
-                    return NotFound("One of the products requested could not be found in the database.");
-            }
+            if (!await _orderService.AllProductItemsValidAsync(schema.Products))
+                return BadRequest("One or more of the products requested could not be found in the database.");
 
             var orderDto = await _orderService.PlaceCustomerOrderAsync(schema);
 
