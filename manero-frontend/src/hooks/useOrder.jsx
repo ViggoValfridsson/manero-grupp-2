@@ -11,6 +11,7 @@ export function OrderContextProvider({ children }) {
   const [customer, _setCustomer] = useState(null);
   const [address, _setAddress] = useState(null);
   const [paymentCard, _setPaymentCard] = useState();
+  const [isOrderSuccessful, _setIsOrderSuccessful] = useState(false);
   const { cart } = useCart();
 
   const setCustomer = (firstName, lastName, email, phone) => {
@@ -27,10 +28,10 @@ export function OrderContextProvider({ children }) {
 
   const placeOrder = async () => {
     // Cancel if details are missing or invalid
-    // if (!customer || !address || !paymentCard) {
-    //   console.log("Invalid order details");
-    //   return;
-    // }
+    if (!customer || !address || !paymentCard) {
+      console.log("Invalid order details");
+      return;
+    }
 
     const orderData = {
       customer: customer,
@@ -48,16 +49,24 @@ export function OrderContextProvider({ children }) {
     const response = await fetch(`${apiDomain.https}/api/orders`, {
       method: "POST",
       mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify(orderData),
     });
     const data = await response.JSON();
-    console.log(data);
+    console.log("response from server:", data);
+
+    if (response.status === 200) {
+      _setIsOrderSuccessful(true);
+    }
   };
 
   return (
     <OrderContext.Provider
       value={{
         placeOrder,
+        isOrderSuccessful,
         customer,
         setCustomer,
         address,
