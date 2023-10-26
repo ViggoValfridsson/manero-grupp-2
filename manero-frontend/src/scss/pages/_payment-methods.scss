@@ -1,14 +1,95 @@
 .payment-method-page {
-  background-color: red;
-  .options-container {
-    display: grid;
-    grid-template-rows: 1fr, auto;
-    background-color: blue;
-    .container {
-      display: flex;
-      align-items: center;
+  .inline-padding {
+    padding-inline: var(--section-padding-inline);
+  }
+
+  .card-title-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-block: 1rem;
+
+    p {
+      font-size: var(--font-size-l);
     }
-    .card-container {
+
+    button {
+      display: flex;
+      background-color: transparent;
+      border: none;
+      color: var(--color-text-light);
+
+      svg {
+        color: var(--color-text);
+        margin-left: 2rem;
+      }
+    }
+  }
+
+  /////////////////////////////////
+  // Move to seperate file later(??) //
+  /////////////////////////////////
+  .payment-alternative {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-inline: var(--section-padding-inline);
+    padding-block: 1rem;
+    border-bottom: 2px solid var(--color-blue);
+
+    .payment-method-name {
+      display: flex;
+      span {
+        color: var(--color-success);
+        padding-left: 1rem;
+      }
+    }
+
+    button {
+      all: unset;
+    }
+  }
+
+  .card-container {
+    display: flex;
+    gap: 1rem;
+    overflow-y: scroll;
+    // Hide scrollbar for Chrome, Safari and Opera
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    // Hide scrollbar for IE, Edge and Firefox
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    margin-bottom: 1rem;
+    padding-left: var(--section-padding-inline);
+  }
+
+  /////////////////////////////////
+  // Move to seperate file later //
+  /////////////////////////////////
+  .payment-card {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    background-color: #864d7d;
+    color: var(--color-bg);
+    border-radius: 2rem;
+    padding: 1.5rem;
+    min-width: 16rem;
+
+    &:nth-child(even) {
+      background-color: #69864d;
+    }
+
+    .card-number {
+    }
+
+    .card-details {
+      display: flex;
+      justify-content: space-between;
+      padding-top: 0.5rem;
+      font-size: 10px;
     }
   }
 }
