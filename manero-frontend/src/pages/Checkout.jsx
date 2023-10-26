@@ -1,13 +1,32 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { useCart } from "../hooks/useCart";
 import { ChevronRight } from "lucide-react";
 import CheckoutItem from "../components/CheckoutItem";
 import { useOrder } from "../hooks/useOrder";
+import { useState } from "react";
+import hideCardNumber from "../helpers/hide-card-number";
 
 function Checkout() {
   const { cart } = useCart();
-  const { placeOrder } = useOrder();
+  const { placeOrder, address, customer, paymentCard } = useOrder();
+  const navigate = useNavigate();
+  const [shippingError, setShippingError] = useState(false);
+  const [paymentError, setPaymentError] = useState(false);
+
+  const handlePlaceOrder = () => {
+    setShippingError(!address && !customer);
+    setPaymentError(!paymentCard);
+
+    if (cart.length <= 0) {
+      navigate("/cart");
+    }
+
+    if (address && customer && paymentCard) {
+      placeOrder();
+      navigate("/checkout/order-confirmation");
+    }
+  };
 
   return (
     <div className="checkout-page">
@@ -23,26 +42,22 @@ function Checkout() {
             <CheckoutItem key={cartItem.id} cartItem={cartItem} />
           ))}
         </div>
-        <Link to="/shipping">
-          <div className="container">
-            <div className="info">
-              <h2>Shipping details</h2>
-              <p> Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
-            </div>
-            <div className="icon">
-              <ChevronRight />
-            </div>
+        <Link to="/shipping" className={shippingError ? "error" : ""}>
+          <div className="info">
+            <h2>Shipping Details {shippingError && "*"}</h2>
+            <p>{address && `${address?.streetAddress}, ${address?.postalCode} ${address?.city}`}</p>
+          </div>
+          <div className="icon">
+            <ChevronRight />
           </div>
         </Link>
-        <Link to="/payment">
-          <div className="container">
-            <div className="info">
-              <h2>Payment Details</h2>
-              <p>Lorem ipsum dolor sit.</p>
-            </div>
-            <div className="icon">
-              <ChevronRight />
-            </div>
+        <Link to="/payment" className={paymentError ? "error" : ""}>
+          <div className="info">
+            <h2>Payment Details {paymentError && "*"}</h2>
+            <p>{paymentCard && hideCardNumber(paymentCard.cardNumber)}</p>
+          </div>
+          <div className="icon">
+            <ChevronRight />
           </div>
         </Link>
       </section>
@@ -52,7 +67,11 @@ function Checkout() {
           <input placeholder="Write your comment"></input>
         </div>
         <div className="order-button">
-          <button to="/handle-order" className="button button-black" onClick={() => placeOrder()}>
+          <button
+            to="/handle-order"
+            className="button button-black"
+            onClick={() => handlePlaceOrder()}
+          >
             Place order
           </button>
         </div>
