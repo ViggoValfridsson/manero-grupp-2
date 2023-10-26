@@ -3,9 +3,11 @@ import { Link } from "react-router-dom";
 import { useCart } from "../hooks/useCart";
 import { ChevronRight } from "lucide-react";
 import CheckoutItem from "../components/CheckoutItem";
+import { useOrder } from "../hooks/useOrder";
 
 function Checkout() {
   const { cart } = useCart();
+  const { placeOrder } = useOrder();
 
   return (
     <div className="checkout-page">
@@ -49,8 +51,10 @@ function Checkout() {
           <label>Comment</label>
           <input placeholder="Write your comment"></input>
         </div>
-        <div className="order-button ">
-          <Link to="/handle-order" className="button button-black">Place order</Link>
+        <div className="order-button">
+          <button to="/handle-order" className="button button-black" onClick={() => placeOrder()}>
+            Place order
+          </button>
         </div>
       </section>
     </div>
