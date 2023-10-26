@@ -11,4 +11,5 @@ public interface IOrderService
     Task<OrderEntity> CreateOrderWithCustomerAsync(OrderCustomerCreateSchema schema, CustomerEntity customer);
     Task<decimal> CalculateTotalPriceAsync(List<OrderItemSchema> orderItems);
     Task<List<OrderItemEntity>> CreateOrderItemsAsync(List<OrderItemSchema> orderItemSchemas, int orderId);
+    Task<bool> AllProductItemsValidAsync(List<OrderItemSchema> items);
 }
