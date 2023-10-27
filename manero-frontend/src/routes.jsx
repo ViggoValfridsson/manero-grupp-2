@@ -1,3 +1,4 @@
+import NotFound from "./pages/NotFound";
 import Cart from "./pages/Cart";
 import Home from "./pages/Home";
 import Order from "./pages/Checkout";
@@ -19,7 +20,7 @@ const routes = [
     element: <OrderConfirmation />,
     title: "Order Confirmation",
   },
-  { path: "*", element: <h1>Not found</h1>, title: "Not Found" },
+  { path: "*", element: <NotFound />, title: "Not Found" },
 ];
 
 export default routes;
