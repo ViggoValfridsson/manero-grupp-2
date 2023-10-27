@@ -1,0 +1,53 @@
+@use "../core/breakpoints" as *;
+.add-payment-card-page {
+  .payment-card-container {
+    padding-inline: 3rem;
+    padding-block: 4rem;
+
+    .card-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding-bottom: 2rem;
+    }
+    form {
+      label {
+        font-size: var(--font-size-s);
+        color: var(--color-text-faded);
+      }
+      input {
+        padding-block: 0.25rem;
+        border: 1px solid var(--color-blue-light);
+      }
+
+      input:focus {
+        outline: none !important;
+        border-radius: 10rem;
+        box-shadow: 0 0 10px var(--color-blue);
+      }
+
+      .form-group {
+        display: flex;
+        flex-direction: column;
+        padding-block: 1rem;
+
+        .form-text-input {
+          display: flex;
+          justify-content: space-between;
+        }
+      }
+      .row {
+        display: flex;
+        justify-content: space-between;
+
+        .form-group {
+          max-width: 9rem;
+        }
+      }
+      button {
+        margin-top: 2rem;
+        width: 100%;
+      }
+    }
+  }
+}
