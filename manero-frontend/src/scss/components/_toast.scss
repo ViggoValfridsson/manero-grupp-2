@@ -8,6 +8,7 @@
   flex-direction: column;
   gap: 0.5rem;
   justify-content: center;
+  align-items: center;
 }
 
 .toast {
@@ -19,6 +20,7 @@
   padding: 1rem;
   border-radius: 1rem;
   animation: fade 1.5s ease forwards;
+  width: fit-content;
 }
 
 @keyframes fade {

@@ -22,6 +22,7 @@
 @use "components/filter-sidebar";
 
 // Pages
+@use "pages/not-found";
 @use "pages/home";
 @use "pages/search";
 @use "pages/cart";
@@ -29,3 +30,4 @@
 @use "pages/products";
 @use "pages/checkout";
 @use "pages/order-confirmation";
+@use "pages/shipping-details";
