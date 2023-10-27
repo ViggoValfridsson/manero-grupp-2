@@ -16,8 +16,9 @@
         color: var(--color-text-faded);
       }
       input {
-        padding-block: 0.25rem;
-        border: 1px solid var(--color-blue-light);
+        border: 2px solid var(--color-blue);
+        border-radius: 4rem;
+        padding: 0.75rem 1.5rem;
       }
 
       input:focus {

@@ -20,6 +20,7 @@ function Checkout() {
 
     if (cart.length <= 0) {
       navigate("/cart");
+      return;
     }
 
     if (address && customer && paymentCard) {
