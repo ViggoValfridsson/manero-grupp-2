@@ -1,0 +1,65 @@
+@use "../core/breakpoints" as *;
+
+.shipping-details-page {
+  padding-inline: var(--section-padding-inline);
+  padding-block: 1rem;
+  p {
+    color: var(--color-text-light);
+  }
+  form {
+    padding-block: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    background-color: var(--color-bg);
+    @include md {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+    h3 {
+      font-size: var(--font-size-m);
+      font-weight: 600;
+      display: flex;
+      gap: 0.5rem;
+      grid-column: span 2;
+      &::after {
+        content: "";
+        height: 2px;
+        width: 100%;
+        margin-top: 0.825em;
+        background-color: var(--color-blue);
+        @include md {
+          display: none;
+        }
+      }
+    }
+    label {
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      span {
+        font-size: var(--font-size-xs);
+        text-transform: uppercase;
+        position: absolute;
+        top: -0.75em;
+        left: 1rem;
+        background-color: var(--color-bg);
+        padding-inline: 0.5rem;
+        color: var(--color-text-light);
+      }
+      input {
+        border-radius: 4rem;
+        border: 2px solid var(--color-blue);
+        padding: 0.75rem 1.5rem;
+      }
+      input:-webkit-autofill,
+      input:-webkit-autofill:hover,
+      input:-webkit-autofill:focus {
+        transition: background-color 5000s ease-in-out 0s;
+      }
+    }
+    .button {
+      padding-block: 0.825rem;
+    }
+  }
+}
