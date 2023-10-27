@@ -20,6 +20,7 @@ function Checkout() {
 
     if (cart.length <= 0) {
       navigate("/cart");
+      return;
     }
 
     if (address && customer && paymentCard) {
@@ -51,7 +52,7 @@ function Checkout() {
             <ChevronRight />
           </div>
         </Link>
-        <Link to="/payment" className={paymentError ? "error" : ""}>
+        <Link to="/checkout/add-card" className={paymentError ? "error" : ""}>
           <div className="info">
             <h2>Payment Details {paymentError && "*"}</h2>
             <p>{paymentCard && hideCardNumber(paymentCard.cardNumber)}</p>

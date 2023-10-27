@@ -3,6 +3,6 @@ export default class Customer {
     this.firstName = firstName;
     this.lastName = lastName;
     this.email = email;
-    this.phone = phone;
+    this.phoneNumber = phone;
   }
 }

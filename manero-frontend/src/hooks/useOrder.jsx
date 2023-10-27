@@ -22,13 +22,22 @@ export function OrderContextProvider({ children }) {
     _setAddress(new Address(streetAddress, city, postalCode));
   };
 
-  const setShipping = (details) => {
-    _setCustomer(new Customer(details.firstName, details.lastName, details.email, details.phone));
-    _setAddress(new Address(details.streetAddress, details.city, details.postalCode));
+  const setShipping = (formData) => {
+    _setCustomer(
+      new Customer(formData.firstName, formData.lastName, formData.email, formData.phone)
+    );
+    _setAddress(new Address(formData.streetAddress, formData.city, formData.postalCode));
   };
 
-  const setPaymentCard = (cardNumber, expirationDate, cvvNumber, nameOnCard) => {
-    _setPaymentCard(new PaymentCard(cardNumber, expirationDate, cvvNumber, nameOnCard));
+  const setPaymentCard = (formData) => {
+    _setPaymentCard(
+      new PaymentCard(
+        formData.cardNumber,
+        formData.expirationDate,
+        formData.cvvNumber,
+        formData.nameOnCard
+      )
+    );
   };
 
   const placeOrder = async () => {
@@ -48,8 +57,6 @@ export function OrderContextProvider({ children }) {
       })),
     };
 
-    console.log(orderData);
-
     // Send data to the backend via POST
     const response = await fetch(`${apiDomain.https}/api/orders`, {
       method: "POST",
@@ -59,12 +66,11 @@ export function OrderContextProvider({ children }) {
       },
       body: JSON.stringify(orderData),
     });
-    const data = await response.JSON();
+    console.log(response);
+    const data = await response.json();
     console.log("response from server:", data);
 
-    if (response.status === 200) {
-      _setIsOrderSuccessful(true);
-    }
+    _setIsOrderSuccessful(response.ok);
   };
 
   return (
