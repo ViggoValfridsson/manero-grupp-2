@@ -3,7 +3,6 @@
 @use "core/variables";
 @use "core/typography";
 @use "core/base";
-
 // Components
 @use "components/toast";
 @use "components/button";
@@ -20,7 +19,7 @@
 @use "components/product-list";
 @use "components/image-slider";
 @use "components/filter-sidebar";
-
+@use "components/payment-card";
 // Pages
 @use "pages/home";
 @use "pages/search";
@@ -28,4 +27,4 @@
 @use "pages/product-details";
 @use "pages/products";
 @use "pages/checkout";
-@use "pages/payment-methods";
+@use "pages/add-payment-card";

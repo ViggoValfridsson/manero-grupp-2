@@ -4,7 +4,7 @@ import Order from "./pages/Checkout";
 import ProductDetails from "./pages/ProductDetails";
 import Search from "./pages/Search";
 import Products from "./pages/Products";
-import PaymentMethods from "./pages/PaymentMethods";
+import AddPaymentCard from "./pages/AddPaymentCard";
 
 // If no title is set, the manero logo will show instead
 const routes = [
@@ -14,7 +14,7 @@ const routes = [
   { path: "/products", element: <Products />, title: "Products" },
   { path: "/products/:id", element: <ProductDetails /> },
   { path: "/checkout", element: <Order />, title: "Checkout" },
-  { path: "/checkout/payments", element: <PaymentMethods />, title: "Payment Method" },
+  { path: "/checkout/add-card", element: <AddPaymentCard />, title: "Add new a card" },
   { path: "*", element: <h1>Not found</h1>, title: "Not Found" },
 ];
 

@@ -32,7 +32,7 @@ function Checkout() {
             </div>
           </div>
         </Link>
-        <Link to="/checkout/payments">
+        <Link to="/checkout/add-card">
           <div className="container">
             <div className="info">
               <h2>Payment Details</h2>
