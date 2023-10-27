@@ -42,7 +42,7 @@ function Checkout() {
             <CheckoutItem key={cartItem.id} cartItem={cartItem} />
           ))}
         </div>
-        <Link to="/shipping" className={shippingError ? "error" : ""}>
+        <Link to="/checkout/shipping" className={shippingError ? "error" : ""}>
           <div className="info">
             <h2>Shipping Details {shippingError && "*"}</h2>
             <p>{address && `${address?.streetAddress}, ${address?.postalCode} ${address?.city}`}</p>

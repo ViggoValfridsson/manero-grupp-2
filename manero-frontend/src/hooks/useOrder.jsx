@@ -22,6 +22,11 @@ export function OrderContextProvider({ children }) {
     _setAddress(new Address(streetAddress, city, postalCode));
   };
 
+  const setShipping = (details) => {
+    _setCustomer(new Customer(details.firstName, details.lastName, details.email, details.phone));
+    _setAddress(new Address(details.streetAddress, details.city, details.postalCode));
+  };
+
   const setPaymentCard = (cardNumber, expirationDate, cvvNumber, nameOnCard) => {
     _setPaymentCard(new PaymentCard(cardNumber, expirationDate, cvvNumber, nameOnCard));
   };
@@ -67,6 +72,7 @@ export function OrderContextProvider({ children }) {
       value={{
         placeOrder,
         isOrderSuccessful,
+        setShipping,
         customer,
         setCustomer,
         address,
