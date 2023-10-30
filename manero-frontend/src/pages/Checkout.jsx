@@ -5,7 +5,7 @@ import { ChevronRight } from "lucide-react";
 import CheckoutItem from "../components/CheckoutItem";
 import { useOrder } from "../hooks/useOrder";
 import { useState } from "react";
-import hideCardNumber from "../helpers/hide-card-number";
+import hideCreditCardNumber from "../helpers/hide-credit-card-number";
 
 function Checkout() {
   const { cart } = useCart();
@@ -55,7 +55,7 @@ function Checkout() {
         <Link to="/checkout/add-card" className={paymentError ? "error" : ""}>
           <div className="info">
             <h2>Payment Details {paymentError && "*"}</h2>
-            <p>{paymentCard && hideCardNumber(paymentCard.cardNumber)}</p>
+            <p>{paymentCard && hideCreditCardNumber(paymentCard.cardNumber)}</p>
           </div>
           <div className="icon">
             <ChevronRight />
