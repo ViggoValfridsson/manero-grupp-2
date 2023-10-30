@@ -19,9 +19,9 @@
   }
   .cart-button {
     position: relative;
-    transition: opacity 1s ease;
     // The little icon that shows how many items are in the cart
     span {
+      transition: opacity 500ms ease;
       position: absolute;
       display: block;
       background-color: var(--color-red);
@@ -37,10 +37,9 @@
       font-weight: 800;
       font-size: var(--font-size-s);
       color: var(--color-bg);
-    }
-    &.hidden {
-      visibility: hidden;
-      opacity: 0;
+      &.hidden {
+        opacity: 0;
+      }
     }
   }
 }
