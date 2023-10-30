@@ -8,7 +8,7 @@ function LayoutDesktop({ sidebarOpenState }) {
     <div className="layout layout-desktop">
       <header className="header desktop-header">
         <div className="container">
-          <Link>
+          <Link to="/">
             <img className="logo" src="/images/manero-logo-desktop.svg" alt="" />
           </Link>
           <Navbar />
