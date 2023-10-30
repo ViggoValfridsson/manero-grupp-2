@@ -1,4 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using WebAPI.Models.Dtos;
+using WebAPI.Models.Identity;
 
 namespace WebAPI.Models.Schemas;
 
@@ -27,4 +29,15 @@ public class SignUpSchema
     [MaxLength(20)]
     [RegularExpression(@"^(\+\d{1,4}\s?)?(\(?\d{1,}\)?[-.\s]?)+\d{1,}$")]
     public required string PhoneNumber { get; set; }
+
+    public static implicit operator AppUser(SignUpSchema schema)
+    {
+        return new AppUser
+        {
+            UserName = schema.Email.ToLower(),
+            FirstName = schema.FirstName,
+            LastName = schema.LastName,
+            Email = schema.Email.ToLower(),
+        };
+    }
 }

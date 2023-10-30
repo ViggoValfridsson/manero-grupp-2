@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -9,6 +10,7 @@ using WebAPI.Helpers.Repositories;
 using WebAPI.Helpers.Services;
 using WebAPI.Interface.Repositories;
 using WebAPI.Interface.Services;
+using WebAPI.Models.Identity;
 using WebAPI.Swagger;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -65,6 +67,15 @@ builder.Services.AddScoped<ITagService, TagService>();
 builder.Services.AddScoped<ICustomerService, CustomerService>();
 builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<IAddressService, AddressService>();
+
+// Identity 
+builder.Services.AddIdentity<AppUser, IdentityRole>(x =>
+{
+    x.SignIn.RequireConfirmedAccount = false;
+    x.Password.RequiredLength = 8;
+    x.User.RequireUniqueEmail = true;
+})
+    .AddEntityFrameworkStores<DataContext>();
 
 var app = builder.Build();
 
