@@ -3,10 +3,11 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using WebAPI.Helpers.Seeders;
 using WebAPI.Models.Entities;
+using WebAPI.Models.Identity;
 
 namespace WebAPI.Data;
 
-public class DataContext : IdentityDbContext<IdentityUser>
+public class DataContext : IdentityDbContext<AppUser>
 {
     public DataContext(DbContextOptions options) : base(options)
     {
