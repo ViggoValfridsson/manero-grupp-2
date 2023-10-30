@@ -1,4 +1,4 @@
-export default function hideCardNumber(cardNumber) {
+export default function hideCreditCardNumber(cardNumber) {
   return cardNumber
     .split("")
     .map((char, i) => {
