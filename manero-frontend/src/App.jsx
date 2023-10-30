@@ -25,9 +25,9 @@ function App() {
   }, true);
 
   return (
-    <WishlistContextProvider>
-      <ToastContextProvider>
-      <CartContextProvider>
+    <ToastContextProvider>
+      <WishlistContextProvider>
+        <CartContextProvider>
           <OrderContextProvider>
             <BrowserRouter>
               <Routes>
@@ -49,7 +49,7 @@ function App() {
             </BrowserRouter>
           </OrderContextProvider>
         </CartContextProvider>
-    </WishlistContextProvider>
+      </WishlistContextProvider>
     </ToastContextProvider>
   );
 }

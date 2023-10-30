@@ -1,6 +1,6 @@
 import { createContext, useState, useContext, useEffect } from "react";
 import WishlistItem from "../models/WishlistItem";
-
+import { useToast } from "./useToast";
 
 const WishlistContext = createContext(null);
 
@@ -11,7 +11,7 @@ const GetInitialState = () => {
 
 export function WishlistContextProvider({ children }) {
   const [wishlist, setWishlist] = useState(GetInitialState);
-  const [toast, setToast] = useState(null);
+  const toast = useToast();
 
   useEffect(() => {
     localStorage.setItem("wishlist", JSON.stringify(wishlist));
@@ -29,23 +29,18 @@ export function WishlistContextProvider({ children }) {
       setWishlist([...wishlist, newWishlistItem]);
     }
 
-    setToast(`Added ${incomingProduct.name} to wishlist`);
-    setTimeout(() => {
-      if (toast === null) {
-        setToast(null);
-      }
-    }, 1500);
-
+    toast.add(`Added ${incomingProduct.name} to cart!`);
     return wishlist;
   };
 
-  const removeFromWishlist = (itemId) => {
-    setWishlist([...wishlist.filter((x) => x.itemId !== itemId)]);
+  const removeFromWishlist = (productId) => {
+    setWishlist([...wishlist.filter((x) => x.id !== productId)]);
   };
 
   const isInWishlist = (productId) => {
     return wishlist.some((item) => item.id === productId);
   };
+
 
   return (
     <WishlistContext.Provider
@@ -56,7 +51,6 @@ export function WishlistContextProvider({ children }) {
         isInWishlist,
       }}
     >
-      <div className="toasts">{toast && <div className="toast">{toast}</div>}</div>
       {children}
     </WishlistContext.Provider>
   );

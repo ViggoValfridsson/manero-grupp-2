@@ -33,7 +33,7 @@ export default function ProductGridCard({ product }) {
           <img src={apiDomain.https + product.imagePaths[0]} alt={product.name} />
           <div className="product-card-icons">
             <button onClick={handleWishlistClick}>
-              <Heart style={{ color: isInWishlist(product.id) ? "red" : "var(--color-red)" }} />
+              <Heart style={{ color: isInWishlist(product.id) ? "var(--color-red)" : "" }} />
             </button>
             <button onClick={handleShoppingBagClick}>
               <ShoppingBag
