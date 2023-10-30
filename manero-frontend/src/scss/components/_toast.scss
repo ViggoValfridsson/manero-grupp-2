@@ -9,9 +9,11 @@
   gap: 0.5rem;
   justify-content: center;
   align-items: center;
+  pointer-events: none;
 }
 
 .toast {
+  pointer-events: all;
   color: var(--color-bg);
   font-weight: 800;
   background-color: var(--color-success);
@@ -19,7 +21,6 @@
   border: 2px solid var(--color-success);
   padding: 1rem;
   border-radius: 1rem;
-  animation: fade 1.5s ease forwards;
   width: fit-content;
 }
 
