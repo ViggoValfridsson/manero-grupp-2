@@ -5,6 +5,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using WebAPI.Interface.Services;
 using WebAPI.Models.Dtos;
 using WebAPI.Models.Identity;
 using WebAPI.Models.Schemas;
@@ -17,13 +18,13 @@ public class AccountController : ControllerBase
 {
     private readonly UserManager<AppUser> _userManager;
     private readonly SignInManager<AppUser> _signInManager;
-    private readonly IConfiguration _configuration;
+    private readonly IAccountService _accountService;
 
-    public AccountController(SignInManager<AppUser> signInManager, UserManager<AppUser> userManager, IConfiguration configuration)
+    public AccountController(SignInManager<AppUser> signInManager, UserManager<AppUser> userManager, IConfiguration configuration, IAccountService accountService)
     {
         _userManager = userManager;
         _signInManager = signInManager;
-        _configuration = configuration;
+        _accountService = accountService;
     }
 
 
@@ -63,23 +64,7 @@ public class AccountController : ControllerBase
 
             if ((await _signInManager.PasswordSignInAsync(schema.Email, schema.Password, false, false)).Succeeded)
             {
-                var tokenHandler = new JwtSecurityTokenHandler();
-                var key = Encoding.ASCII.GetBytes(_configuration["JwtSettings:Key"]!);
-                var tokenDescriptor = new SecurityTokenDescriptor
-                {
-                    Subject = new ClaimsIdentity(new[]
-                    {
-                        new Claim(ClaimTypes.Name, schema.Email),
-                        // Add more claims here as needed
-                    }),
-                    Expires = DateTime.UtcNow.AddMonths(8),
-                    SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
-                    Issuer = "https://manero.com",
-                    Audience = "https://manero.com"
-                };
-
-                var token = tokenHandler.CreateToken(tokenDescriptor);
-                var tokenString = tokenHandler.WriteToken(token);
+                var tokenString = _accountService.CreateJwsToken(schema.Email);
 
                 return Ok(new { Token = tokenString });
             }

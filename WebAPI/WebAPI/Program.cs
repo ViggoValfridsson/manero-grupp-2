@@ -67,6 +67,7 @@ builder.Services.AddScoped<ITagService, TagService>();
 builder.Services.AddScoped<ICustomerService, CustomerService>();
 builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<IAddressService, AddressService>();
+builder.Services.AddScoped<IAccountService, AccountService>();
 
 // Identity 
 builder.Services.AddIdentity<AppUser, IdentityRole>(x =>
