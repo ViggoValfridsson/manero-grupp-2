@@ -16,6 +16,20 @@ using WebAPI.Swagger;
 var builder = WebApplication.CreateBuilder(args);
 var config = builder.Configuration;
 
+builder.Services.AddControllers();
+
+// Add db contexts
+builder.Services.AddDbContext<DataContext>(x => x.UseSqlite(builder.Configuration.GetConnectionString("Sqlite")));
+
+// Identity 
+builder.Services.AddIdentity<AppUser, IdentityRole>(x =>
+{
+    x.SignIn.RequireConfirmedAccount = false;
+    x.Password.RequiredLength = 8;
+    x.User.RequireUniqueEmail = true;
+})
+.AddEntityFrameworkStores<DataContext>();
+
 // Add authentication
 builder.Services.AddAuthentication(x =>
 {
@@ -26,28 +40,25 @@ builder.Services.AddAuthentication(x =>
 {
     x.TokenValidationParameters = new TokenValidationParameters
     {
-        ValidIssuer = config["JwtSettings:Issuer"],
-        ValidAudience = config["JwtSettigns:Audience"],
-        IssuerSigningKey = new SymmetricSecurityKey(
-            Encoding.UTF8.GetBytes(config["JwtSettings:Key"]!)),
         ValidateIssuer = true,
         ValidateAudience = true,
         ValidateLifetime = true,
-        ValidateIssuerSigningKey = true
+        ValidateIssuerSigningKey = true,
+        ValidIssuer = config["JwtSettings:Issuer"],
+        ValidAudience = config["JwtSettings:Audience"],
+        IssuerSigningKey = new SymmetricSecurityKey(
+                Encoding.UTF8.GetBytes(config["JwtSettings:Key"]!))
     };
 });
 
 builder.Services.AddAuthorization();
 
 // Add services to the container.
-builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
 
-// Add db contexts
-builder.Services.AddDbContext<DataContext>(x => x.UseSqlite(builder.Configuration.GetConnectionString("Sqlite")));
 
 // Add repositories
 builder.Services.AddScoped<IProductRepo, ProductRepo>();
@@ -68,15 +79,6 @@ builder.Services.AddScoped<ICustomerService, CustomerService>();
 builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<IAddressService, AddressService>();
 builder.Services.AddScoped<IAccountService, AccountService>();
-
-// Identity 
-builder.Services.AddIdentity<AppUser, IdentityRole>(x =>
-{
-    x.SignIn.RequireConfirmedAccount = false;
-    x.Password.RequiredLength = 8;
-    x.User.RequireUniqueEmail = true;
-})
-    .AddEntityFrameworkStores<DataContext>();
 
 var app = builder.Build();
 
