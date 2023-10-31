@@ -61,4 +61,9 @@ public abstract class GenericRepo<T> : IRepo<T> where T : class
     {
         return _context.Set<T>().AnyAsync(predicate); 
     }
+
+    public void StopTrackingEntity(T entity)
+    {
+        _context.Entry(entity).State = EntityState.Detached;
+    }
 }

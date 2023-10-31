@@ -30,11 +30,11 @@ public class AccountController : ControllerBase
     {
         try
         {
-            var jwsString = Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
-            var id = _accountService.GetIdFromToken(jwsString!);
+            var jwtString = Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
+            var id = _accountService.GetIdFromToken(jwtString!);
 
             if (id == null)
-                return Forbid("Jws token did not contain user id.");
+                return StatusCode(403, "Jwt token did not contain user id.");
 
             var user = await _userManager.Users.FirstOrDefaultAsync(x => x.Id == id);
 
@@ -56,11 +56,11 @@ public class AccountController : ControllerBase
     {
         try
         {
-            var jwsString = Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
-            var id = _accountService.GetIdFromToken(jwsString!);
+            var jwtString = Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
+            var id = _accountService.GetIdFromToken(jwtString!);
 
             if (id == null)
-                return Forbid("Jws token did not contain user id.");
+                return StatusCode(403, "Jwt token did not contain user id.");
 
             var user = await _userManager.Users.FirstOrDefaultAsync(x => x.Id == id);
 
@@ -121,7 +121,7 @@ public class AccountController : ControllerBase
 
             if ((await _signInManager.PasswordSignInAsync(schema.Email, schema.Password, false, false)).Succeeded)
             {
-                var tokenString = _accountService.CreateJwsToken(schema.Email);
+                var tokenString = _accountService.CreateJwtToken(schema.Email);
 
                 return Ok(new { Token = tokenString });
             }

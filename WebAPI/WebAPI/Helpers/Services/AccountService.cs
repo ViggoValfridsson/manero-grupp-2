@@ -20,7 +20,7 @@ public class AccountService : IAccountService
         _userManager = userManager;
     }
 
-    public async Task<string> CreateJwsToken(string email)
+    public async Task<string> CreateJwtToken(string email)
     {
         var user = await _userManager.Users.FirstOrDefaultAsync(x => x.Email == email);
         var tokenHandler = new JwtSecurityTokenHandler();

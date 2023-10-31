@@ -30,11 +30,11 @@ public class AddressesController : ControllerBase
     {
         try
         {
-            var jwsString = Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
-            var id = _accountService.GetIdFromToken(jwsString!);
+            var jwtString = Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
+            var id = _accountService.GetIdFromToken(jwtString!);
 
             if (id == null)
-                return Forbid("Jws token did not contain user id.");
+                return StatusCode(403, "Jwt token did not contain user id.");
 
             // It is not possible to enter this if statement unless the account has been deleted and therefore the token is invalid.
             if (await _userManager.Users.FirstOrDefaultAsync(x => x.Id == id) == null)
@@ -56,11 +56,11 @@ public class AddressesController : ControllerBase
     {
         try
         {
-            var jwsString = Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
-            var id = _accountService.GetIdFromToken(jwsString!);
+            var jwtString = Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
+            var id = _accountService.GetIdFromToken(jwtString!);
 
             if (id == null)
-                return Forbid("Jws token did not contain user id.");
+                return StatusCode(403, "Jwt token did not contain user id.");
 
             // It is not possible to enter this if statement unless the account has been deleted and therefore the token is invalid.
             if (await _userManager.Users.FirstOrDefaultAsync(x => x.Id == id) == null)
@@ -82,17 +82,21 @@ public class AddressesController : ControllerBase
     {
         try
         {
-            var jwsString = Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
-            var id = _accountService.GetIdFromToken(jwsString!);
+            var jwtString = Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
+            var userId = _accountService.GetIdFromToken(jwtString!);
 
-            if (id == null)
-                return Forbid("Jws token did not contain user id.");
+            if (userId == null)
+                return StatusCode(403, "Jwt token did not contain user id.");
 
             // It is not possible to enter this if statement unless the account has been deleted and therefore the token is invalid.
-            if (await _userManager.Users.FirstOrDefaultAsync(x => x.Id == id) == null)
+            if (await _userManager.Users.FirstOrDefaultAsync(x => x.Id == userId) == null)
                 return BadRequest("The token you tried to use is no longer valid.");
 
-            var address = await _addressService.UpdateUserAddressAsync(schema, id);
+            if (!(await _addressService.IsAddressOwnedByUserAsync(schema.Id, userId)))
+                return StatusCode(403, "You do not have permission to update this address.");
+
+
+            var address = await _addressService.UpdateUserAddressAsync(schema, userId);
 
             return Ok(address);
         }

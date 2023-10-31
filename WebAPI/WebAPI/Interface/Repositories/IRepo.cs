@@ -4,6 +4,7 @@ namespace WebAPI.Interface.Repositories;
 
 public interface IRepo<T> where T : class
 {
+    void StopTrackingEntity(T entity);
     Task<T> CreateAsync(T entity);
     Task<T?> GetAsync(Expression<Func<T, bool>> predicate);
     Task<List<T>> GetAllAsync();

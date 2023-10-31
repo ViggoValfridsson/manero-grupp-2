@@ -1,5 +1,6 @@
-﻿using System.Linq.Expressions;
-using WebAPI.Helpers.Repositories;
+﻿using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
+using WebAPI.Data;
 using WebAPI.Interface.Repositories;
 using WebAPI.Interface.Services;
 using WebAPI.Models.Dtos;
@@ -15,6 +16,17 @@ public class AddressService : IAddressService
     public AddressService(IAddressRepo addressRepo)
     {
         _addressRepo = addressRepo;
+    }
+
+    public async Task<bool> IsAddressOwnedByUserAsync(int addressId, string userId)
+    {
+        var address = await _addressRepo.GetAsync(x => x.Id == addressId);
+
+        if (address == null)
+            return false;
+
+        _addressRepo.StopTrackingEntity(address);
+        return address.UserId == userId;
     }
 
     public async Task<AddressDto> CreateCustomerAddressAsync(AddressCreateSchema schema, int customerId)
@@ -56,6 +68,16 @@ public class AddressService : IAddressService
             dtos.Add(entity);
 
         return dtos;
+    }
+
+    public async Task<AddressDto?> GetById(int id)
+    {
+        var entity = await _addressRepo.GetAsync(x => x.Id == id);
+
+        if (entity == null)
+            return null;
+
+        return entity;
     }
 
     public async Task<AddressDto> UpdateUserAddressAsync(AddressUpdateSchema schema, string userId)
