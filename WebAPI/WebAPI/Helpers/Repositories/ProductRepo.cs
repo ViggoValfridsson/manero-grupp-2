@@ -32,8 +32,8 @@ public class ProductRepo : GenericRepo<ProductEntity>, IProductRepo
             .Include(x => x.Category)
             .Include(x => x.Images)
             .Include(x => x.AvailableSizes)
-            .Where(x => tagName == null || x.Tags.Any(t => t.Name.ToLower() == tagName.ToLower()))
-            .Where(x => categoryName == null || x.Category.Name.ToLower() == categoryName.ToLower())
+            .Where(x => string.IsNullOrWhiteSpace(tagName) || x.Tags.Any(t => t.Name.ToLower() == tagName.ToLower()))
+            .Where(x => string.IsNullOrWhiteSpace(categoryName) || x.Category.Name.ToLower() == categoryName.ToLower())
             .AsQueryable();
 
         query = orderBy?.ToLower() switch

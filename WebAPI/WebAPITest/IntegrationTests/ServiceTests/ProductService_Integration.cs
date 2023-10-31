@@ -35,28 +35,21 @@ public class ProductService_Integration
 
     [Theory]
     // Test only categories
-    [InlineData("Pants", null, 2)] // fail
+    [InlineData("Pants", null, 2)]
     [InlineData("Shoes", "", 0)]
     [InlineData("MadeUpCategory", "", 0)]
     // Test only tags
-    [InlineData("", "Kids", 1)] //fail
-    [InlineData(null, "Unisex", 1)] // fail
-    [InlineData(null, "Featured", 4)] // fail
+    [InlineData("", "Kids", 1)]
+    [InlineData(null, "Unisex", 1)]
+    [InlineData(null, "Featured", 4)]
     // Categories and tags
     [InlineData("Shirts", "Kids", 0)]
-    [InlineData("Pants", "Unisex", 1)] // fail
-    [InlineData("Shirts", "Sport", 1)] // fail
+    [InlineData("Pants", "Unisex", 1)]
+    [InlineData("Shirts", "Sport", 1)]
     public async Task GetAllAsync_ShouldReturnAllRelevantProducts(string categoryName, string tagName, int expectedAmount)
     {
         // Act
-        var result = await _productService.GetAllAsync(categoryName, tagName);
-
-
-        // ta bort
-        var testValue = await _context.Products
-            .Where(x => tagName == null || x.Tags.Any(t => t.Name.ToLower() == tagName.ToLower()))
-            .Where(x => categoryName == null || x.Category.Name.ToLower() == categoryName.ToLower())
-            .ToListAsync();
+        var result = await _productService.GetAllAsync(tagName, categoryName);
 
         // Assert
         Assert.Equal(expectedAmount, result.Count);
