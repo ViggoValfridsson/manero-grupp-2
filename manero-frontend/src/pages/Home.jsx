@@ -62,6 +62,7 @@ export default function Home() {
         <div className="product-list">
           {productsToDisplayList?.map((product) => (
             <ProductListCard key={product.id} product={product} />
+              
           ))}
         </div>
       </section>

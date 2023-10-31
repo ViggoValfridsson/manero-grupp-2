@@ -9,6 +9,7 @@ import routes from "./routes";
 import { CartContextProvider } from "./hooks/useCart";
 import { OrderContextProvider } from "./hooks/useOrder";
 import { ToastContextProvider } from "./hooks/useToast";
+import { WishlistContextProvider } from "./hooks/useWishlist";
 
 function App() {
   // Added state for mobile/desktop
@@ -25,28 +26,30 @@ function App() {
 
   return (
     <ToastContextProvider>
-      <CartContextProvider>
-        <OrderContextProvider>
-          <BrowserRouter>
-            <Routes>
-              <Route
-                path="/"
-                element={
-                  isMobile ? (
-                    <LayoutMobile sidebarOpenState={sidebarOpenState} />
-                  ) : (
-                    <LayoutDesktop sidebarOpenState={sidebarOpenState} />
-                  )
-                }
-              >
-                {routes.map((route) => (
-                  <Route key={route.path} path={route.path} element={route.element} />
-                ))}
-              </Route>
-            </Routes>
-          </BrowserRouter>
-        </OrderContextProvider>
-      </CartContextProvider>
+      <WishlistContextProvider>
+        <CartContextProvider>
+          <OrderContextProvider>
+            <BrowserRouter>
+              <Routes>
+                <Route
+                  path="/"
+                  element={
+                    isMobile ? (
+                      <LayoutMobile sidebarOpenState={sidebarOpenState} />
+                    ) : (
+                      <LayoutDesktop sidebarOpenState={sidebarOpenState} />
+                    )
+                  }
+                >
+                  {routes.map((route) => (
+                    <Route key={route.path} path={route.path} element={route.element} />
+                  ))}
+                </Route>
+              </Routes>
+            </BrowserRouter>
+          </OrderContextProvider>
+        </CartContextProvider>
+      </WishlistContextProvider>
     </ToastContextProvider>
   );
 }
