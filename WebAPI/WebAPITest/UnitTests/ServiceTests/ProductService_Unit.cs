@@ -38,7 +38,7 @@ public class ProductService_Unit
                 CategoryId = 1,
             }
         };
-        _mockProductRepo.Setup(x => x.GetAllAsync()).ReturnsAsync(response);
+        _mockProductRepo.Setup(x => x.GetAllAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync(response);
 
         // Act 
         var result = await _productService.GetAllAsync();
