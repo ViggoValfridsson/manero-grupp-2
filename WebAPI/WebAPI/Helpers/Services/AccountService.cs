@@ -12,17 +12,17 @@ namespace WebAPI.Helpers.Services;
 public class AccountService : IAccountService
 {
     private readonly IConfiguration _configuration;
-    private readonly UserManager<AppUser> _userManger;
+    private readonly UserManager<AppUser> _userManager;
 
-    public AccountService(IConfiguration configuration, UserManager<AppUser> userManger)
+    public AccountService(IConfiguration configuration, UserManager<AppUser> userManager)
     {
         _configuration = configuration;
-        _userManger = userManger;
+        _userManager = userManager;
     }
 
     public async Task<string> CreateJwsToken(string email)
     {
-        var user = await _userManger.Users.FirstOrDefaultAsync(x => x.Email == email);
+        var user = await _userManager.Users.FirstOrDefaultAsync(x => x.Email == email);
         var tokenHandler = new JwtSecurityTokenHandler();
         var key = Encoding.ASCII.GetBytes(_configuration["JwtSettings:Key"]!);
         var tokenDescriptor = new SecurityTokenDescriptor

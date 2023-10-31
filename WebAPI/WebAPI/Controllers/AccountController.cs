@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
 using WebAPI.Interface.Services;
 using WebAPI.Models.Dtos;
 using WebAPI.Models.Identity;
@@ -26,9 +28,19 @@ public class AccountController : ControllerBase
 
     [Authorize]
     [HttpGet]
-    public async Task<IActionResult> GetAccountDetails ()
+    public async Task<IActionResult> GetAccountDetails()
     {
-        throw new NotImplementedException();
+        var jwsString = Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
+        var tokenHandler = new JwtSecurityTokenHandler();
+        var token = tokenHandler.ReadJwtToken(jwsString);
+        var id = token.Claims.FirstOrDefault(x => x.Type == "unique_id")?.Value;
+
+        if (id == null)
+            return BadRequest("Jws token did not contain user id.");
+
+        var user = await _userManager.Users.FirstOrDefaultAsync(x => x.Id == id);
+
+        return Ok(user);
     }
 
     [HttpPost("SignUp")]
