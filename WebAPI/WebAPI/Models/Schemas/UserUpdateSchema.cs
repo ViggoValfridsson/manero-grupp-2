@@ -1,4 +1,6 @@
-﻿namespace WebAPI.Models.Schemas;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace WebAPI.Models.Schemas;
 
 public class UserUpdateSchema
 {
