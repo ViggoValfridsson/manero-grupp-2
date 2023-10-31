@@ -6,4 +6,5 @@ namespace WebAPI.Interface.Services;
 public interface IAddressService
 {
     Task<AddressDto> CreateCustomerAddressAsync(AddressCreateSchema schema, int customerId);
+    Task<AddressDto> CreateUserAddressAsync(AddressCreateSchema schema, string userId);
 }
