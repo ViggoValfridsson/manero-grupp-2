@@ -28,5 +28,20 @@ public class AddressService : IAddressService
         addressEntity = await _addressRepo.CreateAsync(addressEntity);
 
         return addressEntity;
-    } 
+    }
+
+    public async Task<AddressDto> CreateUserAddressAsync(AddressCreateSchema schema, string userId)
+    {
+        var addressEntity = new AddressEntity
+        {
+            City = schema.City,
+            StreetName = schema.StreetAddress,
+            PostalCode = schema.PostalCode,
+            UserId = userId
+        };
+
+        addressEntity = await _addressRepo.CreateAsync(addressEntity);
+
+        return addressEntity;
+    }
 }
