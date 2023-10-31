@@ -30,17 +30,28 @@ public class AccountController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetAccountDetails()
     {
-        var jwsString = Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
-        var tokenHandler = new JwtSecurityTokenHandler();
-        var token = tokenHandler.ReadJwtToken(jwsString);
-        var id = token.Claims.FirstOrDefault(x => x.Type == "unique_id")?.Value;
+        try
+        {
+            var jwsString = Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var token = tokenHandler.ReadJwtToken(jwsString);
+            var id = token.Claims.FirstOrDefault(x => x.Type == "unique_id")?.Value;
 
-        if (id == null)
-            return BadRequest("Jws token did not contain user id.");
+            if (id == null)
+                return BadRequest("Jws token did not contain user id.");
 
-        var user = await _userManager.Users.FirstOrDefaultAsync(x => x.Id == id);
+            var user = await _userManager.Users.FirstOrDefaultAsync(x => x.Id == id);
 
-        return Ok(user);
+            // It is not possible to enter this if statement unless the account has been deleted and therefore the token is invalid.
+            if (user == null)
+                return BadRequest("The token you tried to use is no longer valid.");
+
+            return Ok((UserDto)user);
+        }
+        catch
+        {
+            return StatusCode(502, "Something went wrong when signing up. Please try again.");
+        }
     }
 
     [HttpPost("SignUp")]
