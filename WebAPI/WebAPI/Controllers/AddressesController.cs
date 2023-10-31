@@ -49,4 +49,30 @@ public class AddressesController : ControllerBase
             return StatusCode(502, "Something went wrong when signing up. Please try again.");
         }
     }
+
+    [Authorize]
+    [HttpGet]
+    public async Task<IActionResult> GetUserAddresses()
+    {
+        try
+        {
+            var jwsString = Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
+            var id = _accountService.GetIdFromToken(jwsString!);
+
+            if (id == null)
+                return Forbid("Jws token did not contain user id.");
+
+            // It is not possible to enter this if statement unless the account has been deleted and therefore the token is invalid.
+            if (await _userManager.Users.FirstOrDefaultAsync(x => x.Id == id) == null)
+                return BadRequest("The token you tried to use is no longer valid.");
+
+            var addresses = await _addressService.GetAll(x => x.UserId == id);
+
+            return Ok(addresses);
+        }
+        catch
+        {
+            return StatusCode(502, "Something went wrong when signing up. Please try again.");
+        }
+    }
 }
