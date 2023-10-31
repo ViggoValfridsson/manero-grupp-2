@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.Win32.SafeHandles;
 using System.IdentityModel.Tokens.Jwt;
 using WebAPI.Interface.Services;
 using WebAPI.Models.Dtos;
@@ -33,9 +34,7 @@ public class AccountController : ControllerBase
         try
         {
             var jwsString = Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var token = tokenHandler.ReadJwtToken(jwsString);
-            var id = token.Claims.FirstOrDefault(x => x.Type == "unique_id")?.Value;
+            var id = _accountService.GetIdFromToken(jwsString!);
 
             if (id == null)
                 return BadRequest("Jws token did not contain user id.");
@@ -47,6 +46,41 @@ public class AccountController : ControllerBase
                 return BadRequest("The token you tried to use is no longer valid.");
 
             return Ok((UserDto)user);
+        }
+        catch
+        {
+            return StatusCode(502, "Something went wrong when signing up. Please try again.");
+        }
+    }
+
+    [Authorize]
+    [HttpPut("update")]
+    public async Task<IActionResult> UpdateAccount(UserUpdateSchema schema)
+    {
+        try
+        {
+            var jwsString = Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
+            var id = _accountService.GetIdFromToken(jwsString!);
+
+            if (id == null)
+                return BadRequest("Jws token did not contain user id.");
+
+            var user = await _userManager.Users.FirstOrDefaultAsync(x => x.Id == id);
+
+            // It is not possible to enter this if statement unless the account has been deleted and therefore the token is invalid.
+            if (user == null)
+                return BadRequest("The token you tried to use is no longer valid.");
+
+            user.FirstName = schema.FirstName;
+            user.LastName = schema.LastName;
+            user.Email = schema.Email;
+            user.UserName = schema.Email;
+            user.PhoneNumber = schema.PhoneNumber;
+
+            if ((await _userManager.UpdateAsync(user)).Succeeded)
+                return Ok((UserDto)user);
+
+            return StatusCode(502, "Something went wrong when signing up. Make sure all of the provided information was correct and try again.");
         }
         catch
         {

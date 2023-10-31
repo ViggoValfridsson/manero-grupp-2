@@ -29,7 +29,6 @@ public class AccountService : IAccountService
         {
             Subject = new ClaimsIdentity(new[]
             {
-                new Claim(ClaimTypes.Name, email),
                 new Claim("unique_id", user!.Id)
             }),
             Expires = DateTime.UtcNow.AddMonths(8),
@@ -42,5 +41,14 @@ public class AccountService : IAccountService
         var tokenString = tokenHandler.WriteToken(token);
 
         return tokenString;
+    }
+
+    public string? GetIdFromToken(string? tokenString)
+    {
+        var tokenHandler = new JwtSecurityTokenHandler();
+        var token = tokenHandler.ReadJwtToken(tokenString);
+        var id = token.Claims.FirstOrDefault(x => x.Type == "unique_id")?.Value;
+        
+        return id;
     }
 }

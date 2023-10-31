@@ -38,6 +38,7 @@ public class SignUpSchema
             FirstName = schema.FirstName,
             LastName = schema.LastName,
             Email = schema.Email.ToLower(),
+            PhoneNumber = schema.PhoneNumber
         };
     }
 }
