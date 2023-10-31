@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.Win32.SafeHandles;
 using System.IdentityModel.Tokens.Jwt;
 using WebAPI.Interface.Services;
 using WebAPI.Models.Dtos;
@@ -53,7 +54,7 @@ public class AccountController : ControllerBase
     }
 
     [Authorize]
-    [HttpPost]
+    [HttpPut("update")]
     public async Task<IActionResult> UpdateAccount(UserUpdateSchema schema)
     {
         try
@@ -70,7 +71,16 @@ public class AccountController : ControllerBase
             if (user == null)
                 return BadRequest("The token you tried to use is no longer valid.");
 
-            throw new NotImplementedException();
+            user.FirstName = schema.FirstName;
+            user.LastName = schema.LastName;
+            user.Email = schema.Email;
+            user.UserName = schema.Email;
+            user.PhoneNumber = schema.PhoneNumber;
+
+            if ((await _userManager.UpdateAsync(user)).Succeeded)
+                return Ok((UserDto)user);
+
+            return StatusCode(502, "Something went wrong when signing up. Make sure all of the provided information was correct and try again.");
         }
         catch
         {
