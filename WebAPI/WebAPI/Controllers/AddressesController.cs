@@ -46,7 +46,7 @@ public class AddressesController : ControllerBase
         }
         catch
         {
-            return StatusCode(502, "Something went wrong when signing up. Please try again.");
+            return StatusCode(502, "Something went wrong when creating the address. Please try again.");
         }
     }
 
@@ -72,7 +72,7 @@ public class AddressesController : ControllerBase
         }
         catch
         {
-            return StatusCode(502, "Something went wrong when signing up. Please try again.");
+            return StatusCode(502, "Something went wrong when fetching the address. Please try again.");
         }
     }
 
@@ -102,7 +102,37 @@ public class AddressesController : ControllerBase
         }
         catch
         {
-            return StatusCode(502, "Something went wrong when signing up. Please try again.");
+            return StatusCode(502, "Something went wrong when updating the address. Please try again.");
+        }
+    }
+
+    [Authorize]
+    [HttpDelete]
+    public async Task<IActionResult> DeleteUserAddresss(int addressId)
+    {
+        try
+        {
+            var jwtString = Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
+            var userId = _accountService.GetIdFromToken(jwtString!);
+
+            if (userId == null)
+                return StatusCode(403, "Jwt token did not contain user id.");
+
+            // It is not possible to enter this if statement unless the account has been deleted and therefore the token is invalid.
+            if (await _userManager.Users.FirstOrDefaultAsync(x => x.Id == userId) == null)
+                return BadRequest("The token you tried to use is no longer valid.");
+
+            if (!(await _addressService.IsAddressOwnedByUserAsync(addressId, userId)))
+                return StatusCode(403, "You do not have permission to update this address.");
+
+            if (await _addressService.DeleteAsync(addressId))
+                return NoContent();
+
+            return StatusCode(502, "Something went wrong when deleting. Make sure all the information is valid and try again.");
+        }
+        catch
+        {
+            return StatusCode(502, "Something went wrong when deleting the address. Please try again.");
         }
     }
 }

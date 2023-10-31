@@ -95,4 +95,14 @@ public class AddressService : IAddressService
 
         return addressEntity;
     }
+
+    public async Task<bool> DeleteAsync(int addressId)
+    {
+        var entity = await _addressRepo.GetAsync(x => x.Id == addressId);
+
+        if (entity == null)
+            return false;
+
+        return await _addressRepo.DeleteAsync(entity);
+    }
 }

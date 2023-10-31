@@ -13,4 +13,5 @@ public interface IAddressService
     Task<List<AddressDto>> GetAllAsync(Expression<Func<AddressEntity, bool>> predicate);
     Task<AddressDto> UpdateUserAddressAsync(AddressUpdateSchema schema, string userId);
     Task<bool> IsAddressOwnedByUserAsync(int addressId, string userId);
+    Task<bool> DeleteAsync(int addressId);
 }
