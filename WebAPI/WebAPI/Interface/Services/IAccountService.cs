@@ -2,5 +2,5 @@
 
 public interface IAccountService
 {
-    string CreateJwsToken(string email);
+    Task <string> CreateJwsToken(string email);
 }

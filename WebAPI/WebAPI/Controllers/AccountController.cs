@@ -1,6 +1,9 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
 using WebAPI.Interface.Services;
 using WebAPI.Models.Dtos;
 using WebAPI.Models.Identity;
@@ -23,6 +26,33 @@ public class AccountController : ControllerBase
         _accountService = accountService;
     }
 
+    [Authorize]
+    [HttpGet]
+    public async Task<IActionResult> GetAccountDetails()
+    {
+        try
+        {
+            var jwsString = Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var token = tokenHandler.ReadJwtToken(jwsString);
+            var id = token.Claims.FirstOrDefault(x => x.Type == "unique_id")?.Value;
+
+            if (id == null)
+                return BadRequest("Jws token did not contain user id.");
+
+            var user = await _userManager.Users.FirstOrDefaultAsync(x => x.Id == id);
+
+            // It is not possible to enter this if statement unless the account has been deleted and therefore the token is invalid.
+            if (user == null)
+                return BadRequest("The token you tried to use is no longer valid.");
+
+            return Ok((UserDto)user);
+        }
+        catch
+        {
+            return StatusCode(502, "Something went wrong when signing up. Please try again.");
+        }
+    }
 
     [HttpPost("SignUp")]
     public async Task<IActionResult> SignUp(SignUpSchema schema)

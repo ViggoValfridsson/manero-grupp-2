@@ -19,7 +19,8 @@ public class AppUser : IdentityUser
             Id = model.Id,
             FirstName = model.FirstName,
             LastName = model.LastName,
-            Email = model.Email!
+            Email = model.Email!,
+            PhoneNumber = model.PhoneNumber!
         };
     }
 }
