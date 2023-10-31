@@ -47,7 +47,7 @@ public class AddressService : IAddressService
         return addressEntity;
     }
 
-    public async Task<List<AddressDto>> GetAll(Expression<Func<AddressEntity, bool>> predicate)
+    public async Task<List<AddressDto>> GetAllAsync(Expression<Func<AddressEntity, bool>> predicate)
     {
         var dtos = new List<AddressDto>();
         var entities = await _addressRepo.GetAllAsync(predicate);
@@ -56,5 +56,21 @@ public class AddressService : IAddressService
             dtos.Add(entity);
 
         return dtos;
+    }
+
+    public async Task<AddressDto> UpdateUserAddressAsync(AddressUpdateSchema schema, string userId)
+    {
+        var addressEntity = new AddressEntity
+        {
+            Id = schema.Id,
+            City = schema.City,
+            StreetName = schema.StreetAddress,
+            PostalCode = schema.PostalCode,
+            UserId = userId
+        };
+
+        addressEntity = await _addressRepo.UpdateAsync(addressEntity);
+
+        return addressEntity;
     }
 }

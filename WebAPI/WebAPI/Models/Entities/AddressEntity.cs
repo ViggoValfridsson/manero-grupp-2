@@ -22,6 +22,7 @@ public class AddressEntity
     {
         return new AddressDto 
         { 
+            Id = entity.Id,
             City = entity.City, 
             PostalCode = entity.PostalCode, 
             StreetName = entity.StreetName 

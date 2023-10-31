@@ -37,7 +37,7 @@ public abstract class GenericRepo<T> : IRepo<T> where T : class
         return await _context.Set<T>().Where(predicate).ToListAsync();
     }
 
-    public virtual async Task<T?> UpdateAsync(T entity)
+    public virtual async Task<T> UpdateAsync(T entity)
     {
         _context.Set<T>().Update(entity);
         await _context.SaveChangesAsync();

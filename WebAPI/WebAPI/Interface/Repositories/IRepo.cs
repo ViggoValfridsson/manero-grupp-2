@@ -9,6 +9,6 @@ public interface IRepo<T> where T : class
     Task<List<T>> GetAllAsync();
     Task<List<T>> GetAllAsync(Expression<Func<T, bool>> predicate);
     Task<bool> AnyAsync(Expression<Func<T, bool>> predicate);
-    Task<T?> UpdateAsync(T entity);
+    Task<T> UpdateAsync(T entity);
     Task<bool> DeleteAsync(T entity);
 }
