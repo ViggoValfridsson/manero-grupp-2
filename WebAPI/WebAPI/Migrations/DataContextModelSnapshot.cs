@@ -157,7 +157,7 @@ namespace WebAPI.Migrations
 
                     b.HasIndex("ProductsId");
 
-                    b.ToTable("ProductEntitySizeEntity");
+                    b.ToTable("ProductEntitySizeEntity", (string)null);
 
                     b.HasData(
                         new
@@ -414,7 +414,7 @@ namespace WebAPI.Migrations
 
                     b.HasIndex("TagsId");
 
-                    b.ToTable("ProductEntityTagEntity");
+                    b.ToTable("ProductEntityTagEntity", (string)null);
 
                     b.HasData(
                         new
@@ -602,7 +602,7 @@ namespace WebAPI.Migrations
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("Categories");
+                    b.ToTable("Categories", (string)null);
 
                     b.HasData(
                         new
@@ -676,7 +676,7 @@ namespace WebAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Customer");
+                    b.ToTable("Customer", (string)null);
                 });
 
             modelBuilder.Entity("WebAPI.Models.Entities.OrderEntity", b =>
@@ -703,7 +703,7 @@ namespace WebAPI.Migrations
 
                     b.HasIndex("StatusId");
 
-                    b.ToTable("Orders");
+                    b.ToTable("Orders", (string)null);
                 });
 
             modelBuilder.Entity("WebAPI.Models.Entities.OrderItemEntity", b =>
@@ -726,7 +726,7 @@ namespace WebAPI.Migrations
 
                     b.HasIndex("SizeId");
 
-                    b.ToTable("OrderItems");
+                    b.ToTable("OrderItems", (string)null);
                 });
 
             modelBuilder.Entity("WebAPI.Models.Entities.ProductEntity", b =>
@@ -753,7 +753,7 @@ namespace WebAPI.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("Products");
+                    b.ToTable("Products", (string)null);
 
                     b.HasData(
                         new
@@ -839,7 +839,7 @@ namespace WebAPI.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("ProductImages");
+                    b.ToTable("ProductImages", (string)null);
 
                     b.HasData(
                         new
@@ -1003,7 +1003,7 @@ namespace WebAPI.Migrations
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("Sizes");
+                    b.ToTable("Sizes", (string)null);
 
                     b.HasData(
                         new
@@ -1050,7 +1050,7 @@ namespace WebAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Statuses");
+                    b.ToTable("Statuses", (string)null);
 
                     b.HasData(
                         new
@@ -1085,7 +1085,7 @@ namespace WebAPI.Migrations
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("Tags");
+                    b.ToTable("Tags", (string)null);
 
                     b.HasData(
                         new
