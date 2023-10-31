@@ -2,9 +2,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
-using Microsoft.Win32.SafeHandles;
-using System.IdentityModel.Tokens.Jwt;
 using WebAPI.Interface.Services;
 using WebAPI.Models.Dtos;
 using WebAPI.Models.Identity;
@@ -33,11 +30,11 @@ public class AccountController : ControllerBase
     {
         try
         {
-            var jwsString = Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
-            var id = _accountService.GetIdFromToken(jwsString!);
+            var jwtString = Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
+            var id = _accountService.GetIdFromToken(jwtString!);
 
             if (id == null)
-                return BadRequest("Jws token did not contain user id.");
+                return StatusCode(403, "Jwt token did not contain user id.");
 
             var user = await _userManager.Users.FirstOrDefaultAsync(x => x.Id == id);
 
@@ -49,7 +46,7 @@ public class AccountController : ControllerBase
         }
         catch
         {
-            return StatusCode(502, "Something went wrong when signing up. Please try again.");
+            return StatusCode(502, "Something went wrong fetching the account information. Please try again.");
         }
     }
 
@@ -59,11 +56,11 @@ public class AccountController : ControllerBase
     {
         try
         {
-            var jwsString = Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
-            var id = _accountService.GetIdFromToken(jwsString!);
+            var jwtString = Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
+            var id = _accountService.GetIdFromToken(jwtString!);
 
             if (id == null)
-                return BadRequest("Jws token did not contain user id.");
+                return StatusCode(403, "Jwt token did not contain user id.");
 
             var user = await _userManager.Users.FirstOrDefaultAsync(x => x.Id == id);
 
@@ -80,7 +77,7 @@ public class AccountController : ControllerBase
             if ((await _userManager.UpdateAsync(user)).Succeeded)
                 return Ok((UserDto)user);
 
-            return StatusCode(502, "Something went wrong when signing up. Make sure all of the provided information was correct and try again.");
+            return StatusCode(502, "Something went wrong when updating the account. Make sure all of the provided information was correct and try again.");
         }
         catch
         {
@@ -124,7 +121,7 @@ public class AccountController : ControllerBase
 
             if ((await _signInManager.PasswordSignInAsync(schema.Email, schema.Password, false, false)).Succeeded)
             {
-                var tokenString = _accountService.CreateJwsToken(schema.Email);
+                var tokenString = _accountService.CreateJwtToken(schema.Email);
 
                 return Ok(new { Token = tokenString });
             }
