@@ -2,8 +2,11 @@
 
 namespace WebAPI.Models.Schemas;
 
-public class AddressCreateSchema
+public class AddressUpdateSchema
 {
+    [Required]
+    public int Id { get; set; }
+    
     [Required]
     [MinLength(1)]
     [MaxLength(255)]
