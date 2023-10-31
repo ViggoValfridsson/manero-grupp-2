@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebAPI.Interface.Services;
@@ -23,6 +24,12 @@ public class AccountController : ControllerBase
         _accountService = accountService;
     }
 
+    [Authorize]
+    [HttpGet]
+    public async Task<IActionResult> GetAccountDetails ()
+    {
+        throw new NotImplementedException();
+    }
 
     [HttpPost("SignUp")]
     public async Task<IActionResult> SignUp(SignUpSchema schema)
