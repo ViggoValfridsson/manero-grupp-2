@@ -4,28 +4,30 @@ import { apiDomain } from "../helpers/api-domain";
 import useFetch from "../hooks/useFetch";
 import useQuery from "../hooks/useQuery";
 import FilterBurgerMenu from "../components/Layout/FilterBurgerMenu";
+import { useNavigate } from "react-router-dom";
 
 function Products() {
+  const navigate = useNavigate();
   const query = useQuery();
+  const orderBy = query.get("orderby") ?? "";
   const products = useFetch(`${apiDomain.https}/api/products?${query.toString()}`);
-  const [sortBy, setSortBy] = useState("");
   const filterMenuOpenState = useState(false);
 
   const handleChange = (event) => {
-    setSortBy(event.target.value);
+    query.set("orderby", event.target.value.toLowerCase());
+    navigate(`?${query.toString()}`);
   };
 
   return (
     <div className="products-page">
       <div className="filter-container">
         <FilterBurgerMenu filterMenuOpenState={filterMenuOpenState} />
-        {/* To Do Add functionality For Sorting */}
-        <select value={sortBy} onChange={handleChange}>
+        <select value={orderBy} onChange={handleChange}>
           <option value="" disabled hidden>
             Order By
           </option>
-          <option value="lowest">Lowest Price</option>
-          <option value="highest">Highest Price</option>
+          <option value="lowestprice">Lowest Price</option>
+          <option value="highestprice">Highest Price</option>
         </select>
       </div>
       {products.data?.length == 0 && (
