@@ -6,7 +6,7 @@ namespace WebAPI.Interface.Services;
 public interface IBankCardService
 {
     Task<BankCardDto> CreateAsync(BankCardCreateSchema schema);
-    Task<BankCardDto> GetCard(string id);
+    Task<BankCardDto?> GetCard(int cardId);
     Task<BankCardDto> GetAllUserCards(string userId);
     Task<BankCardDto> UpdateAsync(BankCardUpdateSchema schema);
     Task<bool> IsCardOwnedByUser(int cardId, string userId);

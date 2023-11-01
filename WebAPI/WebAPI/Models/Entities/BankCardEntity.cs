@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
+using WebAPI.Models.Dtos;
 using WebAPI.Models.Identity;
 
 namespace WebAPI.Models.Entities;
@@ -16,4 +17,17 @@ public class BankCardEntity
     public required string CardIssuer { get; set; }
     public required string UserId { get; set; }
     public AppUser User { get; set; } = null!;
+
+    public static implicit operator BankCardDto (BankCardEntity entity)
+    {
+        return new BankCardDto
+        {
+            Id = entity.Id,
+            CreditCardNumber = entity.CreditCardNumber,
+            CVC = entity.CVC,
+            CardholderName = entity.CardholderName,
+            ExpirationDate = entity.ExpirationDate,
+            CardIssuer = entity.CardIssuer,
+        };
+    }
 }

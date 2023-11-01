@@ -1,0 +1,49 @@
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using WebAPI.Helpers.Services;
+using WebAPI.Interface.Services;
+using WebAPI.Models.Identity;
+
+namespace WebAPI.Controllers;
+
+[Route("api/[controller]")]
+[ApiController]
+public class BankCardsController : ControllerBase
+{
+    private readonly IBankCardService _bankCardService;
+    private readonly IAccountService _accountService;
+
+    public BankCardsController(IBankCardService bankCardService, IAccountService accountService)
+    {
+        _bankCardService = bankCardService;
+        _accountService = accountService;
+    }
+
+    [Authorize]
+    [HttpGet("{cardId}")]
+    public async Task<IActionResult> GetCard(int cardId)
+    {
+        try
+        {
+            var jwtString = Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
+            var userId = _accountService.GetIdFromToken(jwtString!);
+            var status = await _accountService.IsValidUserId(userId);
+
+            if (status.StatusCode != 200)
+                return StatusCode(status.StatusCode, status.StatusMessage);
+
+            if (!(await _bankCardService.IsCardOwnedByUser(cardId, userId!)))
+                return StatusCode(403, "You do not have permission to access this card.");
+
+            var card = await _bankCardService.GetCard(cardId);
+
+            return Ok(card);
+        }
+        catch
+        {
+            return StatusCode(502, "Something went wrong when fetching the card. Please try again.");
+        }
+    }
+}

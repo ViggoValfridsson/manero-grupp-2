@@ -1,4 +1,5 @@
-﻿using WebAPI.Interface.Services;
+﻿using WebAPI.Interface.Repositories;
+using WebAPI.Interface.Services;
 using WebAPI.Models.Dtos;
 using WebAPI.Models.Schemas;
 
@@ -6,32 +7,49 @@ namespace WebAPI.Helpers.Services;
 
 public class BankCardService : IBankCardService
 {
-    public Task<BankCardDto> CreateAsync(BankCardCreateSchema schema)
+    private readonly IBankCardRepo _bankCardRepo;
+
+    public BankCardService(IBankCardRepo bankCardRepo)
+    {
+        _bankCardRepo = bankCardRepo;
+    }
+
+    public async Task<BankCardDto> CreateAsync(BankCardCreateSchema schema)
     {
         throw new NotImplementedException();
     }
 
-    public Task<bool> DeleteCard(int id)
+    public async Task<bool> DeleteCard(int id)
     {
         throw new NotImplementedException();
     }
 
-    public Task<BankCardDto> GetAllUserCards(string userId)
+    public async Task<BankCardDto> GetAllUserCards(string userId)
     {
         throw new NotImplementedException();
     }
 
-    public Task<BankCardDto> GetCard(string id)
+    public async Task<BankCardDto?> GetCard(int cardId)
     {
-        throw new NotImplementedException();
+        var card = await _bankCardRepo.GetAsync(x => x.Id == cardId);
+
+        if (card == null)
+            return null;
+
+        return card;
     }
 
-    public Task<bool> IsCardOwnedByUser(int cardId, string userId)
+    public async Task<bool> IsCardOwnedByUser(int cardId, string userId)
     {
-        throw new NotImplementedException();
+        var card = await _bankCardRepo.GetAsync(x => x.Id == cardId);
+
+        if (card == null)
+            return false;
+
+        return card.UserId == userId;
     }
 
-    public Task<BankCardDto> UpdateAsync(BankCardUpdateSchema schema)
+    public async Task<BankCardDto> UpdateAsync(BankCardUpdateSchema schema)
     {
         throw new NotImplementedException();
     }
