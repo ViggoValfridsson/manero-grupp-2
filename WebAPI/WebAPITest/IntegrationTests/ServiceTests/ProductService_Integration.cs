@@ -3,6 +3,7 @@ using System.Linq.Expressions;
 using WebAPI.Data;
 using WebAPI.Helpers.Repositories;
 using WebAPI.Helpers.Services;
+using WebAPI.Models.Dtos;
 using WebAPI.Models.Entities;
 using WebAPITest.Helpers;
 
@@ -53,5 +54,18 @@ public class ProductService_Integration
 
         // Assert
         Assert.Equal(expectedAmount, result.Count);
+    }
+
+    [Theory]
+    // Test orderBy
+    [InlineData("lowestprice", 2)]
+    [InlineData("highestprice", 3)]
+    public async Task GetAllAsync_ShouldReturnOrderedProducts(string orderBy, int expectedFirstProductId)
+    {
+        // Act
+        var result = await _productService.GetAllAsync(orderBy: orderBy);
+
+        // Assert
+        Assert.Equal(expectedFirstProductId, result.First().Id);
     }
 }
