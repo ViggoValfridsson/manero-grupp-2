@@ -33,7 +33,8 @@ public class OrderEntity
             Email = entity.Customer?.Email ?? entity.User?.Email,
             StreetName = entity.Address.StreetName,
             City = entity.Address.City,
-            PostalCode = entity.Address.PostalCode
+            PostalCode = entity.Address.PostalCode,
+            OrderComment = entity.OrderComment
         };
 
         foreach (var item in entity.Items)
