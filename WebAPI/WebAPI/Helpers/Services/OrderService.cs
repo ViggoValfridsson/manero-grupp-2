@@ -28,7 +28,13 @@ public class OrderService : IOrderService
 
     public async Task<OrderDto> PlaceUserOrderAsync(OrderUserCreateSchema schema, string userId)
     {
-        return await _orderRepo.GetAsync(x => x.Id == 1);
+        var orderEntity = await CreateOrderWithUsersAsync(schema, userId);
+        var orderItems = await CreateOrderItemsAsync(schema.Products, orderEntity.Id);
+
+        // Add all the newly created order items to the order so they can be seen in the DTO
+        orderEntity.Items = orderItems;
+
+        return orderEntity;
     }
 
     public async Task<OrderDto> PlaceCustomerOrderAsync(OrderCustomerCreateSchema schema)
@@ -55,12 +61,26 @@ public class OrderService : IOrderService
         };
 
         orderEntity.TotalPrice = await CalculateTotalPriceAsync(schema.Products);
-        // Add to database here since all the required information has been calculated
         orderEntity = await _orderRepo.CreateAsync(orderEntity);
         // Order gets fetched again to get all includes so it can be converted into DTO
         orderEntity = await _orderRepo.GetAsync(x => x.Id == orderEntity.Id);
 
         return orderEntity!;
+    }
+
+    public async Task<OrderEntity> CreateOrderWithUsersAsync(OrderUserCreateSchema schema, string userId)
+    {
+        var orderEntity = new OrderEntity
+        {
+            StatusId = 1,
+            UserId = userId,
+            AddressId = schema.AddressId,
+        };
+
+        orderEntity.TotalPrice = await CalculateTotalPriceAsync(schema.Products);
+        orderEntity = await _orderRepo.CreateAsync(orderEntity);
+
+        return orderEntity;
     }
 
     public async Task<decimal> CalculateTotalPriceAsync(List<OrderItemSchema> orderItems)
