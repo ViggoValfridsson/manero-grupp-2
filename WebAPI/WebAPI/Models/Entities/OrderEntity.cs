@@ -19,6 +19,7 @@ public class OrderEntity
     public List<OrderItemEntity> Items { get; set; } = new();
     public int AddressId { get; set; }
     public AddressEntity Address { get; set; } = null!;
+    public string? OrderComment { get; set; }
 
     public static implicit operator OrderDto(OrderEntity entity)
     {
