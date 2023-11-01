@@ -33,7 +33,8 @@ export default function SignIn() {
         <div className="config-content">
           <form>
             <input type="checkbox" id="rememberme" name="rememberme" value="check" />
-            <label for="rememberme"> Remember me</label>
+            <label htmlFor="rememberme"> Remember me</label>
+            {/* <label for="rememberme"> Remember me</label> */}
           </form>
           <p>Forgot password?</p>
         </div>
