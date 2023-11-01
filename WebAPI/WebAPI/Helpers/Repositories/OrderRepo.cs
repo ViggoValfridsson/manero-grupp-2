@@ -27,6 +27,7 @@ public class OrderRepo : GenericRepo<OrderEntity>, IOrderRepo
         return await _context.Orders
             .Include(x => x.Status)
             .Include(x => x.Customer)
+            .Include(x => x.User)
             .Include(x => x.Items)
             .ThenInclude(x => x.Product)
             .Include(x => x.Items)
@@ -39,6 +40,7 @@ public class OrderRepo : GenericRepo<OrderEntity>, IOrderRepo
         return await _context.Orders
             .Include(x => x.Status)
             .Include(x => x.Customer)
+            .Include(x => x.User)
             .Include(x => x.Items)
             .ThenInclude(x => x.Product)
             .Include(x => x.Items)
@@ -51,6 +53,7 @@ public class OrderRepo : GenericRepo<OrderEntity>, IOrderRepo
         return await _context.Orders
             .Include(x => x.Status)
             .Include(x => x.Customer)
+            .Include(x => x.User)
             .Include(x => x.Items)
             .ThenInclude(x => x.Product)
             .Include(x => x.Items)
