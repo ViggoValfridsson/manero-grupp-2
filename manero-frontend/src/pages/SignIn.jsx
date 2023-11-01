@@ -4,13 +4,14 @@ export default function SignIn() {
   return (
     <>
       <div className="signin-container">
-        <ChevronLeft />
-        <p>SignIn</p>
+        <div className="local-hedear">
+          <ChevronLeft />
+          <p>SignIn</p>
+        </div>
         <h1>Welcome Back!</h1>
-        <p>Sign in to continue</p>
+        <h3>Sign in to continue</h3>
 
         <div className="signin-detail">
-
           <div className="input-container">
             <input type="text" placeholder="EMAIL" />
             <button type="submit">
@@ -28,15 +29,14 @@ export default function SignIn() {
               </div>
             </button>
           </div>
-          
         </div>
-
-        <form>
-          <input type="checkbox" id="rememberme" name="rememberme" value="check" />
-          <label for="rememberme"> Remember me</label>
-        </form>
-        <p>Forgot password?</p>
-
+        <div className="config-content">
+          <form>
+            <input type="checkbox" id="rememberme" name="rememberme" value="check" />
+            <label for="rememberme"> Remember me</label>
+          </form>
+          <p>Forgot password?</p>
+        </div>
         <div className="signin-button-wrapper">
           <Link to="/signin" className="button button-black">
             SIGN IN
