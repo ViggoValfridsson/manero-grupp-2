@@ -48,7 +48,28 @@ public class BankCardsController : ControllerBase
         }
     }
 
-    // get all from user id via token
+    [Authorize]
+    [HttpGet]
+    public async Task<IActionResult> GetAllCards ()
+    {
+        try
+        {
+            var jwtString = Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
+            var userId = _accountService.GetIdFromToken(jwtString!);
+            var status = await _accountService.IsValidUserId(userId);
+
+            if (status.StatusCode != 200)
+                return StatusCode(status.StatusCode, status.StatusMessage);
+
+            var cards = await _bankCardService.GetAllUserCards(userId!);
+
+            return Ok(cards);
+        }
+        catch
+        {
+            return StatusCode(502, "Something went wrong when fetching the cards. Please try again.");
+        }
+    }
 
     [Authorize]
     [HttpPost]

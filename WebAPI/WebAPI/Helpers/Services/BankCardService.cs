@@ -30,9 +30,15 @@ public class BankCardService : IBankCardService
         throw new NotImplementedException();
     }
 
-    public async Task<BankCardDto> GetAllUserCards(string userId)
+    public async Task<List<BankCardDto>> GetAllUserCards(string userId)
     {
-        throw new NotImplementedException();
+        var dtos = new List<BankCardDto>();
+        var entities = await _bankCardRepo.GetAllAsync(x => x.UserId == userId);
+
+        foreach (var entity in entities)
+            dtos.Add(entity);
+
+        return dtos;
     }
 
     public async Task<BankCardDto?> GetCard(int cardId)
