@@ -138,4 +138,15 @@ public class OrderService : IOrderService
 
         return true;
     }
+
+    public async Task<List<OrderDto>> GetAllUserOrders(string userId)
+    {
+        var dtos = new List<OrderDto>();
+        var entities = await _orderRepo.GetAllAsync(x => x.UserId == userId);
+
+        foreach (var entity in entities)
+            dtos.Add(entity);
+
+        return dtos;
+    }
 }

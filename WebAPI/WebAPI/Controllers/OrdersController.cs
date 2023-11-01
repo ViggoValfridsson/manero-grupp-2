@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using WebAPI.Helpers.Services;
 using WebAPI.Interface.Repositories;
 using WebAPI.Interface.Services;
+using WebAPI.Models.Dtos;
 using WebAPI.Models.Identity;
 using WebAPI.Models.Schemas;
 
@@ -78,6 +79,31 @@ public class OrdersController : ControllerBase
         catch
         {
             return StatusCode(502, "Something went wrong when processing the order. Please try again.");
+        }
+    }
+
+    [Authorize]
+    [HttpGet]
+    public async Task<IActionResult> GetUserOrders()
+    {
+        try
+        {
+            var jwtString = Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
+            var id = _accountService.GetIdFromToken(jwtString!);
+
+            if (id == null)
+                return StatusCode(403, "Jwt token did not contain user id.");
+
+            if (await _userManager.Users.FirstOrDefaultAsync(x => x.Id == id) == null)
+                return BadRequest("The token you tried to use is no longer valid.");
+
+            var orders = await _orderService.GetAllUserOrders(id);
+
+            return Ok(orders);
+        }
+        catch
+        {
+            return StatusCode(502, "Something went wrong fetching the account information. Please try again.");
         }
     }
 }
