@@ -70,6 +70,7 @@ builder.Services.AddScoped<IOrderItemRepo, OrderItemRepo>();
 builder.Services.AddScoped<IOrderRepo, OrderRepo>();
 builder.Services.AddScoped<IStatusRepo, StatusRepo>();
 builder.Services.AddScoped<ISizeRepo, SizeRepo>();
+builder.Services.AddScoped<IBankCardRepo, BankCardRepo>();
 
 // Add custom services
 builder.Services.AddScoped<IProductService, ProductService>();
@@ -79,6 +80,7 @@ builder.Services.AddScoped<ICustomerService, CustomerService>();
 builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<IAddressService, AddressService>();
 builder.Services.AddScoped<IAccountService, AccountService>();
+builder.Services.AddScoped<IBankCardService, BankCardService>();
 
 var app = builder.Build();
 
