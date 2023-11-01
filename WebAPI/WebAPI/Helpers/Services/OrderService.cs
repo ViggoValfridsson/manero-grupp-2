@@ -58,6 +58,7 @@ public class OrderService : IOrderService
             StatusId = 1,
             CustomerId = customer.Id,
             AddressId = addressId,
+            OrderComment = schema.OrderComment
         };
 
         orderEntity.TotalPrice = await CalculateTotalPriceAsync(schema.Products);
@@ -75,6 +76,7 @@ public class OrderService : IOrderService
             StatusId = 1,
             UserId = userId,
             AddressId = schema.AddressId,
+            OrderComment = schema.OrderComment
         };
 
         orderEntity.TotalPrice = await CalculateTotalPriceAsync(schema.Products);
