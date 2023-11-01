@@ -1,8 +1,65 @@
-.signin {
+@use "../core/breakpoints" as *;
+
+.signin-container {
     display: flex;
     align-items: center;
     flex-direction: column;
     p {
         color: var(--color-text);
+    }
+
+    .signin-detail {
+        padding-bottom: 4rem;
+        padding-left: 2rem;
+        background-color: black;
+        color: var(--color-text);
+        p {
+        font-size: 1rem;
+        padding-bottom: 1rem;
+        }
+        input {
+        all: unset;
+        height: 3rem;
+        border-radius: 2.5rem;
+        padding-left: 1rem;
+        background-color: var(--color-bg);
+        border: 1px solid var(--color-text-faded);
+        }
+        .input-container {
+        position: relative;
+        display: grid;
+        padding-right: 2rem;
+        
+            button {
+                position: absolute;
+                top: 50%;
+                right: 2.4rem;
+                transform: translateY(-50%);
+                border: 0;
+                padding: 0;
+                background: transparent;
+                color: var(--color-text-faded);
+                border-radius: 50%;
+                width: 2.6rem;
+                height: 2.6rem;
+                // background-color: var(--color-text-light);
+                color: var(--color-text);
+                .container-icon {
+                display: flex;
+                justify-content: center;
+                }
+            }
+        }
+    }
+    .signin-button-wrapper{
+        padding-inline: 1rem;
+        padding-top: 2rem;
+        background-color: black;
+        @include sm {
+          .button {
+            width: fit-content;
+            margin-left: auto;
+          }
+        }
     }
 }
