@@ -27,7 +27,12 @@ public class BankCardService : IBankCardService
 
     public async Task<bool> DeleteCard(int id)
     {
-        throw new NotImplementedException();
+        var entity = await _bankCardRepo.GetAsync(x => x.Id == id);
+
+        if (entity == null)
+            return false;
+
+        return await _bankCardRepo.DeleteAsync(entity);
     }
 
     public async Task<List<BankCardDto>> GetAllUserCards(string userId)
@@ -63,10 +68,13 @@ public class BankCardService : IBankCardService
         return card.UserId == userId;
     }
 
-    public async Task<BankCardDto> UpdateAsync(BankCardUpdateSchema schema)
+    public async Task<BankCardDto> UpdateAsync(BankCardUpdateSchema schema, string userId)
     {
-        var card = await _bankCardRepo.UpdateAsync(schema);
+        BankCardEntity entity = schema;
+        entity.UserId = userId;
 
-        return card;
+        entity = await _bankCardRepo.UpdateAsync(entity);
+
+        return entity;
     }
 }

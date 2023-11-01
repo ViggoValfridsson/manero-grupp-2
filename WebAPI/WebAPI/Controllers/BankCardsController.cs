@@ -110,13 +110,40 @@ public class BankCardsController : ControllerBase
             if (!(await _bankCardService.IsCardOwnedByUser(schema.Id, userId!)))
                 return StatusCode(403, "You do not have permission to access this card.");
 
-            var card = await _bankCardService.UpdateAsync(schema);
+            var card = await _bankCardService.UpdateAsync(schema, userId!);
 
             return Ok(card);
         }
         catch
         {
-            return StatusCode(502, "Something went wrong when adding your card to the database. Please try again.");
+            return StatusCode(502, "Something went wrong when updating your card. Please try again.");
+        }
+    }
+
+    [Authorize]
+    [HttpDelete("{cardId}")]
+    public async Task<IActionResult> DeleteCard(int cardId)
+    {
+        try
+        {
+            var jwtString = Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
+            var userId = _accountService.GetIdFromToken(jwtString!);
+            var status = await _accountService.IsValidUserId(userId);
+
+            if (status.StatusCode != 200)
+                return StatusCode(status.StatusCode, status.StatusMessage);
+
+            if (!(await _bankCardService.IsCardOwnedByUser(cardId, userId!)))
+                return StatusCode(403, "You do not have permission to access this card.");
+
+            if (!(await _bankCardService.DeleteCard(cardId)))
+                return StatusCode(502, "Something went wrong when deleting your card. Make sure that the id is valid and try again.");
+
+            return NoContent();
+        }
+        catch
+        {
+            return StatusCode(502, "Something went wrong when deleting your card. Please try again.");
         }
     }
 }

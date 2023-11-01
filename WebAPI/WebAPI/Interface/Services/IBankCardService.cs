@@ -8,7 +8,7 @@ public interface IBankCardService
     Task<BankCardDto> CreateAsync(BankCardCreateSchema schema, string userId);
     Task<BankCardDto?> GetCard(int cardId);
     Task<List<BankCardDto>> GetAllUserCards(string userId);
-    Task<BankCardDto> UpdateAsync(BankCardUpdateSchema schema);
+    Task<BankCardDto> UpdateAsync(BankCardUpdateSchema schema, string userId);
     Task<bool> IsCardOwnedByUser(int cardId, string userId);
     Task<bool> DeleteCard(int id);
 }
