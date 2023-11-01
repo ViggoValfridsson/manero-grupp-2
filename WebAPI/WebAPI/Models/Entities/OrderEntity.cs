@@ -17,6 +17,8 @@ public class OrderEntity
     public string? UserId { get; set; }
     public AppUser? User { get; set; }
     public List<OrderItemEntity> Items { get; set; } = new();
+    public int AddressId { get; set; }
+    public AddressEntity Address { get; set; } = null!;
 
     public static implicit operator OrderDto(OrderEntity entity)
     {
@@ -27,7 +29,10 @@ public class OrderEntity
             Status = entity.Status.Name,
             FirstName = entity.Customer?.FirstName ?? entity.User?.FirstName,
             LastName = entity.Customer?.LastName ?? entity.User?.LastName,
-            Email = entity.Customer?.Email ?? entity.User?.Email
+            Email = entity.Customer?.Email ?? entity.User?.Email,
+            StreetName = entity.Address.StreetName,
+            City = entity.Address.City,
+            PostalCode = entity.Address.PostalCode
         };
 
         foreach (var item in entity.Items)

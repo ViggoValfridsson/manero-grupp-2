@@ -26,12 +26,17 @@ public class OrderService : IOrderService
         _sizeRepo = sizeRepo;
     }
 
+    public async Task<OrderDto> PlaceUserOrderAsync(OrderUserCreateSchema schema, string userId)
+    {
+        return await _orderRepo.GetAsync(x => x.Id == 1);
+    }
+
     public async Task<OrderDto> PlaceCustomerOrderAsync(OrderCustomerCreateSchema schema)
     {
         var customer = await _customerService.CreateCustomerAsync(schema.Customer);
         // We don't need to display the address anywhere so it isn't saved
-        await _addressService.CreateCustomerAddressAsync(schema.Address, customer.Id);
-        var orderEntity = await CreateOrderWithCustomerAsync(schema, customer);
+        var address = await _addressService.CreateCustomerAddressAsync(schema.Address, customer.Id);
+        var orderEntity = await CreateOrderWithCustomerAsync(schema, customer, address.Id);
         var orderItemEntities = await CreateOrderItemsAsync(schema.Products, orderEntity.Id);
 
         // Add all the newly created order items to the order so they can be seen in the DTO
@@ -40,12 +45,13 @@ public class OrderService : IOrderService
         return orderEntity;
     }
 
-    public async Task<OrderEntity> CreateOrderWithCustomerAsync(OrderCustomerCreateSchema schema, CustomerEntity customer)
+    public async Task<OrderEntity> CreateOrderWithCustomerAsync(OrderCustomerCreateSchema schema, CustomerEntity customer, int addressId)
     {
         var orderEntity = new OrderEntity
         {
             StatusId = 1,
             CustomerId = customer.Id,
+            AddressId = addressId,
         };
 
         orderEntity.TotalPrice = await CalculateTotalPriceAsync(schema.Products);
