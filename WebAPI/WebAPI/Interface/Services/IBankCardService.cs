@@ -5,7 +5,7 @@ namespace WebAPI.Interface.Services;
 
 public interface IBankCardService
 {
-    Task<BankCardDto> CreateAsync(BankCardCreateSchema schema);
+    Task<BankCardDto> CreateAsync(BankCardCreateSchema schema, string userId);
     Task<BankCardDto?> GetCard(int cardId);
     Task<BankCardDto> GetAllUserCards(string userId);
     Task<BankCardDto> UpdateAsync(BankCardUpdateSchema schema);

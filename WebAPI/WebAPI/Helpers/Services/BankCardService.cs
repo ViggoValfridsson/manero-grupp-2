@@ -1,6 +1,7 @@
 ﻿using WebAPI.Interface.Repositories;
 using WebAPI.Interface.Services;
 using WebAPI.Models.Dtos;
+using WebAPI.Models.Entities;
 using WebAPI.Models.Schemas;
 
 namespace WebAPI.Helpers.Services;
@@ -14,9 +15,14 @@ public class BankCardService : IBankCardService
         _bankCardRepo = bankCardRepo;
     }
 
-    public async Task<BankCardDto> CreateAsync(BankCardCreateSchema schema)
+    public async Task<BankCardDto> CreateAsync(BankCardCreateSchema schema, string userId)
     {
-        throw new NotImplementedException();
+        BankCardEntity entity = schema;
+        entity.UserId = userId;
+
+        entity = await _bankCardRepo.CreateAsync(entity);
+
+        return entity;
     }
 
     public async Task<bool> DeleteCard(int id)

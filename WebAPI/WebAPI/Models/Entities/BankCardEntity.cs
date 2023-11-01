@@ -15,8 +15,8 @@ public class BankCardEntity
     [Column(TypeName = "nvarchar(5)")]
     public required string ExpirationDate { get; set; }
     public required string CardIssuer { get; set; }
-    public required string UserId { get; set; }
-    public AppUser User { get; set; } = null!;
+    public string? UserId { get; set; }
+    public AppUser? User { get; set; } = null!;
 
     public static implicit operator BankCardDto (BankCardEntity entity)
     {

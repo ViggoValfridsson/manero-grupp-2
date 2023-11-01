@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using WebAPI.Helpers.Services;
 using WebAPI.Interface.Services;
 using WebAPI.Models.Identity;
+using WebAPI.Models.Schemas;
 
 namespace WebAPI.Controllers;
 
@@ -44,6 +45,31 @@ public class BankCardsController : ControllerBase
         catch
         {
             return StatusCode(502, "Something went wrong when fetching the card. Please try again.");
+        }
+    }
+
+    // get all from user id via token
+
+    [Authorize]
+    [HttpPost]
+    public async Task<IActionResult> CreateCard (BankCardCreateSchema schema)
+    {
+        try
+        {
+            var jwtString = Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
+            var userId = _accountService.GetIdFromToken(jwtString!);
+            var status = await _accountService.IsValidUserId(userId);
+
+            if (status.StatusCode != 200)
+                return StatusCode(status.StatusCode, status.StatusMessage);
+
+            var card = await _bankCardService.CreateAsync(schema, userId!);
+
+            return Created("", card);
+        }
+        catch
+        {
+            return StatusCode(502, "Something went wrong when adding your card to the database. Please try again.");
         }
     }
 }
