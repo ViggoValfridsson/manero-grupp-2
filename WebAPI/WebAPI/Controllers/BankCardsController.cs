@@ -50,7 +50,7 @@ public class BankCardsController : ControllerBase
 
     [Authorize]
     [HttpGet]
-    public async Task<IActionResult> GetAllCards ()
+    public async Task<IActionResult> GetAllCards()
     {
         try
         {
@@ -73,7 +73,7 @@ public class BankCardsController : ControllerBase
 
     [Authorize]
     [HttpPost]
-    public async Task<IActionResult> CreateCard (BankCardCreateSchema schema)
+    public async Task<IActionResult> CreateCard(BankCardCreateSchema schema)
     {
         try
         {
@@ -87,6 +87,32 @@ public class BankCardsController : ControllerBase
             var card = await _bankCardService.CreateAsync(schema, userId!);
 
             return Created("", card);
+        }
+        catch
+        {
+            return StatusCode(502, "Something went wrong when adding your card to the database. Please try again.");
+        }
+    }
+
+    [Authorize]
+    [HttpPut]
+    public async Task<IActionResult> UpdateCard(BankCardUpdateSchema schema)
+    {
+        try
+        {
+            var jwtString = Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
+            var userId = _accountService.GetIdFromToken(jwtString!);
+            var status = await _accountService.IsValidUserId(userId);
+
+            if (status.StatusCode != 200)
+                return StatusCode(status.StatusCode, status.StatusMessage);
+
+            if (!(await _bankCardService.IsCardOwnedByUser(schema.Id, userId!)))
+                return StatusCode(403, "You do not have permission to access this card.");
+
+            var card = await _bankCardService.UpdateAsync(schema);
+
+            return Ok(card);
         }
         catch
         {

@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using WebAPI.Models.Entities;
 
 namespace WebAPI.Models.Schemas;
 
@@ -34,4 +35,17 @@ public class BankCardUpdateSchema
     [MaxLength(5)]
     [RegularExpression(@"^(0[1-9]|1[0-2])\/[0-9]{2}$")]
     public required string ExpirationDate { get; set; }
+
+    public static implicit operator BankCardEntity(BankCardUpdateSchema schema)
+    {
+        return new BankCardEntity
+        {
+            Id = schema.Id,
+            CreditCardNumber = schema.CreditCardNumber,
+            CVC = schema.CVC,
+            CardholderName = schema.CardholderName,
+            ExpirationDate = schema.ExpirationDate,
+            CardIssuer = schema.CardIssuer,
+        };
+    }
 }

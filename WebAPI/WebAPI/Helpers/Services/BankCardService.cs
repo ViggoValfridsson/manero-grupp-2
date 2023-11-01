@@ -58,11 +58,15 @@ public class BankCardService : IBankCardService
         if (card == null)
             return false;
 
+        _bankCardRepo.StopTrackingEntity(card);
+
         return card.UserId == userId;
     }
 
     public async Task<BankCardDto> UpdateAsync(BankCardUpdateSchema schema)
     {
-        throw new NotImplementedException();
+        var card = await _bankCardRepo.UpdateAsync(schema);
+
+        return card;
     }
 }
