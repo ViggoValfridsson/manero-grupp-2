@@ -23,6 +23,7 @@ public class DataContext : IdentityDbContext<AppUser>
     public DbSet<OrderEntity> Orders { get; set; }
     public DbSet<OrderItemEntity> OrderItems { get; set; }
     public DbSet<StatusEntity> Statuses { get; set; }
+    public DbSet<BankCardEntity> BankCards { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
