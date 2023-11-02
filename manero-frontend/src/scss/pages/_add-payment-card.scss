@@ -1,54 +1,37 @@
 @use "../core/breakpoints" as *;
+
 .add-payment-card-page {
-  .payment-card-container {
-    padding-inline: 3rem;
-    padding-block: 4rem;
+  padding-inline: var(--section-padding-inline);
+  padding-block: 4rem;
+  @include md {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
 
-    .card-container {
+  .card-container {
+    grid-column: 2/3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 2rem;
+  }
+  form {
+    grid-column: 1/2;
+    grid-row: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    .row {
+      width: 100%;
       display: flex;
-      justify-content: center;
-      align-items: center;
-      padding-bottom: 2rem;
+      gap: 0.75rem;
+      & > label {
+        flex: 1;
+      }
     }
-    form {
-      label {
-        font-size: var(--font-size-s);
-        color: var(--color-text-faded);
-      }
-      input {
-        border: 2px solid var(--color-blue);
-        border-radius: 4rem;
-        padding: 0.75rem 1.5rem;
-      }
-
-      input:focus {
-        outline: none !important;
-        border-radius: 10rem;
-        box-shadow: 0 0 10px var(--color-blue);
-      }
-
-      .form-group {
-        display: flex;
-        flex-direction: column;
-        padding-block: 1rem;
-
-        .form-text-input {
-          display: flex;
-          justify-content: space-between;
-        }
-      }
-      .row {
-        display: flex;
-        justify-content: space-between;
-
-        .form-group {
-          max-width: 9rem;
-        }
-      }
-      button {
-        margin-top: 2rem;
-        width: 100%;
-      }
+    button {
+      margin-top: 2rem;
+      width: 100%;
     }
   }
 }

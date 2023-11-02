@@ -33,31 +33,6 @@
         }
       }
     }
-    label {
-      display: flex;
-      flex-direction: column;
-      position: relative;
-      span {
-        font-size: var(--font-size-xs);
-        text-transform: uppercase;
-        position: absolute;
-        top: -0.75em;
-        left: 1rem;
-        background-color: var(--color-bg);
-        padding-inline: 0.5rem;
-        color: var(--color-text-light);
-      }
-      input {
-        border-radius: 4rem;
-        border: 2px solid var(--color-blue);
-        padding: 0.75rem 1.5rem;
-      }
-      input:-webkit-autofill,
-      input:-webkit-autofill:hover,
-      input:-webkit-autofill:focus {
-        transition: background-color 5000s ease-in-out 0s;
-      }
-    }
     .button {
       padding-block: 0.825rem;
     }

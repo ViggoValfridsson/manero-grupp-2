@@ -10,6 +10,7 @@
 @use "components/header";
 @use "components/footer";
 @use "components/nav";
+@use "components/themed-input";
 @use "components/contact-sidebar";
 @use "components/page-icon-circle";
 @use "components/discount-card";
@@ -20,7 +21,6 @@
 @use "components/image-slider";
 @use "components/filter-sidebar";
 @use "components/payment-card";
-@use "components/label-with-input";
 // Pages
 @use "pages/not-found";
 @use "pages/home";
