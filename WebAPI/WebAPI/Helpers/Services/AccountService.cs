@@ -5,6 +5,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using WebAPI.Interface.Services;
+using WebAPI.Models;
 using WebAPI.Models.Identity;
 
 namespace WebAPI.Helpers.Services;
@@ -50,5 +51,28 @@ public class AccountService : IAccountService
         var id = token.Claims.FirstOrDefault(x => x.Type == "unique_id")?.Value;
         
         return id;
+    }
+
+    public async Task<ServiceStatusCodeReturn> IsValidUserId(string? userId)
+    {
+        var status = new ServiceStatusCodeReturn
+        {
+            StatusCode = 200
+        };
+
+        if (userId == null)
+        {
+            status.StatusCode = 403;
+            status.StatusMessage = "Jwt token did not contain user id.";
+        }
+
+        // It is not possible to enter this if statement unless the account has been deleted and therefore the token is invalid.
+        if (await _userManager.Users.FirstOrDefaultAsync(x => x.Id == userId) == null)
+        {
+            status.StatusCode = 401;
+            status.StatusMessage = "The token you tried to use is no longer valid.";
+        }
+
+        return status;
     }
 }
