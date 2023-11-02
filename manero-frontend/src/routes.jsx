@@ -9,6 +9,7 @@ import Products from "./pages/Products";
 import OrderConfirmation from "./pages/OrderConfirmation";
 import ShippingDetails from "./pages/ShippingDetails";
 import AddPaymentCard from "./pages/AddPaymentCard";
+import WishList from "./pages/WishList";
 
 // If no title is set, the manero logo will show instead
 const routes = [
@@ -20,6 +21,7 @@ const routes = [
   { path: "/products/:id", element: <ProductDetails /> },
   { path: "/checkout", element: <Order />, title: "Checkout" },
   { path: "/checkout/shipping", element: <ShippingDetails />, title: "Shipping" },
+  { path: "/wishlist", element: <WishList />, title: "Wishlist" },
   {
     path: "/checkout/order-confirmation",
     element: <OrderConfirmation />,

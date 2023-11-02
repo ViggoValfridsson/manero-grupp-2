@@ -36,23 +36,11 @@ public class ProductsController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetProducts([FromQuery] string? tagName, [FromQuery] string? categoryName)
+    public async Task<IActionResult> GetProducts([FromQuery] string? tagName, [FromQuery] string? categoryName, [FromQuery] string? orderBy)
     {
         try
         {
-            List<Expression<Func<ProductEntity, bool>>> filters = new();
-
-            // Adds filtering based on tags if query isn't empty
-            if (!string.IsNullOrWhiteSpace(tagName))
-                filters.Add(x =>
-                    x.Tags.Any(tag => tag.Name.ToLower() == tagName.ToLower()));
-
-            // Adds filtering based on categories if query isn't empty
-            if (!string.IsNullOrWhiteSpace(categoryName))
-                filters.Add(x =>
-                    x.Category.Name.ToLower() == categoryName.ToLower());
-
-            var products = await _productService.GetAllFilteredAsync(filters);
+            var products = await _productService.GetAllAsync(tagName, categoryName, orderBy);
 
             return Ok(products);
         }

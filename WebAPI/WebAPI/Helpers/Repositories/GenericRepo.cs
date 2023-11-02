@@ -37,7 +37,7 @@ public abstract class GenericRepo<T> : IRepo<T> where T : class
         return await _context.Set<T>().Where(predicate).ToListAsync();
     }
 
-    public virtual async Task<T?> UpdateAsync(T entity)
+    public virtual async Task<T> UpdateAsync(T entity)
     {
         _context.Set<T>().Update(entity);
         await _context.SaveChangesAsync();
@@ -60,5 +60,10 @@ public abstract class GenericRepo<T> : IRepo<T> where T : class
     public Task<bool> AnyAsync(Expression<Func<T, bool>> predicate)
     {
         return _context.Set<T>().AnyAsync(predicate); 
+    }
+
+    public void StopTrackingEntity(T entity)
+    {
+        _context.Entry(entity).State = EntityState.Detached;
     }
 }
