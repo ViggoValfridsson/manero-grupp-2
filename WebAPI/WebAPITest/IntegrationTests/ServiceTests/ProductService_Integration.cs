@@ -5,6 +5,7 @@ using WebAPI.Helpers.Repositories;
 using WebAPI.Helpers.Services;
 using WebAPI.Models.Dtos;
 using WebAPI.Models.Entities;
+using WebAPI.Models.QueryParameters;
 using WebAPITest.Helpers;
 
 namespace WebAPITest.IntegrationTests.ServiceTests;
@@ -28,7 +29,7 @@ public class ProductService_Integration
     {
         // Assert is performed in the seed
         // Act
-        var result = await _productService.GetAllAsync();
+        var result = await _productService.GetAllAsync(new GetProductsQueryParameters());
 
         // Assert
         Assert.Equal(4, result.Count);
@@ -49,8 +50,15 @@ public class ProductService_Integration
     [InlineData("Shirts", "Sport", 1)]
     public async Task GetAllAsync_ShouldReturnAllRelevantProducts(string categoryName, string tagName, int expectedAmount)
     {
+        // Arrange
+        var queryParameters = new GetProductsQueryParameters()
+        {
+            CategoryName = categoryName,
+            TagName = tagName,
+        };
+
         // Act
-        var result = await _productService.GetAllAsync(tagName, categoryName);
+        var result = await _productService.GetAllAsync(queryParameters);
 
         // Assert
         Assert.Equal(expectedAmount, result.Count);
@@ -62,8 +70,14 @@ public class ProductService_Integration
     [InlineData("highestprice", 3)]
     public async Task GetAllAsync_ShouldReturnOrderedProducts(string orderBy, int expectedFirstProductId)
     {
+        // Arrange
+        var queryParameters = new GetProductsQueryParameters()
+        {
+            OrderBy = orderBy
+        };
+
         // Act
-        var result = await _productService.GetAllAsync(orderBy: orderBy);
+        var result = await _productService.GetAllAsync(queryParameters);
 
         // Assert
         Assert.Equal(expectedFirstProductId, result.First().Id);

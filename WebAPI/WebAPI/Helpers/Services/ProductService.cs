@@ -3,6 +3,7 @@ using WebAPI.Interface.Repositories;
 using WebAPI.Interface.Services;
 using WebAPI.Models.Dtos;
 using WebAPI.Models.Entities;
+using WebAPI.Models.QueryParameters;
 
 namespace WebAPI.Helpers.Services;
 
@@ -25,16 +26,10 @@ public class ProductService : IProductService
         return entity;
     }
 
-    public async Task<List<ProductDto>> GetAllAsync(
-        int page,
-        int pageAmount,
-        string? tagName = null,
-        string? categoryName = null,
-        string? orderBy = null
-    )
+    public async Task<List<ProductDto>> GetAllAsync(GetProductsQueryParameters queryParameters)
     {
         var dtos = new List<ProductDto>();
-        var entities = await _productRepo.GetAllAsync(tagName, categoryName, orderBy, page, pageAmount);
+        var entities = await _productRepo.GetAllAsync(queryParameters);
 
         foreach (var entity in entities)
             dtos.Add(entity);

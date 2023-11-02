@@ -1,9 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Linq.Expressions;
-using WebAPI.Helpers.Services;
 using WebAPI.Interface.Repositories;
 using WebAPI.Interface.Services;
-using WebAPI.Models.Entities;
+using WebAPI.Models.QueryParameters;
 
 namespace WebAPI.Controllers;
 
@@ -39,11 +37,11 @@ public class ProductsController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetProducts([FromQuery] string? tag, [FromQuery] string? category, [FromQuery] string? orderBy, [FromQuery] int? page, [FromQuery] int? pageAmount)
+    public async Task<IActionResult> GetProducts([FromQuery] GetProductsQueryParameters queryParameters)
     {
         try
         {
-            var products = await _productService.GetAllAsync(page ?? 0, pageAmount ?? 32, tag, category, orderBy);
+            var products = await _productService.GetAllAsync(queryParameters);
 
             return Ok(products);
         }
@@ -59,7 +57,6 @@ public class ProductsController : ControllerBase
         try
         {
             var productCount = await _productRepo.GetProductCount(tag, category);
-
             return Ok(productCount);
         }
         catch

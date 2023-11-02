@@ -3,6 +3,7 @@ using System.Linq.Expressions;
 using WebAPI.Data;
 using WebAPI.Interface.Repositories;
 using WebAPI.Models.Entities;
+using WebAPI.Models.QueryParameters;
 
 namespace WebAPI.Helpers.Repositories;
 
@@ -25,20 +26,20 @@ public class ProductRepo : GenericRepo<ProductEntity>, IProductRepo
             .FirstOrDefaultAsync(predicate);
     }
 
-    public async Task<List<ProductEntity>> GetAllAsync(string? tagName, string? categoryName, string? orderBy, int page = 0, int pageAmount = 32)
+    public async Task<List<ProductEntity>> GetAllAsync(GetProductsQueryParameters qp)
     {
         var query = _context.Products
             .Include(x => x.Tags)
             .Include(x => x.Category)
             .Include(x => x.Images)
             .Include(x => x.AvailableSizes)
-            .Where(x => string.IsNullOrWhiteSpace(tagName) || x.Tags.Any(t => t.Name.ToLower() == tagName.ToLower()))
-            .Where(x => string.IsNullOrWhiteSpace(categoryName) || x.Category.Name.ToLower() == categoryName.ToLower())
-            .Skip(page > 0 ? (page - 1) * pageAmount : 0)
-            .Take(pageAmount > 0 ? pageAmount : 32)
+            .Where(x => string.IsNullOrWhiteSpace(qp.TagName) || x.Tags.Any(t => t.Name.ToLower() == qp.TagName.ToLower()))
+            .Where(x => string.IsNullOrWhiteSpace(qp.CategoryName) || x.Category.Name.ToLower() == qp.CategoryName.ToLower())
+            .Skip(qp.Page > 0 ? (qp.Page - 1) * qp.PageAmount : 0)
+            .Take(qp.PageAmount > 0 ? qp.PageAmount : 32)
             .AsQueryable();
 
-        query = orderBy?.ToLower() switch
+        query = qp.OrderBy?.ToLower() switch
         {
             "lowestprice" => query.OrderBy(x => (double)x.Price),
             "highestprice" => query.OrderByDescending(x => (double)x.Price),
