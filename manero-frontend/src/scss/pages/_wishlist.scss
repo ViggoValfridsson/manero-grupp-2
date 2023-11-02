@@ -1,7 +1,27 @@
 @use "../core/breakpoints" as *;
 .wishlist-page {
-  text-decoration: none;
-  padding-bottom: 3rem;
+  &.empty {
+    padding-top: 2rem;
+    margin-inline: auto;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    gap: 2rem;
+    padding-inline: 1rem;
+    h2 {
+      padding-bottom: 0.25rem;
+    }
+    p {
+      margin-inline: auto;
+      max-width: 240px;
+    }
+    @include sm {
+      .button {
+        width: fit-content;
+      }
+    }
+  }
 
   .wishlist-container {
     display: grid;
@@ -13,7 +33,6 @@
     @include xl {
       grid-template-columns: repeat(3, 1fr);
     }
-    margin-block: 1.5rem;
 
     a {
       border-bottom: 2px solid var(--color-blue);
