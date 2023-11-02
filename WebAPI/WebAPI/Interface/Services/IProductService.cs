@@ -7,5 +7,10 @@ namespace WebAPI.Interface.Services;
 public interface IProductService
 {
     Task<ProductDto?> GetByIdAsync(int id);
-    Task<List<ProductDto>> GetAllAsync(string? tagName, string? categoryName, string? orderBy);
+    Task<List<ProductDto>> GetAllAsync(
+        int page,
+        int pageAmount,
+        string? tagName,
+        string? categoryName,
+        string? orderBy);
 }

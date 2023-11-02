@@ -25,7 +25,7 @@ public class ProductRepo : GenericRepo<ProductEntity>, IProductRepo
             .FirstOrDefaultAsync(predicate);
     }
 
-    public async Task<List<ProductEntity>> GetAllAsync(string? tagName, string? categoryName, string? orderBy)
+    public async Task<List<ProductEntity>> GetAllAsync(string? tagName, string? categoryName, string? orderBy, int page = 0, int pageAmount = 32)
     {
         var query = _context.Products
             .Include(x => x.Tags)
@@ -34,6 +34,8 @@ public class ProductRepo : GenericRepo<ProductEntity>, IProductRepo
             .Include(x => x.AvailableSizes)
             .Where(x => string.IsNullOrWhiteSpace(tagName) || x.Tags.Any(t => t.Name.ToLower() == tagName.ToLower()))
             .Where(x => string.IsNullOrWhiteSpace(categoryName) || x.Category.Name.ToLower() == categoryName.ToLower())
+            .Skip(page > 0 ? (page - 1) * pageAmount : 0)
+            .Take(pageAmount > 0 ? pageAmount : 32)
             .AsQueryable();
 
         query = orderBy?.ToLower() switch
@@ -44,5 +46,13 @@ public class ProductRepo : GenericRepo<ProductEntity>, IProductRepo
         };
 
         return await query.ToListAsync();
+    }
+
+    public async Task<int> GetProductCount(string? tagName, string? categoryName)
+    {
+        return await _context.Products
+            .Where(x => string.IsNullOrWhiteSpace(tagName) || x.Tags.Any(t => t.Name.ToLower() == tagName.ToLower()))
+            .Where(x => string.IsNullOrWhiteSpace(categoryName) || x.Category.Name.ToLower() == categoryName.ToLower())
+            .CountAsync();
     }
 }

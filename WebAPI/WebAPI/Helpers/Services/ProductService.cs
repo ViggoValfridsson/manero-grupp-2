@@ -26,12 +26,15 @@ public class ProductService : IProductService
     }
 
     public async Task<List<ProductDto>> GetAllAsync(
+        int page,
+        int pageAmount,
         string? tagName = null,
         string? categoryName = null,
-        string? orderBy = null)
+        string? orderBy = null
+    )
     {
         var dtos = new List<ProductDto>();
-        var entities = await _productRepo.GetAllAsync(tagName, categoryName, orderBy);
+        var entities = await _productRepo.GetAllAsync(tagName, categoryName, orderBy, page, pageAmount);
 
         foreach (var entity in entities)
             dtos.Add(entity);

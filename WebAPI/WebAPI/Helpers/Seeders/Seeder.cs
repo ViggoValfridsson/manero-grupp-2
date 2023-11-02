@@ -21,15 +21,15 @@ public static class Seeder
     private static void SeedCategories(ModelBuilder builder)
     {
         builder.Entity<CategoryEntity>().HasData(
-             new CategoryEntity { Id = 1, Name = "Shirts" },
-             new CategoryEntity { Id = 2, Name = "Jackets" },
-             new CategoryEntity { Id = 3, Name = "Pants" },
-             new CategoryEntity { Id = 4, Name = "Footwear" },
-             new CategoryEntity { Id = 5, Name = "Headwear" },
-             new CategoryEntity { Id = 6, Name = "Accessories" },
-             new CategoryEntity { Id = 7, Name = "Dresses" },
-             new CategoryEntity { Id = 8, Name = "Underwear" },
-             new CategoryEntity { Id = 9, Name = "Suits" }
+            new CategoryEntity { Id = 1, Name = "Shirts" },
+            new CategoryEntity { Id = 2, Name = "Jackets" },
+            new CategoryEntity { Id = 3, Name = "Pants" },
+            new CategoryEntity { Id = 4, Name = "Footwear" },
+            new CategoryEntity { Id = 5, Name = "Headwear" },
+            new CategoryEntity { Id = 6, Name = "Accessories" },
+            new CategoryEntity { Id = 7, Name = "Dresses" },
+            new CategoryEntity { Id = 8, Name = "Underwear" },
+            new CategoryEntity { Id = 9, Name = "Suits" }
         );
     }
 
