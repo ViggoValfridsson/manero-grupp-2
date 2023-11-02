@@ -1,4 +1,4 @@
-.signin-container {
+.signup-container {
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -9,6 +9,7 @@
 
   h1 {
     font-size: var(--font-size-xl);
+    padding-bottom: 2rem;
   }
   h3 {
     color: var(--color-text-light);
@@ -22,13 +23,12 @@
 
   form {
     width: 100%;
-    & > .button {
-      margin-top: 2rem;
+    & > a > .button {
       margin-bottom: 1rem;
     }
   }
 
-  .signin-detail {
+  .signup-detail {
     display: flex;
     flex-direction: column;
     gap: 1rem;
@@ -72,16 +72,12 @@
     form {
       color: var(--color-text-faded);
     }
+    a {
+      padding-bottom: 1rem;
+    }
   }
 
-  .signin-button-wrapper {
-    padding-inline: 1rem;
-    padding-top: 1rem;
-    padding-bottom: 1.5rem;
-    width: 100%;
-  }
-
-  .signin-options {
+  .signup-options {
     display: flex;
     justify-content: space-between;
     align-items: center;
