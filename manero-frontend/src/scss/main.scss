@@ -20,6 +20,7 @@
 @use "components/image-slider";
 @use "components/filter-sidebar";
 @use "components/payment-card";
+@use "components/label-with-input";
 // Pages
 @use "pages/not-found";
 @use "pages/home";
@@ -31,4 +32,5 @@
 @use "pages/order-confirmation";
 @use "pages/shipping-details";
 @use "pages/add-payment-card";
+@use "pages/sign-in";
 @use "pages/wishlist";
