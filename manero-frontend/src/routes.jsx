@@ -14,7 +14,7 @@ import AddPaymentCard from "./pages/AddPaymentCard";
 const routes = [
   { path: "/", element: <Home /> },
   { path: "/search", element: <Search /> },
-  { path: "/signin", element: <SignIn /> },
+  { path: "/signin", element: <SignIn />, title: "Sign in" },
   { path: "/cart", element: <Cart /> },
   { path: "/products", element: <Products />, title: "Products" },
   { path: "/products/:id", element: <ProductDetails /> },
