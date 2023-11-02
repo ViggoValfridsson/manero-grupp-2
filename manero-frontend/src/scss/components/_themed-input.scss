@@ -28,6 +28,11 @@
     right: 1rem;
     background-color: var(--color-bg);
   }
+  button {
+    background-color: transparent;
+    border: none;
+    border-radius: 5rem;
+  }
   input:-webkit-autofill,
   input:-webkit-autofill:hover,
   input:-webkit-autofill:focus {

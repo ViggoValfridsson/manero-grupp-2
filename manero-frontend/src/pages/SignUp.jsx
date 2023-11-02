@@ -1,5 +1,6 @@
 import { Check, EyeOff, Facebook, Twitter } from "lucide-react";
 import { Link } from "react-router-dom";
+import ThemedInput from "../components/ThemedInput";
 
 function SignUp() {
   return (
@@ -7,36 +8,22 @@ function SignUp() {
       <div className="signup-container">
         <h1>Sign Up</h1>
         <form>
-          <div className="signup-detail">
-            <div className="input-container">
-              <label className="label-with-input">
-                <input type="text" placeholder="Enter your name" />
-                <span>NAME</span>
-              </label>
-              <Check className="container-icon" />
-            </div>
-            <div className="input-container">
-              <label className="label-with-input">
-                <input type="text" placeholder="Enter your email" />
-                <span>Email</span>
-              </label>
-              <Check className="container-icon" />
-            </div>
-            <div className="input-container">
-              <label className="label-with-input">
-                <input type="password" placeholder="Enter your password" />
-                <span>PASSWORD</span>
-              </label>
+          <ThemedInput label="Name" type="text">
+            <Check />
+          </ThemedInput>
+          <ThemedInput label="Email" type="text">
+            <Check />
+          </ThemedInput>
+          <ThemedInput label="Password" type="password">
+            <button type="button">
               <EyeOff className="container-icon" />
-            </div>
-            <div className="input-container">
-              <label className="label-with-input">
-                <input type="text"  placeholder="Confirm you password"/>
-                <span>CONFIRM PASSWORD</span>
-              </label>
+            </button>
+          </ThemedInput>
+          <ThemedInput label="Confirm Password" type="text">
+            <button type="button">
               <EyeOff className="container-icon" />
-            </div>
-          </div>
+            </button>
+          </ThemedInput>
           <Link to={"/account-confirmation"}>
             <button type="submit" className="button button-black">
               SIGN UP

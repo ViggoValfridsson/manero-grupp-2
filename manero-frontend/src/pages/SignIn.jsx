@@ -1,5 +1,6 @@
 import { Check, EyeOff, Facebook, Twitter } from "lucide-react";
 import { Link } from "react-router-dom";
+import ThemedInput from "../components/ThemedInput";
 
 export default function SignIn() {
   return (
@@ -9,22 +10,14 @@ export default function SignIn() {
         <h3>Sign in to continue</h3>
         <form>
           <div className="signin-detail">
-            <div className="input-container">
-              <label className="label-with-input">
-                <input type="text" />
-                <span>Email</span>
-              </label>
-              <Check className="container-icon" />
-            </div>
-            <div className="input-container">
-              <label className="label-with-input">
-                <input type="password" />
-                <span>Password</span>
-              </label>
-              <button>
-                <EyeOff className="container-icon" />
+            <ThemedInput label="Email" type="email">
+              <Check />
+            </ThemedInput>
+            <ThemedInput label="Password" type="password">
+              <button type="button">
+                <EyeOff />
               </button>
-            </div>
+            </ThemedInput>
           </div>
           <div className="config-content">
             <div>

@@ -76,7 +76,6 @@ function AddPaymentCard() {
             maxLength={3}
           />
         </div>
-        <input type="hidden" name="issuer" />
         <div className="form-actions">
           <button className="button button-black">Save card</button>
         </div>
