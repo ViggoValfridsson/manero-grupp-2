@@ -1,4 +1,4 @@
-import { Check, EyeOff } from "lucide-react";
+import { Check, EyeOff, Facebook, Twitter } from "lucide-react";
 import { Link } from "react-router-dom";
 
 export default function SignIn() {
@@ -18,7 +18,7 @@ export default function SignIn() {
             </div>
             <div className="input-container">
               <label className="label-with-input">
-                <input type="text" />
+                <input type="password" />
                 <span>Password</span>
               </label>
               <button>
@@ -41,6 +41,25 @@ export default function SignIn() {
             Don’t have an account? <Link to="/signup">Sign up.</Link>
           </p>
         </form>
+
+        <div className="signin-options">
+          <Link to={"/facebook-auth"}>
+            <div className="icon facebook">
+              <Facebook />
+            </div>
+          </Link>
+          <Link to={"/twitter-auth"}>
+            <div className="icon twitter">
+              {" "}
+              <Twitter />
+            </div>
+          </Link>
+          <Link to={"google-auth"}>
+            <div className="image-icon">
+              <img src="\images\google plus.png" alt="google-icon" />
+            </div>
+          </Link>
+        </div>
       </div>
     </>
   );
