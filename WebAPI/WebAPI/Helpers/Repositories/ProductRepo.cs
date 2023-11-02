@@ -35,8 +35,6 @@ public class ProductRepo : GenericRepo<ProductEntity>, IProductRepo
             .Include(x => x.AvailableSizes)
             .Where(x => string.IsNullOrWhiteSpace(qp.TagName) || x.Tags.Any(t => t.Name.ToLower() == qp.TagName.ToLower()))
             .Where(x => string.IsNullOrWhiteSpace(qp.CategoryName) || x.Category.Name.ToLower() == qp.CategoryName.ToLower())
-            .Skip(qp.Page > 0 ? (qp.Page - 1) * qp.PageAmount : 0)
-            .Take(qp.PageAmount > 0 ? qp.PageAmount : 32)
             .AsQueryable();
 
         query = qp.OrderBy?.ToLower() switch
@@ -45,6 +43,11 @@ public class ProductRepo : GenericRepo<ProductEntity>, IProductRepo
             "highestprice" => query.OrderByDescending(x => (double)x.Price),
             _ => query.Select(x => x)
         };
+
+        // This makes sure the pagination happens after products are ordered
+        query = query
+            .Skip(qp.Page > 0 ? (qp.Page - 1) * qp.PageAmount : 0)
+            .Take(qp.PageAmount > 0 ? qp.PageAmount : 32);
 
         return await query.ToListAsync();
     }
