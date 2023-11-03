@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using WebAPI.Interface.Repositories;
 using WebAPI.Interface.Services;
+using WebAPI.Models.Dtos;
 using WebAPI.Models.QueryParameters;
 
 namespace WebAPI.Controllers;
@@ -21,47 +22,26 @@ public class ProductsController : ControllerBase
     [HttpGet("{id}")]
     public async Task<IActionResult> GetProduct(int id)
     {
-        try
-        {
-            var product = await _productService.GetByIdAsync(id);
+        var product = await _productService.GetByIdAsync(id);
 
-            if (product == null)
-                return NotFound($"Could not find product with id: {id}.");
+        if (product == null)
+            return NotFound($"Could not find product with id: {id}.");
 
-            return Ok(product);
-        }
-        catch
-        {
-            return StatusCode(502, "Something went wrong when fetching the data from the database. Please try again.");
-        }
+        return Ok(product);
     }
 
     [HttpGet]
     public async Task<IActionResult> GetProducts([FromQuery] GetProductsQueryParameters queryParameters)
     {
-        try
-        {
-            var products = await _productService.GetAllAsync(queryParameters);
+        var products = await _productService.GetAllAsync(queryParameters);
 
-            return Ok(products);
-        }
-        catch
-        {
-            return StatusCode(502, "Something went wrong when fetching the data from the database. Please try again.");
-        }
+        return Ok(products);
     }
 
     [HttpGet("Count")]
     public async Task<IActionResult> GetProductCount([FromQuery] string? tag, [FromQuery] string? category)
     {
-        try
-        {
-            var productCount = await _productRepo.GetProductCount(tag, category);
-            return Ok(productCount);
-        }
-        catch
-        {
-            return StatusCode(502, "Something went wrong when fetching the data from the database. Please try again.");
-        }
+        var productCount = await _productRepo.GetProductCount(tag, category);
+        return Ok(productCount);
     }
 }

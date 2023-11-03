@@ -28,61 +28,47 @@ public class AccountController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetAccountDetails()
     {
-        try
-        {
-            var jwtString = Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
-            var id = _accountService.GetIdFromToken(jwtString!);
+        var jwtString = Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
+        var id = _accountService.GetIdFromToken(jwtString!);
 
-            if (id == null)
-                return StatusCode(403, "Jwt token did not contain user id.");
+        if (id == null)
+            return StatusCode(403, "Jwt token did not contain user id.");
 
-            var user = await _userManager.Users.FirstOrDefaultAsync(x => x.Id == id);
+        var user = await _userManager.Users.FirstOrDefaultAsync(x => x.Id == id);
 
-            // It is not possible to enter this if statement unless the account has been deleted and therefore the token is invalid.
-            if (user == null)
-                return BadRequest("The token you tried to use is no longer valid.");
+        // It is not possible to enter this if statement unless the account has been deleted and therefore the token is invalid.
+        if (user == null)
+            return BadRequest("The token you tried to use is no longer valid.");
 
-            return Ok((UserDto)user);
-        }
-        catch
-        {
-            return StatusCode(502, "Something went wrong fetching the account information. Please try again.");
-        }
+        return Ok((UserDto)user);
     }
 
     [Authorize]
     [HttpPut("update")]
     public async Task<IActionResult> UpdateAccount(UserUpdateSchema schema)
     {
-        try
-        {
-            var jwtString = Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
-            var id = _accountService.GetIdFromToken(jwtString!);
+        var jwtString = Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
+        var id = _accountService.GetIdFromToken(jwtString!);
 
-            if (id == null)
-                return StatusCode(403, "Jwt token did not contain user id.");
+        if (id == null)
+            return StatusCode(403, "Jwt token did not contain user id.");
 
-            var user = await _userManager.Users.FirstOrDefaultAsync(x => x.Id == id);
+        var user = await _userManager.Users.FirstOrDefaultAsync(x => x.Id == id);
 
-            // It is not possible to enter this if statement unless the account has been deleted and therefore the token is invalid.
-            if (user == null)
-                return BadRequest("The token you tried to use is no longer valid.");
+        // It is not possible to enter this if statement unless the account has been deleted and therefore the token is invalid.
+        if (user == null)
+            return BadRequest("The token you tried to use is no longer valid.");
 
-            user.FirstName = schema.FirstName;
-            user.LastName = schema.LastName;
-            user.Email = schema.Email;
-            user.UserName = schema.Email;
-            user.PhoneNumber = schema.PhoneNumber;
+        user.FirstName = schema.FirstName;
+        user.LastName = schema.LastName;
+        user.Email = schema.Email;
+        user.UserName = schema.Email;
+        user.PhoneNumber = schema.PhoneNumber;
 
-            if ((await _userManager.UpdateAsync(user)).Succeeded)
-                return Ok((UserDto)user);
+        if ((await _userManager.UpdateAsync(user)).Succeeded)
+            return Ok((UserDto)user);
 
-            return StatusCode(502, "Something went wrong when updating the account. Make sure all of the provided information was correct and try again.");
-        }
-        catch
-        {
-            return StatusCode(502, "Something went wrong when signing up. Please try again.");
-        }
+        return StatusCode(502, "Something went wrong when updating the account. Make sure all of the provided information was correct and try again.");
     }
 
     [HttpPost("SignUp")]
