@@ -17,15 +17,8 @@ public class TagsController : ControllerBase
     [HttpGet]
     public async Task<ActionResult> GetTags()
     {
-        try
-        {
-            var tags = await _tagService.GetAllAsync();
+        var tags = await _tagService.GetAllAsync();
 
-            return Ok(tags);
-        }
-        catch
-        {
-            return StatusCode(502, "Something went wrong when fetching the data from the database. Please try again.");
-        }
+        return Ok(tags);
     }
 }

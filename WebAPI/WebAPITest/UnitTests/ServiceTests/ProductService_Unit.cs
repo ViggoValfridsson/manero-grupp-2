@@ -3,6 +3,7 @@ using WebAPI.Helpers.Repositories;
 using WebAPI.Helpers.Services;
 using WebAPI.Interface.Repositories;
 using WebAPI.Models.Entities;
+using WebAPI.Models.QueryParameters;
 
 namespace WebAPITest.UnitTests.ServiceTests;
 
@@ -38,10 +39,10 @@ public class ProductService_Unit
                 CategoryId = 1,
             }
         };
-        _mockProductRepo.Setup(x => x.GetAllAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync(response);
+        _mockProductRepo.Setup(x => x.GetAllAsync(It.IsAny<GetProductsQueryParameters>())).ReturnsAsync(response);
 
         // Act 
-        var result = await _productService.GetAllAsync();
+        var result = await _productService.GetAllAsync(new GetProductsQueryParameters());
 
         // Assert
         Assert.NotNull(result);
@@ -55,7 +56,7 @@ public class ProductService_Unit
     public async Task GetByIdAsync_ShouldReturnProductOrNull()
     {
         // Arrange
-        var response = new ProductEntity() 
+        var response = new ProductEntity()
         {
             Id = 1,
             Name = "Product 1",

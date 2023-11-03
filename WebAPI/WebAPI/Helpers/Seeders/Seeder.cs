@@ -11,25 +11,25 @@ public static class Seeder
         SeedCategories(builder);
         SeedTags(builder);
         SeedSizes(builder);
-        SeedProducts(builder);
-        SeedImages(builder);
-        SeedProductTags(builder);
-        SeedProductSizes(builder);
+        int productCount = SeedProducts(builder);
+        SeedImages(builder, productCount);
+        SeedProductTags(builder, productCount);
+        SeedProductSizes(builder, productCount);
         SeedStatuses(builder);
     }
 
     private static void SeedCategories(ModelBuilder builder)
     {
         builder.Entity<CategoryEntity>().HasData(
-             new CategoryEntity { Id = 1, Name = "Shirts" },
-             new CategoryEntity { Id = 2, Name = "Jackets" },
-             new CategoryEntity { Id = 3, Name = "Pants" },
-             new CategoryEntity { Id = 4, Name = "Footwear" },
-             new CategoryEntity { Id = 5, Name = "Headwear" },
-             new CategoryEntity { Id = 6, Name = "Accessories" },
-             new CategoryEntity { Id = 7, Name = "Dresses" },
-             new CategoryEntity { Id = 8, Name = "Underwear" },
-             new CategoryEntity { Id = 9, Name = "Suits" }
+            new CategoryEntity { Id = 1, Name = "Shirts" },
+            new CategoryEntity { Id = 2, Name = "Jackets" },
+            new CategoryEntity { Id = 3, Name = "Pants" },
+            new CategoryEntity { Id = 4, Name = "Footwear" },
+            new CategoryEntity { Id = 5, Name = "Headwear" },
+            new CategoryEntity { Id = 6, Name = "Accessories" },
+            new CategoryEntity { Id = 7, Name = "Dresses" },
+            new CategoryEntity { Id = 8, Name = "Underwear" },
+            new CategoryEntity { Id = 9, Name = "Suits" }
         );
     }
 
@@ -57,7 +57,7 @@ public static class Seeder
         );
     }
 
-    private static void SeedProducts(ModelBuilder builder)
+    private static int SeedProducts(ModelBuilder builder)
     {
         // Parse products from JSON to avoid making file to long
         var seedData = JArray.Parse(File.ReadAllText(@"Helpers/Seeders/product-data.json"));
@@ -72,15 +72,16 @@ public static class Seeder
         }
 
         builder.Entity<ProductEntity>().HasData(products);
+        return products.Count;
     }
 
-    private static void SeedImages(ModelBuilder builder)
+    private static void SeedImages(ModelBuilder builder, int productCount)
     {
         var productImages = new List<ProductImageEntity>();
         int productImageIndex = 1;
 
         // Adds three identical pictures to all seeded products
-        for (int i = 1; i <= 8; i++)
+        for (int i = 1; i <= productCount; i++)
         {
             for (int j = 1; j <= 3; j++)
             {
@@ -94,12 +95,12 @@ public static class Seeder
 
     public record ProductTag(int ProductsId, int TagsId);
 
-    private static void SeedProductTags(ModelBuilder builder)
+    private static void SeedProductTags(ModelBuilder builder, int productCount)
     {
         var productTags = new List<ProductTag>();
 
         // Makes all seeded products have featured, popular and new tag.
-        for (var i = 1; i <= 8; i++)
+        for (var i = 1; i <= productCount - 10; i++)
         {
             for (var j = 1; j <= 3; j++)
             {
@@ -117,12 +118,12 @@ public static class Seeder
 
     public record ProductSize(int AvailableSizesId, int ProductsId);
 
-    private static void SeedProductSizes(ModelBuilder builder)
+    private static void SeedProductSizes(ModelBuilder builder, int productCount)
     {
         var productSizes = new List<ProductSize>();
 
         // Make all sizes available to all seeded products
-        for (var i = 1; i <= 8; i++)
+        for (var i = 1; i <= productCount; i++)
         {
             for (var j = 1; j <= 6; j++)
             {

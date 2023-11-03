@@ -91,6 +91,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseExceptionHandler("/api/error");
+
 app.UseHttpsRedirection();
 
 app.UseCors(x => x.AllowAnyOrigin()

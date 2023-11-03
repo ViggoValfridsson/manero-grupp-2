@@ -21,7 +21,7 @@ public class SignUpSchema
     public string Email { get; set; } = null!;
 
     [Required]
-    [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$")]
+    [RegularExpression(@"^(?=.*[a-zåäö])(?=.*[A-ZÅÄÖ])(?=.*\d)(?=.*[@$!%*?&])[A-ZÅÄÖa-zåäö\d@$!%*?&]{8,}$")]
     public string Password { get; set; } = null!;
 
     [Required]

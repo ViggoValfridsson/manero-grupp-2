@@ -17,15 +17,8 @@ public class CategoriesController : ControllerBase
     [HttpGet]
     public async Task<ActionResult> GetCategories()
     {
-        try
-        {
-            var categories = await _categoryService.GetAllAsync();
+        var categories = await _categoryService.GetAllAsync();
 
-            return Ok(categories);
-        }
-        catch
-        {
-            return StatusCode(502, "Something went wrong when fetching the data from the database. Please try again.");
-        }
+        return Ok(categories);
     }
 }

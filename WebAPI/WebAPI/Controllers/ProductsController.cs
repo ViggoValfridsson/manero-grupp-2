@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Linq.Expressions;
-using WebAPI.Helpers.Services;
+using WebAPI.Interface.Repositories;
 using WebAPI.Interface.Services;
-using WebAPI.Models.Entities;
+using WebAPI.Models.Dtos;
+using WebAPI.Models.QueryParameters;
 
 namespace WebAPI.Controllers;
 
@@ -11,42 +11,37 @@ namespace WebAPI.Controllers;
 public class ProductsController : ControllerBase
 {
     private readonly IProductService _productService;
+    private readonly IProductRepo _productRepo;
 
-    public ProductsController(IProductService productService)
+    public ProductsController(IProductService productService, IProductRepo productRepo)
     {
         _productService = productService;
+        _productRepo = productRepo;
     }
 
     [HttpGet("{id}")]
     public async Task<IActionResult> GetProduct(int id)
     {
-        try
-        {
-            var product = await _productService.GetByIdAsync(id);
+        var product = await _productService.GetByIdAsync(id);
 
-            if (product == null)
-                return NotFound($"Could not find product with id: {id}.");
+        if (product == null)
+            return NotFound($"Could not find product with id: {id}.");
 
-            return Ok(product);
-        }
-        catch
-        {
-            return StatusCode(502, "Something went wrong when fetching the data from the database. Please try again.");
-        }
+        return Ok(product);
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetProducts([FromQuery] string? tagName, [FromQuery] string? categoryName, [FromQuery] string? orderBy)
+    public async Task<IActionResult> GetProducts([FromQuery] GetProductsQueryParameters queryParameters)
     {
-        try
-        {
-            var products = await _productService.GetAllAsync(tagName, categoryName, orderBy);
+        var products = await _productService.GetAllAsync(queryParameters);
 
-            return Ok(products);
-        }
-        catch
-        {
-            return StatusCode(502, "Something went wrong when fetching the data from the database. Please try again.");
-        }
+        return Ok(products);
+    }
+
+    [HttpGet("Count")]
+    public async Task<IActionResult> GetProductCount([FromQuery] string? tag, [FromQuery] string? category)
+    {
+        var productCount = await _productRepo.GetProductCount(tag, category);
+        return Ok(productCount);
     }
 }
