@@ -2,62 +2,35 @@ import { SlidersHorizontal, Check, Square } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
 import { apiDomain } from "../../helpers/api-domain";
+import useQuery from "../../hooks/useQuery";
+import { useState } from "react";
 
-function FilterBurgerMenu({ filterMenuOpenState }) {
-  const [sidebarOpen, setSidebarOpen] = filterMenuOpenState;
+function FilterBurgerMenu() {
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const navigate = useNavigate();
   const categories = useFetch(`${apiDomain.https}/api/categories`);
   const tags = useFetch(`${apiDomain.https}/api/tags`);
+  const query = useQuery();
 
-  const handleBurgerClick = () => {
-    setSidebarOpen(!sidebarOpen);
-  };
-
-  const handleBackgroundClick = (e) => {
-    if (e.target.classList.contains("open")) setSidebarOpen(false);
-  };
-
-  const handleQueryClick = (queryName, queryValue) => {
-    const currentUrl = new URL(window.location.href);
-    // Make everything lowercase otherwise queries.has() won't match
-    let queries = new URLSearchParams(currentUrl.search.toLowerCase());
-    queryName = queryName.toLowerCase();
-    queryValue = queryValue.toLowerCase();
-
-    if (queries.has(queryName, queryValue)) {
-      queries.delete(queryName, queryValue);
-    } else if (queries.has(queryName)) {
-      queries.delete(queryName);
-      queries.append(queryName, queryValue);
+  const updateQuery = (key, value) => {
+    query.set("page", 1);
+    if (query.has(key, value)) {
+      query.delete(key, value);
     } else {
-      queries.append(queryName, queryValue);
+      query.set(key, value);
     }
 
-    navigate(`?${queries.toString()}`);
-  };
-
-  const isCurrentQuery = (queryName, queryValue) => {
-    const currentUrl = new URL(window.location.href);
-    // Make everything lowercase otherwise queries.has() won't match
-    let queries = new URLSearchParams(currentUrl.search.toLowerCase());
-    queryName = queryName.toLowerCase();
-    queryValue = queryValue.toLowerCase();
-
-    if (queries.has(queryName, queryValue)) {
-      return true;
-    }
-
-    return false;
+    navigate(`?${query.toString()}`);
   };
 
   return (
     <>
-      <button onClick={handleBurgerClick} className="filter-burger-button">
+      <button onClick={() => setSidebarOpen(!sidebarOpen)} className="filter-burger-button">
         <SlidersHorizontal />
         Filters
       </button>
       <div
-        onClick={handleBackgroundClick}
+        onClick={() => setSidebarOpen(false)}
         className={`${sidebarOpen ? "open" : "closed"} filter-bg`}
       ></div>
       <div className={`${sidebarOpen ? "open" : "closed"} filter-sidebar`}>
@@ -67,13 +40,13 @@ function FilterBurgerMenu({ filterMenuOpenState }) {
             {categories.data?.map((category) => (
               <button
                 key={category.name}
-                onClick={() => handleQueryClick("categoryName", category.name)}
-                aria-checked={isCurrentQuery("categoryName", category.name) ? true : false}
+                onClick={() => updateQuery("category", category.name.toLowerCase())}
+                aria-checked={query.has("category", category.name.toLowerCase()) ? true : false}
               >
                 {category.name}
                 <div className="checkbox-container">
                   <Square size={20} />
-                  {isCurrentQuery("categoryName", category.name) && <Check size={20} />}
+                  {query.has("category", category.name.toLowerCase()) && <Check size={20} />}
                 </div>
               </button>
             ))}
@@ -81,11 +54,11 @@ function FilterBurgerMenu({ filterMenuOpenState }) {
           <div className="tag-container">
             <h2>Tags</h2>
             {tags.data?.map((tag) => (
-              <button key={tag.name} onClick={() => handleQueryClick("tagName", tag.name)}>
+              <button key={tag.name} onClick={() => updateQuery("tag", tag.name.toLowerCase())}>
                 {tag.name}
                 <div className="checkbox-container">
                   <Square size={20} />
-                  {isCurrentQuery("tagName", tag.name) && <Check size={18} />}
+                  {query.has("tag", tag.name.toLowerCase()) && <Check size={18} />}
                 </div>
               </button>
             ))}

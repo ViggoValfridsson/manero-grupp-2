@@ -69,4 +69,26 @@
       grid-template-columns: repeat(5, 1fr);
     }
   }
+
+  .page-buttons {
+    padding-top: 2rem;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    button {
+      background-color: transparent;
+      border: 2px solid;
+      border-radius: 10rem;
+      display: grid;
+      place-items: center;
+      width: 2.5rem;
+      height: 2.5rem;
+      &:hover {
+        background-color: var(--color-blue-light);
+      }
+      &:disabled {
+        background-color: var(--color-blue-light);
+      }
+    }
+  }
 }
