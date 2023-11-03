@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import ThemedInput from "../components/ThemedInput";
+import ThemedInput from "../../components/ThemedInput";
 
 function ForgotPassword() {
   return (

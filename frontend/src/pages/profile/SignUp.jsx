@@ -1,6 +1,6 @@
 import { Check, EyeOff, Facebook, Twitter } from "lucide-react";
 import { Link } from "react-router-dom";
-import ThemedInput from "../components/ThemedInput";
+import ThemedInput from "../../components/ThemedInput";
 
 function SignUp() {
   return (

@@ -1,8 +1,8 @@
 import { Camera } from "lucide-react";
-import PaymentCard from "../components/PaymentCard";
-import ThemedInput from "../components/ThemedInput";
+import PaymentCard from "../../components/PaymentCard";
+import ThemedInput from "../../components/ThemedInput";
 import { useNavigate } from "react-router-dom";
-import { useOrder } from "../hooks/useOrder";
+import { useOrder } from "../../hooks/useOrder";
 import { useState } from "react";
 
 function AddPaymentCard() {

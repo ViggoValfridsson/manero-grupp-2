@@ -1,4 +1,5 @@
-@use "../core/breakpoints" as *;
+@use "../../core/breakpoints" as *;
+
 .wishlist-page {
   &.empty {
     padding-top: 2rem;

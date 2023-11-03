@@ -1,11 +1,11 @@
 import { Link, useNavigate } from "react-router-dom";
 
-import { useCart } from "../hooks/useCart";
+import { useCart } from "../../hooks/useCart";
 import { ChevronRight } from "lucide-react";
-import CheckoutItem from "../components/CheckoutItem";
-import { useOrder } from "../hooks/useOrder";
+import CheckoutItem from "../../components/CheckoutItem";
+import { useOrder } from "../../hooks/useOrder";
 import { useState } from "react";
-import hideCreditCardNumber from "../helpers/hide-credit-card-number";
+import hideCreditCardNumber from "../../helpers/hide-credit-card-number";
 
 function Checkout() {
   const { cart } = useCart();

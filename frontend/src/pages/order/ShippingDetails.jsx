@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
-import { useOrder } from "../hooks/useOrder";
-import ThemedInput from "../components/ThemedInput";
+import { useOrder } from "../../hooks/useOrder";
+import ThemedInput from "../../components/ThemedInput";
 
 export default function ShippingDetails() {
   const { setShipping, customer, address } = useOrder();

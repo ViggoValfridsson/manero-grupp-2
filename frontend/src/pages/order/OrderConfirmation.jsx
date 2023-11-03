@@ -1,7 +1,7 @@
 import { Check, X } from "lucide-react";
-import PageIconCircle from "../components/PageIconCircle";
+import PageIconCircle from "../../components/PageIconCircle";
 import { Link } from "react-router-dom";
-import { useOrder } from "../hooks/useOrder";
+import { useOrder } from "../../hooks/useOrder";
 
 export default function OrderConfirmation() {
   const { isOrderSuccessful } = useOrder();

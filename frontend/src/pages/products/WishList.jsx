@@ -1,7 +1,7 @@
 import { Heart } from "lucide-react";
-import PageIconCircle from "../components/PageIconCircle";
-import ProductListCard from "../components/ProductListCard";
-import { useWishlist } from "../hooks/useWishlist";
+import PageIconCircle from "../../components/PageIconCircle";
+import ProductListCard from "../../components/ProductListCard";
+import { useWishlist } from "../../hooks/useWishlist";
 import { Link } from "react-router-dom";
 
 function WishList() {

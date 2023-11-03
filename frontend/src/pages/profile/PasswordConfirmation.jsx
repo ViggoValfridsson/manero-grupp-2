@@ -1,5 +1,5 @@
 import { KeyRound } from "lucide-react";
-import PageIconCircle from "../components/PageIconCircle";
+import PageIconCircle from "../../components/PageIconCircle";
 import { Link } from "react-router-dom";
 
 function PasswordConfirmation() {

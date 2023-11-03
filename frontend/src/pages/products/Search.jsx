@@ -1,6 +1,6 @@
-import SearchPageCategoryCard from "../components/SearchPageCategoryCard";
-import { apiDomain } from "../helpers/api-domain";
-import useFetch from "../hooks/useFetch";
+import SearchPageCategoryCard from "../../components/SearchPageCategoryCard";
+import { apiDomain } from "../../helpers/api-domain";
+import useFetch from "../../hooks/useFetch";
 import { Link } from "react-router-dom";
 
 export default function Search() {

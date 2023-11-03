@@ -1,9 +1,9 @@
 import { useState } from "react";
-import ProductGridCard from "../components/ProductGridCard";
-import { apiDomain } from "../helpers/api-domain";
-import useFetch from "../hooks/useFetch";
-import useQuery from "../hooks/useQuery";
-import FilterBurgerMenu from "../components/Layout/FilterBurgerMenu";
+import ProductGridCard from "../../components/ProductGridCard";
+import { apiDomain } from "../../helpers/api-domain";
+import useFetch from "../../hooks/useFetch";
+import useQuery from "../../hooks/useQuery";
+import FilterBurgerMenu from "../../components/Layout/FilterBurgerMenu";
 import { useNavigate } from "react-router-dom";
 
 function Products() {

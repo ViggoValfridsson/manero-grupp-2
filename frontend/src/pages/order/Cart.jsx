@@ -1,8 +1,8 @@
 import { ShoppingBag } from "lucide-react";
-import PageIconCircle from "../components/PageIconCircle";
-import { CartProductCard } from "../components/CartProductCard";
+import PageIconCircle from "../../components/PageIconCircle";
+import { CartProductCard } from "../../components/CartProductCard";
 import { Link } from "react-router-dom";
-import { useCart } from "../hooks/useCart";
+import { useCart } from "../../hooks/useCart";
 
 export default function Cart() {
   const { cart } = useCart();

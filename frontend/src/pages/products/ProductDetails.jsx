@@ -1,10 +1,10 @@
 import { useParams } from "react-router-dom";
-import { apiDomain } from "../helpers/api-domain";
-import useFetch from "../hooks/useFetch";
+import { apiDomain } from "../../helpers/api-domain";
+import useFetch from "../../hooks/useFetch";
 import { Minus, Plus } from "lucide-react";
 import { useState } from "react";
-import { useCart } from "../hooks/useCart";
-import ImageSlider from "../components/ImageSlider";
+import { useCart } from "../../hooks/useCart";
+import ImageSlider from "../../components/ImageSlider";
 
 export default function ProductDetails() {
   const [amount, setAmount] = useState(1);
