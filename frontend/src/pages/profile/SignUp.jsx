@@ -1,8 +1,9 @@
 import { Check, EyeOff, Facebook, Twitter } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import ThemedInput from "../../components/ThemedInput";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { apiDomain } from "../../helpers/api-domain";
+import getCookieByName from "../../helpers/getCookieByName";
 
 function SignUp() {
   const [firstName, setFirstName] = useState("");
@@ -11,8 +12,15 @@ function SignUp() {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-
   const navigate = useNavigate();
+  const authToken = getCookieByName("Authorization");
+
+  useEffect(() => {
+    if (authToken) {
+      // If you already are logged in you should not be able to access this page
+      navigate("/profile");
+    }
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -40,8 +48,7 @@ function SignUp() {
       }
 
       const data = await response.json();
-      console.log("response from server:", data);
-      navigate("/");
+      navigate("/signin");
     } catch (error) {
       console.log(error);
     }
@@ -55,6 +62,7 @@ function SignUp() {
           <ThemedInput
             label="First Name"
             regex={"^[a-zA-ZåäöÅÄÖ]+$"}
+            required
             error={"Must contain only letters"}
             value={firstName}
             type="text"
@@ -68,6 +76,7 @@ function SignUp() {
             label="Last Name"
             type="text"
             regex={"^[a-zA-ZåäöÅÄÖ]+$"}
+            required
             error={"Must contain only letters"}
             value={lastName}
             onChange={(e) => setLastName(e.target.value)}
@@ -80,6 +89,7 @@ function SignUp() {
             label="Email"
             type="email"
             regex={"^[\\w-\\.]+@([\\w-]+.)+[\\w-]{2,4}$"}
+            required
             error={"Must be a valid email address"}
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -92,6 +102,7 @@ function SignUp() {
             label="phone number"
             type="text"
             regex={"^(\\+\\d{1,4}\\s?)?(\\(?\\d{1,}\\)?[-.\\s]?)+\\d{1,}$"}
+            required
             error={"Must be a valid phone number"}
             value={phoneNumber}
             onChange={(e) => setPhoneNumber(e.target.value)}
@@ -106,7 +117,10 @@ function SignUp() {
             regex={
               "^(?=.*[a-zåäö])(?=.*[A-ZÅÄÖ])(?=.*\\d)(?=.*[@$!%*?&])[A-ZÅÄÖa-zåäö\\d@$!%*?&]{8,}$"
             }
-            error={"Must contain at least 8 characters, one lowercase, one uppercase and one special character"}
+            required
+            error={
+              "Must contain at least 8 characters, one lowercase, one uppercase and one special character"
+            }
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             maxLength={100}
@@ -122,6 +136,7 @@ function SignUp() {
             regex={
               "^(?=.*[a-zåäö])(?=.*[A-ZÅÄÖ])(?=.*\\d)(?=.*[@$!%*?&])[A-ZÅÄÖa-zåäö\\d@$!%*?&]{8,}$"
             }
+            required
             error={confirmPassword !== password ? "Must match the previous password" : null}
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
