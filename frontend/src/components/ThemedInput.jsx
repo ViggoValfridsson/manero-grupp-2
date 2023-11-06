@@ -21,9 +21,11 @@ export default function ThemedInput({
   return (
     <label className={`themed-input ${className}`}>
       <span className="label">{label}</span>
-      <input onInput={inputHandler} type="text" {...inputAttributes} />
+      <div className="input-area">
+        <input onInput={inputHandler} type="text" {...inputAttributes} />
+        <span className="icon">{children}</span>
+      </div>
       <span className="error">{!isValid && error}</span>
-      <span className="icon">{children}</span>
     </label>
   );
 }
