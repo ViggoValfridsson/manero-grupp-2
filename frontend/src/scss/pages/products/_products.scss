@@ -1,29 +1,25 @@
 @use "../../core/breakpoints" as *;
-
 .products-page {
   padding-inline: var(--section-padding-inline);
   padding-bottom: 2rem;
-
+  display: grid;
   .filter-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding-block: 1.5rem;
     color: var(--color-text-light);
-
     button,
     select {
       all: unset;
       font-size: var(--font-size-l);
       cursor: pointer;
     }
-
     button {
       display: flex;
       align-items: center;
       gap: 1rem;
     }
-
     // Adds back arrow on select
     select {
       background-color: var(--color-bg);
@@ -33,40 +29,69 @@
       width: fit-content;
     }
   }
-
   .no-products-container {
     padding-block: 1rem;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-
     h1 {
       width: 100%;
       text-align: center;
     }
-
     p {
       font-size: 18px;
       font-weight: 700;
       color: var(--color-text-light);
     }
   }
-
   .product-card-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 1rem;
-
     @include sm {
       grid-template-columns: repeat(3, 1fr);
     }
-
     @include lg {
       grid-template-columns: repeat(4, 1fr);
     }
-
     @include lg {
       grid-template-columns: repeat(5, 1fr);
+    }
+  }
+  .page-buttons {
+    padding-top: 2rem;
+    display: flex;
+    justify-content: center;
+    gap: 0.25rem;
+    @include sm {
+      gap: 1rem;
+    }
+    button {
+      background-color: transparent;
+      border: none;
+      display: grid;
+      place-items: center;
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 0.25rem;
+    }
+    .chevrons {
+      display: flex;
+      gap: 0;
+      @include sm {
+        gap: 0.25rem;
+      }
+      button:disabled {
+        opacity: 0.6;
+      }
+    }
+    .page-number-button {
+      &:hover {
+        background-color: var(--color-blue);
+      }
+      &:disabled {
+        background-color: var(--color-blue-light);
+      }
     }
   }
 }

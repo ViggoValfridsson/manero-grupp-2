@@ -1,28 +1,39 @@
-import { useState } from "react";
 import ProductGridCard from "../../components/ProductGridCard";
 import { apiDomain } from "../../helpers/api-domain";
 import useFetch from "../../hooks/useFetch";
 import useQuery from "../../hooks/useQuery";
 import FilterBurgerMenu from "../../components/Layout/FilterBurgerMenu";
 import { useNavigate } from "react-router-dom";
+import PaginationButtons from "./PaginationButtons";
 
 function Products() {
   const navigate = useNavigate();
   const query = useQuery();
-  const orderBy = query.get("orderby") ?? "";
-  const products = useFetch(`${apiDomain.https}/api/products?${query.toString()}`);
-  const filterMenuOpenState = useState(false);
 
-  const handleChange = (event) => {
+  const orderBy = query.get("orderby") ?? "";
+  const productCount = useFetch(`${apiDomain.https}/api/products/count?${query.toString()}`);
+  const displayAmount = 10;
+  const pageAmount = Math.ceil(productCount.data / displayAmount);
+
+  const products = useFetch(
+    `${apiDomain.https}/api/products?${query.toString()}&amount=${displayAmount}`
+  );
+
+  const handleOrderByChange = (event) => {
     query.set("orderby", event.target.value.toLowerCase());
+    navigate(`?${query.toString()}`);
+  };
+
+  const updatePageNumber = (pageNumber) => {
+    query.set("page", pageNumber);
     navigate(`?${query.toString()}`);
   };
 
   return (
     <div className="products-page">
       <div className="filter-container">
-        <FilterBurgerMenu filterMenuOpenState={filterMenuOpenState} />
-        <select value={orderBy} onChange={handleChange}>
+        <FilterBurgerMenu />
+        <select value={orderBy} onChange={handleOrderByChange}>
           <option value="" disabled hidden>
             Order By
           </option>
@@ -41,6 +52,7 @@ function Products() {
           <ProductGridCard key={product.id} product={product} />
         ))}
       </div>
+      <PaginationButtons pageAmount={pageAmount} updatePageNumber={updatePageNumber} />
     </div>
   );
 }
