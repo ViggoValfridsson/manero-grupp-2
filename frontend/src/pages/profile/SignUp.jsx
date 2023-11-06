@@ -59,6 +59,8 @@ function SignUp() {
             value={firstName}
             type="text"
             onChange={(e) => setFirstName(e.target.value)}
+            maxLength={100}
+            minLength={2}
           >
             <Check />
           </ThemedInput>
@@ -69,36 +71,46 @@ function SignUp() {
             error={"Must contain only letters"}
             value={lastName}
             onChange={(e) => setLastName(e.target.value)}
+            maxLength={100}
+            minLength={2}
           >
             <Check />
           </ThemedInput>
           <ThemedInput
             label="Email"
             type="email"
-            regex={"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$"}
+            regex={"^[\\w-\\.]+@([\\w-]+.)+[\\w-]{2,4}$"}
             error={"Must be a valid email address"}
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            maxLength={320}
+            minLength={1}
           >
             <Check />
           </ThemedInput>
           <ThemedInput
             label="phone number"
             type="text"
-            regex={"^\\+?[1-9]\\d{1,14}$"}
+            regex={"^(\\+\\d{1,4}\\s?)?(\\(?\\d{1,}\\)?[-.\\s]?)+\\d{1,}$"}
             error={"Must be a valid phone number"}
             value={phoneNumber}
             onChange={(e) => setPhoneNumber(e.target.value)}
+            maxLength={20}
+            minLength={10}
           >
             <Check />
           </ThemedInput>
           <ThemedInput
             label="Password"
             type="password"
-            regex={"^.{8,}$"}
-            error={"Must contain at least 8 characters"}
+            regex={
+              "^(?=.*[a-zåäö])(?=.*[A-ZÅÄÖ])(?=.*\\d)(?=.*[@$!%*?&])[A-ZÅÄÖa-zåäö\\d@$!%*?&]{8,}$"
+            }
+            error={"Must contain at least 8 characters, one lowercase, one uppercase and one special character"}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            maxLength={100}
+            minLength={8}
           >
             <button type="button">
               <EyeOff className="container-icon" />
@@ -107,10 +119,14 @@ function SignUp() {
           <ThemedInput
             label="Confirm Password"
             type="password"
-            regex={"^[a-zA-Z]+$"}
+            regex={
+              "^(?=.*[a-zåäö])(?=.*[A-ZÅÄÖ])(?=.*\\d)(?=.*[@$!%*?&])[A-ZÅÄÖa-zåäö\\d@$!%*?&]{8,}$"
+            }
             error={confirmPassword !== password ? "Must match the previous password" : null}
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
+            maxLength={100}
+            minLength={8}
           >
             <button type="button">
               <EyeOff className="container-icon" />
@@ -120,9 +136,9 @@ function SignUp() {
           <button type="submit" className="button button-black">
             SIGN UP
           </button>
-          <p>
-            Already have an account? <Link to="/signin">Sign in.</Link>
-          </p>
+          <Link className="sign-in-button" to="/signin">
+            Already have an account? Sign in.
+          </Link>
         </form>
 
         <div className="signup-options">
