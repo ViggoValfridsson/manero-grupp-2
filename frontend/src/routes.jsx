@@ -2,6 +2,7 @@ import Home from "./pages/Home";
 import Search from "./pages/products/Search";
 import SignIn from "./pages/profile/SignIn";
 import SignUp from "./pages/profile/SignUp";
+import Profile from "./pages/profile/Profile";
 import ForgotPassword from "./pages/profile/ForgotPassword";
 import ResetPassword from "./pages/profile/ResetPassword";
 import PasswordConfirmation from "./pages/profile/PasswordConfirmation";
@@ -25,6 +26,7 @@ const routes = [
   { path: "/wishlist", element: <WishList /> },
   { path: "/signin", element: <SignIn />, title: "Sign in" },
   { path: "/signup", element: <SignUp />, title: "Sign up" },
+  { path: "/profile", element: <Profile />, title: "Profile" },
   { path: "/forgot-password", element: <ForgotPassword />, title: "Forgot Password" },
   { path: "/reset-password", element: <ResetPassword />, title: "Reset Password" },
   { path: "/password-confirmation", element: <PasswordConfirmation /> },
