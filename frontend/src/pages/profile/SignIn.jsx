@@ -1,19 +1,91 @@
 import { Check, EyeOff, Facebook, Twitter } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ThemedInput from "../../components/ThemedInput";
+import { useState, useEffect } from "react";
+import { apiDomain } from "../../helpers/api-domain";
+import getCookieByName from "../../helpers/getCookieByName";
 
 export default function SignIn() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [rememberMe, setRememberMe] = useState(false);
+  const navigate = useNavigate();
+  const authToken = getCookieByName("Authorization");
+
+  useEffect(() => {
+    if (authToken) {
+      // If you already are logged in you should not be able to access this page
+      navigate("/profile");
+    }
+  }, []);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const signInData = {
+      email: email,
+      password: password,
+    };
+    try {
+      const response = await fetch(`${apiDomain.https}/api/account/signin`, {
+        method: "POST",
+        mode: "cors",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(signInData),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Something went wrong status: ${response.status}`);
+      }
+
+      const data = await response.json();
+
+      if (!rememberMe) {
+        document.cookie = `Authorization=${data.token.result}; path=/; secure; SameSite=Lax`;
+      } else {
+        const token = data.token.result;
+        const decodedToken = JSON.parse(atob(token.split(".")[1]));
+        const expirationDate = new Date(decodedToken.exp * 1000);
+
+        document.cookie = `Authorization=${
+          data.token.result
+        }; path=/; secure; SameSite=Lax; expires=${expirationDate.toUTCString()}`;
+      }
+      navigate("/");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <>
       <div className="signin-container">
         <h1>Welcome Back!</h1>
         <h3>Sign in to continue</h3>
-        <form>
+        <form onSubmit={handleSubmit}>
           <div className="signin-detail">
-            <ThemedInput label="Email" type="email">
+            <ThemedInput
+              label="Email"
+              type="email"
+              regex={"^[\\w-\\.]+@([\\w-]+.)+[\\w-]{2,4}$"}
+              error={"Must be a valid email address"}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              maxLength={320}
+              minLength={1}
+              required
+            >
               <Check />
             </ThemedInput>
-            <ThemedInput label="Password" type="password">
+            <ThemedInput
+              label="Password"
+              type="password"
+              required
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            >
               <button type="button">
                 <EyeOff />
               </button>
@@ -22,17 +94,26 @@ export default function SignIn() {
           <div className="config-content">
             <div>
               <label>
-                <input type="checkbox" name="rememberme" value="check" /> Remember me
+                <input
+                  className="checkbox"
+                  type="checkbox"
+                  name="rememberme"
+                  value={rememberMe}
+                  onChange={(e) => setRememberMe(e.target.checked)}
+                />
+                Remember me
               </label>
             </div>
-            <Link to="/forgot-password">Forgot password?</Link>
+            <Link className="redirect-link" to="/forgot-password">
+              Forgot password?
+            </Link>
           </div>
           <button type="submit" className="button button-black">
             SIGN IN
           </button>
-          <p>
-            Don’t have an account? <Link to="/signup">Sign up.</Link>
-          </p>
+          <Link className="redirect-link" to="/signup">
+            Don’t have an account? Sign up.
+          </Link>
         </form>
 
         <div className="signin-options">
