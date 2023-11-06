@@ -4,6 +4,7 @@ import useFetch from "../../hooks/useFetch";
 import useQuery from "../../hooks/useQuery";
 import FilterBurgerMenu from "../../components/Layout/FilterBurgerMenu";
 import { useNavigate } from "react-router-dom";
+import PaginationButtons from "./PaginationButtons";
 
 function Products() {
   const navigate = useNavigate();
@@ -11,8 +12,8 @@ function Products() {
 
   const orderBy = query.get("orderby") ?? "";
   const productCount = useFetch(`${apiDomain.https}/api/products/count?${query.toString()}`);
-  const displayAmount = 2;
-  const pageButtonAmount = Math.ceil(productCount.data / displayAmount);
+  const displayAmount = 10;
+  const pageAmount = Math.ceil(productCount.data / displayAmount);
 
   const products = useFetch(
     `${apiDomain.https}/api/products?${query.toString()}&amount=${displayAmount}`
@@ -51,31 +52,7 @@ function Products() {
           <ProductGridCard key={product.id} product={product} />
         ))}
       </div>
-      <div className="page-buttons">
-        {/* TODO: Fix! */}
-        {pageButtonAmount > 1 &&
-          new Array(5).fill(null).map((_, i) => {
-            const currentPage = Number(query.get("page") ?? 1);
-            const pageNumber = i + currentPage - 2;
-
-            if (pageNumber > pageButtonAmount) {
-              return;
-            }
-            if (pageNumber <= 0) {
-              return;
-            }
-
-            return (
-              <button
-                disabled={pageNumber === currentPage}
-                key={i}
-                onClick={() => updatePageNumber(pageNumber)}
-              >
-                {pageNumber}
-              </button>
-            );
-          })}
-      </div>
+      <PaginationButtons pageAmount={pageAmount} updatePageNumber={updatePageNumber} />
     </div>
   );
 }
