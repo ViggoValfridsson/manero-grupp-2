@@ -4,6 +4,7 @@ import ThemedInput from "../../components/ThemedInput";
 import { useState, useEffect } from "react";
 import { apiDomain } from "../../helpers/api-domain";
 import getCookieByName from "../../helpers/getCookieByName";
+import { useToast } from "../../hooks/useToast";
 
 function SignUp() {
   const [firstName, setFirstName] = useState("");
@@ -14,13 +15,14 @@ function SignUp() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const navigate = useNavigate();
   const authToken = getCookieByName("Authorization");
+  const toast = useToast();
 
   useEffect(() => {
     if (authToken) {
       // If you already are logged in you should not be able to access this page
       navigate("/profile");
     }
-  }, []);
+  }, [authToken, navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -44,12 +46,19 @@ function SignUp() {
       });
 
       if (!response.ok) {
-        throw new Error(`Something went wrong status: ${response.status}`);
+        if (response.status === 400) {
+          throw new Error(`Error: ${response.status}. Invalid input, please try again.`);
+        }
+
+        const errorMessage = await response.text();
+        throw new Error(`Error: ${response.status}. ${errorMessage}`);
       }
 
       const data = await response.json();
+      toast.add(`Created account: ${data.email}!`);
       navigate("/signin");
     } catch (error) {
+      toast.add(error.message, "var(--color-danger)");
       console.log(error);
     }
   };

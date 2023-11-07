@@ -17,7 +17,7 @@ export default function SignIn() {
       // If you already are logged in you should not be able to access this page
       navigate("/profile");
     }
-  }, []);
+  }, [authToken, navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
