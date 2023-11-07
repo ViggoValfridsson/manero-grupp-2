@@ -81,7 +81,7 @@ function Profile() {
             <ChevronRight />
           </div>
         </Link>
-        <Link to={"/sign-out"}>
+        <Link to={"/signout"}>
           <div className="list-item">
             <div className="items-start">
               <DoorOpen />
