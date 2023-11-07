@@ -2,15 +2,19 @@ import ProductGridCard from "../../components/ProductGridCard";
 import { apiDomain } from "../../helpers/api-domain";
 import useFetch from "../../hooks/useFetch";
 import useQuery from "../../hooks/useQuery";
-import FilterBurgerMenu from "../../components/Layout/FilterBurgerMenu";
 import { useNavigate } from "react-router-dom";
-import PaginationButtons from "./PaginationButtons";
+import PaginationButtons from "../../components/PaginationButtons";
+import FilterMenu from "../../components/Layout/FilterMenu";
+import { ChevronDown, SlidersHorizontal } from "lucide-react";
+import { useEffect, useState } from "react";
+import ThemedDropdown from "../../components/ThemedDropdown";
 
 function Products() {
+  const [menuExpanded, setMenuExpanded] = useState(false);
+  const [orderByValue, setOrderByValue] = useState(null);
   const navigate = useNavigate();
   const query = useQuery();
 
-  const orderBy = query.get("orderby") ?? "";
   const productCount = useFetch(`${apiDomain.https}/api/products/count?${query.toString()}`);
   const displayAmount = 10;
   const pageAmount = Math.ceil(productCount.data / displayAmount);
@@ -19,10 +23,14 @@ function Products() {
     `${apiDomain.https}/api/products?${query.toString()}&amount=${displayAmount}`
   );
 
-  const handleOrderByChange = (event) => {
-    query.set("orderby", event.target.value.toLowerCase());
-    navigate(`?${query.toString()}`);
-  };
+  useEffect(() => {
+    if (orderByValue) {
+      query.set("orderby", orderByValue?.split(" ")?.join("").toLowerCase());
+      navigate(`?${query.toString()}`);
+    } else {
+      query.delete("orderby");
+    }
+  }, [orderByValue, query, navigate]);
 
   const updatePageNumber = (pageNumber) => {
     query.set("page", pageNumber);
@@ -31,27 +39,29 @@ function Products() {
 
   return (
     <div className="products-page">
-      <div className="filter-container">
-        <FilterBurgerMenu />
-        <select value={orderBy} onChange={handleOrderByChange}>
-          <option value="" disabled hidden>
-            Order By
-          </option>
-          <option value="lowestprice">Lowest Price</option>
-          <option value="highestprice">Highest Price</option>
-        </select>
+      <div className="top-row">
+        <button className="filter-button" onClick={() => setMenuExpanded(!menuExpanded)}>
+          <SlidersHorizontal />
+          <span>Filters</span>
+          <ChevronDown style={menuExpanded ? { rotate: "-180deg" } : {}} />
+        </button>
+        <ThemedDropdown value={orderByValue ?? "Order By"}>
+          <button onClick={() => setOrderByValue("Lowest Price")}>Lowest Price</button>
+          <button onClick={() => setOrderByValue("Highest Price")}>Highest Price</button>
+        </ThemedDropdown>
       </div>
+      <FilterMenu menuExpanded={menuExpanded} />
       {products.data?.length == 0 && (
-        <div className="no-products-container">
-          <h1>We Could Not Find Any Products Based on Your Filtering</h1>
+        <section className="no-products-container">
+          <h1>Could Not Find Any Products</h1>
           <p>Please try again with other filtering options.</p>
-        </div>
+        </section>
       )}
-      <div className="product-card-container">
+      <section className="product-card-container">
         {products.data?.map((product) => (
           <ProductGridCard key={product.id} product={product} />
         ))}
-      </div>
+      </section>
       <PaginationButtons pageAmount={pageAmount} updatePageNumber={updatePageNumber} />
     </div>
   );
