@@ -7,6 +7,7 @@ function SignOut() {
   const toast = useToast();
 
   useEffect(() => {
+    // delete auth token
     document.cookie = `Authorization=; expires="${new Date(
       0
     ).toUTCString()}" path=/; secure; SameSite=Lax`;
@@ -14,7 +15,6 @@ function SignOut() {
     toast.add("Successfully signed out!");
     navigate("/");
   }, [navigate, toast]);
-  // delete auth token
 
   return null;
 }
