@@ -2,7 +2,7 @@ import { Check, EyeOff, Facebook, Twitter } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import ThemedInput from "../../components/ThemedInput";
 import { useState, useEffect } from "react";
-import { apiDomain } from "../../helpers/api-domain";
+import { apiDomain } from "../../helpers/apiDomain";
 import getCookieByName from "../../helpers/getCookieByName";
 import { useToast } from "../../hooks/useToast";
 

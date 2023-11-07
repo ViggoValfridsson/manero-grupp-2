@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import ThemedInput from "../../components/ThemedInput";
 import { useToast } from "../../hooks/useToast";
-import { apiDomain } from "../../helpers/api-domain";
+import { apiDomain } from "../../helpers/apiDomain";
 import { useNavigate } from "react-router-dom";
 import getCookieByName from "../../helpers/getCookieByName";
 

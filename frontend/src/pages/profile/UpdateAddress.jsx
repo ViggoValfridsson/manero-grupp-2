@@ -1,5 +1,5 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { apiDomain } from "../../helpers/api-domain";
+import { apiDomain } from "../../helpers/apiDomain";
 import useFetch from "../../hooks/useFetch";
 import { useEffect, useState } from "react";
 import getCookieByName from "../../helpers/getCookieByName";
@@ -76,7 +76,7 @@ function UpdateAddress() {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${authToken}`,
-        }
+        },
       });
 
       if (!response.ok) {
@@ -89,7 +89,7 @@ function UpdateAddress() {
       toast.add(error.message, "var(--color-danger)");
       console.log(error);
     }
-  }
+  };
 
   return (
     <div className="update-address-page">
@@ -129,7 +129,7 @@ function UpdateAddress() {
             Save Changes
           </button>
           <button className="button button-delete" type="button" onClick={handleDelete}>
-            Delete 
+            Delete
           </button>
         </form>
       )}

@@ -3,7 +3,7 @@ import { useCart } from "./useCart";
 import Customer from "../models/Customer";
 import Address from "../models/Address";
 import PaymentCard from "../models/PaymentCard";
-import { apiDomain } from "../helpers/api-domain";
+import { apiDomain } from "../helpers/apiDomain";
 
 const OrderContext = createContext(null);
 

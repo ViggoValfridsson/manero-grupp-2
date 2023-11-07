@@ -1,5 +1,5 @@
 import useFetch from "../../hooks/useFetch";
-import { apiDomain } from "../../helpers/api-domain";
+import { apiDomain } from "../../helpers/apiDomain";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import getCookieByName from "../../helpers/getCookieByName";
@@ -20,9 +20,7 @@ function OrderHistory() {
     }
   }, [authToken, orders, navigate]);
 
-  return (
-    <div>OrderHistory</div>
-  )
+  return <div>OrderHistory</div>;
 }
 
-export default OrderHistory
+export default OrderHistory;

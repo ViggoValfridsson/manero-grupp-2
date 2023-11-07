@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
-import { apiDomain } from "../../helpers/api-domain";
+import { apiDomain } from "../../helpers/apiDomain";
 import useQuery from "../../hooks/useQuery";
 import ThemedDropdown from "../ThemedDropdown";
 import cleanQueryValue from "../../helpers/cleanQueryValue";

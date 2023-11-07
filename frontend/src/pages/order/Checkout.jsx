@@ -5,7 +5,7 @@ import { ChevronRight } from "lucide-react";
 import CheckoutItem from "../../components/CheckoutItem";
 import { useOrder } from "../../hooks/useOrder";
 import { useState } from "react";
-import hideCreditCardNumber from "../../helpers/hide-credit-card-number";
+import hideCreditCardNumber from "../../helpers/hideCreditCardNumber";
 
 function Checkout() {
   const { cart } = useCart();

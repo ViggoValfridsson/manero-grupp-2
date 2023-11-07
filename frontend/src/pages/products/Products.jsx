@@ -1,5 +1,5 @@
 import ProductGridCard from "../../components/ProductGridCard";
-import { apiDomain } from "../../helpers/api-domain";
+import { apiDomain } from "../../helpers/apiDomain";
 import useFetch from "../../hooks/useFetch";
 import useQuery from "../../hooks/useQuery";
 import { useNavigate } from "react-router-dom";

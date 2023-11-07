@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { apiDomain } from "../helpers/api-domain";
+import { apiDomain } from "../helpers/apiDomain";
 import useFetch from "../hooks/useFetch";
 import DiscountCard from "../components/DiscountCard";
 import ProductGridCard from "../components/ProductGridCard";
