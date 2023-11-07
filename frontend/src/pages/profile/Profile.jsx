@@ -72,7 +72,7 @@ function Profile() {
             <ChevronRight />
           </div>
         </Link>
-        <Link to={"/my-address"}>
+        <Link to={"/profile/address"}>
           <div className="list-item">
             <div className="items-start">
               <MapPin />

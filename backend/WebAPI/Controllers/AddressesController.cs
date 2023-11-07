@@ -50,6 +50,24 @@ public class AddressesController : ControllerBase
     }
 
     [Authorize]
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GetAddressById(int id)
+    {
+        var userId = _accountService.GetIdFromToken(Request.GetAuthString()!);
+        var status = await _accountService.IsValidUserId(userId);
+
+        if (status.StatusCode != 200)
+            return StatusCode(status.StatusCode, status.StatusMessage);
+
+        if (!await _addressService.IsAddressOwnedByUserAsync(id, userId!))
+            return StatusCode(403, "You do not have permission to access this address.");
+
+        var address = await _addressService.GetById(id);
+
+        return Ok(address);
+    }
+
+    [Authorize]
     [HttpPut]
     public async Task<IActionResult> UpdateUserAddress(AddressUpdateSchema schema)
     {
