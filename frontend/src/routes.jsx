@@ -15,7 +15,8 @@ import AddPaymentCard from "./pages/order/AddPaymentCard";
 import NotFound from "./pages/NotFound";
 import Checkout from "./pages/order/Checkout";
 import SignOut from "./pages/profile/SignOut";
-import OrderHistory from "./scss/core/OrderHistory";
+import OrderHistory from "./pages/products/OrderHistory";
+import EditProfile from "./pages/profile/EditProfile";
 
 // If no title is set, the manero logo will show instead
 const routes = [
@@ -28,6 +29,7 @@ const routes = [
   { path: "/signup", element: <SignUp />, title: "Sign up" },
   { path: "/signout", element: <SignOut />, title: "Sign out" },
   { path: "/profile", element: <Profile />, title: "Profile" },
+  { path: "/profile/edit", element: <EditProfile />, title: "Edit Profile" },
   { path: "/order-history", element: <OrderHistory />, title: "Order History" },
   { path: "/forgot-password", element: <ForgotPassword />, title: "Forgot Password" },
   { path: "/reset-password", element: <ResetPassword />, title: "Reset Password" },
