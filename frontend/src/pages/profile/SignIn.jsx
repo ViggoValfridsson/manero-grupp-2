@@ -4,6 +4,7 @@ import ThemedInput from "../../components/ThemedInput";
 import { useState, useEffect } from "react";
 import { apiDomain } from "../../helpers/api-domain";
 import getCookieByName from "../../helpers/getCookieByName";
+import { useToast } from "../../hooks/useToast";
 
 export default function SignIn() {
   const [email, setEmail] = useState("");
@@ -11,6 +12,7 @@ export default function SignIn() {
   const [rememberMe, setRememberMe] = useState(false);
   const navigate = useNavigate();
   const authToken = getCookieByName("Authorization");
+  const toast = useToast();
 
   useEffect(() => {
     if (authToken) {
@@ -37,7 +39,12 @@ export default function SignIn() {
       });
 
       if (!response.ok) {
-        throw new Error(`Something went wrong status: ${response.status}`);
+        if (response.status >= 400 && response.status <= 499) {
+          throw new Error("Invalid credentials, please try again.")
+        }
+
+        const errorMessage = await response.text();
+        throw new Error(`Error: ${response.status}. ${errorMessage}`);
       }
 
       const data = await response.json();
@@ -53,8 +60,11 @@ export default function SignIn() {
           data.token.result
         }; path=/; secure; SameSite=Lax; expires=${expirationDate.toUTCString()}`;
       }
+      
+      toast.add("Successfully signed in!")
       navigate("/");
     } catch (error) {
+      toast.add(error.message, "var(--color-danger)");
       console.log(error);
     }
   };
