@@ -72,14 +72,20 @@
   .no-products-container {
     padding-block: 1rem;
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    h1 {
-      width: 100%;
-      text-align: center;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    text-align: center;
+    h2 {
+      padding-bottom: 0.25rem;
     }
     p {
       color: var(--color-text-light);
+    }
+    @include sm {
+      .button {
+        width: fit-content;
+      }
     }
   }
   .product-card-container {
