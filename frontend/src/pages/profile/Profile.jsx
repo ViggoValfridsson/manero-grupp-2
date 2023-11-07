@@ -1,7 +1,7 @@
 import useFetch from "../../hooks/useFetch";
 import getCookieByName from "../../helpers/getCookieByName";
-import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 import { apiDomain } from "../../helpers/api-domain";
 import PageIconCircle from "../../components/PageIconCircle";
 import {
@@ -21,11 +21,15 @@ function Profile() {
   const authToken = getCookieByName("Authorization");
 
   useEffect(() => {
+    // Login failed
     if (!authToken || account.error || (!account.isLoading && !account.data)) {
-      // Login failed
+      // Delete cookie to prevent infinite redirects
+      document.cookie = `Authorization=; expires="${new Date(
+        0
+      ).toUTCString()}" path=/; secure; SameSite=Lax`;
       navigate("/signin");
     }
-  }, [authToken, account]);
+  }, [authToken, account, navigate]);
 
   if (account.isLoading) {
     return;
@@ -33,20 +37,22 @@ function Profile() {
 
   return (
     <div className="profile-page">
-      <div className="heading">
-        <Link to="/profile/edit" className="icon-container">
-          <PageIconCircle icon={<User />} />
-          <div className="edit-icon">
-            <PencilLine />
+      {account.data && (
+        <div className="heading">
+          <Link to="/profile/edit" className="icon-container">
+            <PageIconCircle icon={<User />} />
+            <div className="edit-icon">
+              <PencilLine />
+            </div>
+          </Link>
+          <div className="heading-text">
+            <h1>
+              {account.data.firstName} {account.data.lastName}
+            </h1>
+            <p>{account.data.email}</p>
           </div>
-        </Link>
-        <div className="heading-text">
-          <h1>
-            {account.data.firstName} {account.data.lastName}
-          </h1>
-          <p>{account.data.email}</p>
         </div>
-      </div>
+      )}
       <div className="link-list">
         <Link to={"/order-history"}>
           <div className="list-item">

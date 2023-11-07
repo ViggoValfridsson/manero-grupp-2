@@ -5,8 +5,6 @@ import SignUp from "./pages/profile/SignUp";
 import Profile from "./pages/profile/Profile";
 import ForgotPassword from "./pages/profile/ForgotPassword";
 import ResetPassword from "./pages/profile/ResetPassword";
-import PasswordConfirmation from "./pages/profile/PasswordConfirmation";
-import AccountCreated from "./pages/profile/AccountCreated";
 import Cart from "./pages/order/Cart";
 import Products from "./pages/products/Products";
 import ProductDetails from "./pages/products/ProductDetails";
@@ -29,8 +27,6 @@ const routes = [
   { path: "/profile", element: <Profile />, title: "Profile" },
   { path: "/forgot-password", element: <ForgotPassword />, title: "Forgot Password" },
   { path: "/reset-password", element: <ResetPassword />, title: "Reset Password" },
-  { path: "/password-confirmation", element: <PasswordConfirmation /> },
-  { path: "/account-confirmation", element: <AccountCreated /> },
   { path: "/products", element: <Products />, title: "Products" },
   { path: "/products/:id", element: <ProductDetails /> },
   { path: "/checkout", element: <Checkout />, title: "Checkout" },
