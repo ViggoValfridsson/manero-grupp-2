@@ -14,7 +14,7 @@ export function ToastContextProvider({ children }) {
     setToasts([...toasts, { message, color, timestamp: Date.now() }]);
     setTimeout(() => {
       setToasts(toastsRef.current.splice(1, toastsRef.current.length));
-    }, 1500);
+    }, 2500);
   };
 
   return (
