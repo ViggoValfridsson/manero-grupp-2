@@ -1,6 +1,6 @@
-import useQuery from "../../hooks/useQuery";
+import useQuery from "../hooks/useQuery";
 import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from "lucide-react";
-import useWindowResize from "../../hooks/useWindowResize";
+import useWindowResize from "../hooks/useWindowResize";
 import { useState } from "react";
 
 export default function PaginationButtons({ pageAmount, updatePageNumber }) {
