@@ -2,7 +2,7 @@ import { Check, EyeOff, Facebook, Twitter } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import ThemedInput from "../../components/ThemedInput";
 import { useState, useEffect } from "react";
-import { apiDomain } from "../../helpers/api-domain";
+import { apiDomain } from "../../helpers/apiDomain";
 import getCookieByName from "../../helpers/getCookieByName";
 import { useToast } from "../../hooks/useToast";
 
@@ -40,7 +40,7 @@ export default function SignIn() {
 
       if (!response.ok) {
         if (response.status >= 400 && response.status <= 499) {
-          throw new Error("Invalid credentials, please try again.")
+          throw new Error("Invalid credentials, please try again.");
         }
 
         const errorMessage = await response.text();
@@ -60,8 +60,8 @@ export default function SignIn() {
           data.token.result
         }; path=/; secure; SameSite=Lax; expires=${expirationDate.toUTCString()}`;
       }
-      
-      toast.add("Successfully signed in!")
+
+      toast.add("Successfully signed in!");
       navigate("/");
     } catch (error) {
       toast.add(error.message, "var(--color-danger)");

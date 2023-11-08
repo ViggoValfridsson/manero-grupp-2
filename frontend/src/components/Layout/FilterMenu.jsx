@@ -1,8 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
-import { apiDomain } from "../../helpers/api-domain";
+import { apiDomain } from "../../helpers/apiDomain";
 import useQuery from "../../hooks/useQuery";
 import ThemedDropdown from "../ThemedDropdown";
+import cleanQueryValue from "../../helpers/cleanQueryValue";
 
 function FilterMenu({ menuExpanded }) {
   const navigate = useNavigate();
@@ -11,19 +12,15 @@ function FilterMenu({ menuExpanded }) {
   const categories = useFetch(`${apiDomain.https}/api/categories`);
   const tags = useFetch(`${apiDomain.https}/api/tags`);
 
-  const updateQuery = (key, value) => {
-    query.set("page", 1);
-    if (query.has(key, value)) {
-      query.delete(key);
-    } else {
-      query.set(key, value);
-    }
-
+  const setCategoryQuery = (value) => {
+    value === "all" ? query.delete("category") : query.set("category", value);
+    query.delete("page");
     navigate(`?${query.toString()}`);
   };
 
-  const removeQueryParam = (key) => {
-    query.delete(key);
+  const setTagQuery = (value) => {
+    query.has("tag", value) ? query.delete("tag") : query.set("tag", value);
+    query.delete("page");
     navigate(`?${query.toString()}`);
   };
 
@@ -33,17 +30,11 @@ function FilterMenu({ menuExpanded }) {
         <div className="filter-menu-inner">
           <div className="category-container">
             <h2>Category</h2>
-            <ThemedDropdown value={query.get("category") ?? "All"}>
-              <button onClick={() => removeQueryParam("category")}>All</button>
-              {categories.data?.map((category) => (
-                <button
-                  key={category.name}
-                  onClick={() => updateQuery("category", category.name.toLowerCase())}
-                >
-                  {category.name}
-                </button>
-              ))}
-            </ThemedDropdown>
+            <ThemedDropdown
+              value={query.get("category") ?? "All"}
+              options={["All", ...(categories.data?.map((category) => category.name) ?? [])]}
+              onChange={(selected) => setCategoryQuery(cleanQueryValue(selected))}
+            />
           </div>
           <div className="tag-container">
             <h2>Tags</h2>
@@ -51,8 +42,8 @@ function FilterMenu({ menuExpanded }) {
               {tags.data?.map((tag) => (
                 <button
                   key={tag.name}
-                  onClick={() => updateQuery("tag", tag.name.toLowerCase())}
-                  className={query.has("tag", tag.name.toLowerCase()) ? "active" : ""}
+                  onClick={() => setTagQuery(cleanQueryValue(tag.name))}
+                  className={query.has("tag", cleanQueryValue(tag.name)) ? "active" : ""}
                 >
                   {tag.name}
                 </button>

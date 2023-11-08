@@ -1,7 +1,7 @@
 import { useNavigate, Link } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
 import getCookieByName from "../../helpers/getCookieByName";
-import { apiDomain } from "../../helpers/api-domain";
+import { apiDomain } from "../../helpers/apiDomain";
 import { useEffect, useState } from "react";
 import ThemedInput from "../../components/ThemedInput";
 import { User } from "lucide-react";

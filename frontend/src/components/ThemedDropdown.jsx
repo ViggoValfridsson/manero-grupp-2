@@ -1,8 +1,23 @@
 import { ChevronDown } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-export default function ThemedDropdown({ children, value }) {
+// ThemedDropdown component that displays a dropdown menu with options.
+export default function ThemedDropdown({ options, value = "", onChange }) {
   const [expanded, setExpanded] = useState(false);
+
+  // Close the dropdown when the user clicks outside of it
+  useEffect(() => {
+    const callback = (e) => {
+      if (e.target.closest(".themed-dropdown") === null) setExpanded(false);
+    };
+    document.addEventListener("click", callback);
+    return () => document.removeEventListener("click", callback);
+  }, []);
+
+  const updateState = (option) => {
+    if (option === value) return;
+    onChange(option);
+  };
 
   return (
     <div className="themed-dropdown" onClick={() => setExpanded(!expanded)}>
@@ -12,7 +27,13 @@ export default function ThemedDropdown({ children, value }) {
 
       <div className={`dropdown ${expanded ? "expanded" : ""}`}>
         <div className="dropdown-inner">
-          <div className="options">{children}</div>
+          <div className="options">
+            {options?.map((option) => (
+              <button key={option} onClick={() => updateState(option)}>
+                {option}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
     </div>

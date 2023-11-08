@@ -2,7 +2,7 @@ import useFetch from "../../hooks/useFetch";
 import getCookieByName from "../../helpers/getCookieByName";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-import { apiDomain } from "../../helpers/api-domain";
+import { apiDomain } from "../../helpers/apiDomain";
 import PageIconCircle from "../../components/PageIconCircle";
 import {
   User,
