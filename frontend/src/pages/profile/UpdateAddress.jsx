@@ -18,14 +18,14 @@ function UpdateAddress() {
 
   useEffect(() => {
     // Login failed
-    if (!authToken) {
+    if (!authToken || address.error) {
       // Delete cookie to prevent infinite redirects
       document.cookie = `Authorization=; expires="${new Date(
         0
       ).toUTCString()}" path=/; secure; SameSite=Lax`;
       navigate("/signin");
     }
-  }, [authToken, navigate]);
+  }, [authToken, navigate, address]);
 
   if (address.data && !streetAddress && !city && !postalCode) {
     setStreetAddress(address.data.city);

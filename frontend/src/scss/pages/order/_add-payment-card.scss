@@ -30,8 +30,17 @@
       }
     }
     button {
-      margin-top: 2rem;
+      margin-top: 1rem;
       width: 100%;
+    }
+
+    .button-delete {
+      border: 1px solid var(--color-danger);
+      color: var(--color-danger);
+      &:hover {
+        background-color: var(--color-danger);
+        color: var(--color-bg);
+      }
     }
   }
 }
