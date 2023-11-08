@@ -82,7 +82,6 @@ function EditCard() {
 
   const handleDelete = async (e) => {
     e.preventDefault();
-    ///api/Addresses?addressId=1
     try {
       const response = await fetch(`${apiDomain.https}/api/bankcards/${bankCard.data.id}`, {
         method: "DELETE",
