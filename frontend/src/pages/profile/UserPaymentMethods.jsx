@@ -42,7 +42,7 @@ function UserPaymentMethods() {
 
         </div>
         <div className="linklist">
-          <Link to={"/profile/payment/add"}>
+          <Link to={"/profile/payment/apple-pay"}>
             <div className="left-side">
             <p>Appel Pay </p> 
             <Check />
@@ -50,7 +50,7 @@ function UserPaymentMethods() {
             <PencilLine />
           </Link>
 
-          <Link to={"/profile/payment/add"}>
+          <Link to={"/profile/payment/pay-pal"}>
             <div className="left-side">
             <p>Pay Pal </p> 
             <Check />
@@ -58,7 +58,7 @@ function UserPaymentMethods() {
             <PencilLine />
           </Link>
 
-          <Link to={"/profile/payment/add"}>
+          <Link to={"/profile/payment/payoneer"}>
             <div className="left-side">
             <p>Payoneer </p> 
             </div>
