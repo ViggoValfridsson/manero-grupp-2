@@ -9,7 +9,7 @@ import hideCreditCardNumber from "../../helpers/hideCreditCardNumber";
 
 function Checkout() {
   const { cart } = useCart();
-  const { placeOrder, address, customer, paymentCard } = useOrder();
+  const { placeOrder, address, customer, paymentCard, setOrderComment, orderComment } = useOrder();
   const navigate = useNavigate();
   const [shippingError, setShippingError] = useState(false);
   const [paymentError, setPaymentError] = useState(false);
@@ -65,7 +65,11 @@ function Checkout() {
       <section className="container-bottom">
         <div className="comment-field">
           <label>Comment</label>
-          <input placeholder="Write your comment"></input>
+          <input
+            placeholder="Write your comment"
+            onChange={(e) => setOrderComment(e.target.value)}
+            value={orderComment}
+          />
         </div>
         <div className="order-button">
           <button

@@ -17,6 +17,7 @@ export default function ShippingDetails() {
     navigate(-1);
   };
 
+  // TODO: Get customer and address from logged in user if available
   return (
     <div className="shipping-details-page">
       <p>Please enter you shipping details</p>
