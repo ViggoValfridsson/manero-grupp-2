@@ -54,7 +54,7 @@ function Profile() {
         </div>
       )}
       <div className="link-list">
-        <Link to={"/order-history"}>
+        <Link to={"/profile/orders"}>
           <div className="list-item">
             <div className="items-start">
               <Calendar />
@@ -63,7 +63,7 @@ function Profile() {
             <ChevronRight />
           </div>
         </Link>
-        <Link to={"/payment-method"}>
+        <Link to={"/profile/payment"}>
           <div className="list-item">
             <div className="items-start">
               <CreditCard />
