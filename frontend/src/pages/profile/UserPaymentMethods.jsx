@@ -13,7 +13,7 @@ function UserPaymentMethods() {
 
   useEffect(() => {
     // Login failed
-    if ((!authToken || userCards.error)) {
+    if (!authToken || userCards.error) {
       // Delete cookie to prevent infinite redirects
       document.cookie = `Authorization=; expires="${new Date(
         0

@@ -21,6 +21,7 @@ import MyAddresses from "./pages/profile/MyAddresses";
 import AddAddress from "./pages/profile/AddAddress";
 import UpdateAddress from "./pages/profile/UpdateAddress";
 import UserPaymentMethods from "./pages/profile/UserPaymentMethods";
+import UserAddPaymentMethods from "./pages/profile/UserAddPaymentMethods";
 
 // If no title is set, the manero logo will show instead
 const routes = [
@@ -39,6 +40,7 @@ const routes = [
   { path: "/profile/address/add", element: <AddAddress />, title: "Add address" },
   { path: "/profile/orders", element: <OrderHistory />, title: "Order History" },
   { path: "/profile/payment", element: <UserPaymentMethods />, title: "Payment Methods"},
+  { path: "/profile/payment/add", element: <UserAddPaymentMethods />, title: "Add new a card"},
   { path: "/forgot-password", element: <ForgotPassword />, title: "Forgot Password" },
   { path: "/reset-password", element: <ResetPassword />, title: "Reset Password" },
   { path: "/products", element: <Products />, title: "Products" },
