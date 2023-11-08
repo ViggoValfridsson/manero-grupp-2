@@ -23,6 +23,7 @@ import UpdateAddress from "./pages/profile/UpdateAddress";
 import UserPaymentMethods from "./pages/profile/UserPaymentMethods";
 import UserAddPaymentMethods from "./pages/profile/UserAddPaymentMethods";
 import EditCard from "./pages/profile/EditCard";
+import ChangePassword from "./pages/profile/ChangePassword";
 
 // If no title is set, the manero logo will show instead
 const routes = [
@@ -36,13 +37,14 @@ const routes = [
   { path: "/signout", element: <SignOut />, title: "Sign out" },
   { path: "/profile", element: <Profile />, title: "Profile" },
   { path: "/profile/edit", element: <EditProfile />, title: "Edit Profile" },
+  { path: "/profile/edit/changepassword", element: <ChangePassword />, title: "Change Password" },
   { path: "/profile/address", element: <MyAddresses />, title: "My Addresses" },
   { path: "/profile/address/:id", element: <UpdateAddress />, title: "My Address" },
   { path: "/profile/address/add", element: <AddAddress />, title: "Add address" },
   { path: "/profile/orders", element: <OrderHistory />, title: "Order History" },
-  { path: "/profile/payment", element: <UserPaymentMethods />, title: "Payment Methods"},
-  { path: "/profile/payment/add", element: <UserAddPaymentMethods />, title: "Add new a card"},
-  { path: "/profile/payment/card/:id", element: <EditCard />, title: "Add new a card"},
+  { path: "/profile/payment", element: <UserPaymentMethods />, title: "Payment Methods" },
+  { path: "/profile/payment/add", element: <UserAddPaymentMethods />, title: "Add new a card" },
+  { path: "/profile/payment/card/:id", element: <EditCard />, title: "Add new a card" },
   { path: "/forgot-password", element: <ForgotPassword />, title: "Forgot Password" },
   { path: "/reset-password", element: <ResetPassword />, title: "Reset Password" },
   { path: "/products", element: <Products />, title: "Products" },
