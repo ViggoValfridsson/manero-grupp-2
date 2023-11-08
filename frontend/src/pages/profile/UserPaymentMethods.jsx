@@ -32,7 +32,7 @@ function UserPaymentMethods() {
       </div>
       <div className="card-container">
         {userCards?.data?.map((card) => (
-          <Link key={card.creditCardNumber}>
+          <Link key={card.id} to={`/profile/payment/card/${card.id}`}>
             <PaymentCard
               cardNumber={card.creditCardNumber.replace(/(.{4})/g, "$1 ")}
               nameOnCard={card.cardholderName}
