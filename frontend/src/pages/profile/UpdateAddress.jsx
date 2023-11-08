@@ -68,7 +68,6 @@ function UpdateAddress() {
 
   const handleDelete = async (e) => {
     e.preventDefault();
-    ///api/Addresses?addressId=1
     try {
       const response = await fetch(`${apiDomain.https}/api/addresses?addressId=${id}`, {
         method: "DELETE",
