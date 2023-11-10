@@ -1,4 +1,4 @@
-import { Check, EyeOff, Facebook, Twitter } from "lucide-react";
+import { Check, EyeOff, Eye, Facebook, Twitter } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import ThemedInput from "../../components/ThemedInput";
 import { useState, useEffect } from "react";
@@ -13,6 +13,8 @@ function SignUp() {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [passwordIsHidden, setPasswordIsHidden] = useState(true);
+  const [confirmPasswordIsHidden, setConfirmPasswordIsHidden] = useState(true);
   const navigate = useNavigate();
   const authToken = getCookieByName("Authorization");
   const toast = useToast();
@@ -122,7 +124,7 @@ function SignUp() {
           </ThemedInput>
           <ThemedInput
             label="Password"
-            type="password"
+            type={passwordIsHidden ? "password" : "text"}
             regex={
               "^(?=.*[a-zåäö])(?=.*[A-ZÅÄÖ])(?=.*\\d)(?=.*[@$!%*?&])[A-ZÅÄÖa-zåäö\\d@$!%*?&]{8,}$"
             }
@@ -135,13 +137,13 @@ function SignUp() {
             maxLength={100}
             minLength={8}
           >
-            <button type="button">
-              <EyeOff className="container-icon" />
+            <button type="button" onClick={() => setPasswordIsHidden(!passwordIsHidden)}>
+              {passwordIsHidden ? <EyeOff /> : <Eye />}
             </button>
           </ThemedInput>
           <ThemedInput
             label="Confirm Password"
-            type="password"
+            type={confirmPasswordIsHidden ? "password" : "text"}
             regex={
               "^(?=.*[a-zåäö])(?=.*[A-ZÅÄÖ])(?=.*\\d)(?=.*[@$!%*?&])[A-ZÅÄÖa-zåäö\\d@$!%*?&]{8,}$"
             }
@@ -152,8 +154,8 @@ function SignUp() {
             maxLength={100}
             minLength={8}
           >
-            <button type="button">
-              <EyeOff className="container-icon" />
+            <button type="button" onClick={() => setConfirmPasswordIsHidden(!confirmPasswordIsHidden)}>
+              {confirmPasswordIsHidden ? <EyeOff /> : <Eye />}
             </button>
           </ThemedInput>
 

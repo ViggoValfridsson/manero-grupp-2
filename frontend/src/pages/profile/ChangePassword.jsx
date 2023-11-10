@@ -4,11 +4,15 @@ import { Link, useNavigate } from "react-router-dom";
 import { useToast } from "../../hooks/useToast";
 import { apiDomain } from "../../helpers/apiDomain";
 import getCookieByName from "../../helpers/getCookieByName";
+import { Eye, EyeOff } from "lucide-react";
 
 function ChangePassword() {
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [oldPasswordIsHidden, setOldPasswordIsHidden] = useState(true);
+  const [newPasswordIsHidden, setNewPasswordIsHidden] = useState(true);
+  const [confirmNewPasswordIsHidden, setConfirmNewPasswordIsHidden] = useState(true);
   const toast = useToast();
   const authToken = getCookieByName("Authorization");
   const navigate = useNavigate();
@@ -68,16 +72,22 @@ function ChangePassword() {
           required
           error={"This field is required"}
           value={oldPassword}
+          type={oldPasswordIsHidden ? "password" : "text"}
           // type="password"
           onChange={(e) => setOldPassword(e.target.value)}
           maxLength={100}
           minLength={8}
-        ></ThemedInput>
+        >
+          <button type="button" onClick={() => setOldPasswordIsHidden(!oldPasswordIsHidden)}>
+            {oldPasswordIsHidden ? <EyeOff /> : <Eye />}
+          </button>
+        </ThemedInput>
         <ThemedInput
           label="New Password"
           required
           error={"This field is required"}
           value={newPassword}
+          type={newPasswordIsHidden ? "password" : "text"}
           regex={
             "^(?=.*[a-zåäö])(?=.*[A-ZÅÄÖ])(?=.*\\d)(?=.*[@$!%*?&])[A-ZÅÄÖa-zåäö\\d@$!%*?&]{8,}$"
           }
@@ -85,12 +95,17 @@ function ChangePassword() {
           onChange={(e) => setNewPassword(e.target.value)}
           maxLength={100}
           minLength={8}
-        ></ThemedInput>
+        >
+          <button type="button" onClick={() => setNewPasswordIsHidden(!newPasswordIsHidden)}>
+            {newPasswordIsHidden ? <EyeOff /> : <Eye />}
+          </button>
+        </ThemedInput>
         <ThemedInput
           label="Confrim Password"
           required
           error={"This field is required"}
           value={confirmPassword}
+          type={confirmNewPasswordIsHidden ? "password" : "text"}
           // type="password"
           regex={
             "^(?=.*[a-zåäö])(?=.*[A-ZÅÄÖ])(?=.*\\d)(?=.*[@$!%*?&])[A-ZÅÄÖa-zåäö\\d@$!%*?&]{8,}$"
@@ -98,7 +113,14 @@ function ChangePassword() {
           onChange={(e) => setConfirmPassword(e.target.value)}
           maxLength={100}
           minLength={8}
-        ></ThemedInput>
+        >
+          <button
+            type="button"
+            onClick={() => setConfirmNewPasswordIsHidden(!confirmNewPasswordIsHidden)}
+          >
+            {confirmNewPasswordIsHidden ? <EyeOff /> : <Eye />}
+          </button>
+        </ThemedInput>
         <div className="button-container">
           <button className="button button-black" type="submit">
             Change Password

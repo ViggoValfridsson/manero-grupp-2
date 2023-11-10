@@ -15,7 +15,7 @@ import AddPaymentCard from "./pages/order/AddPaymentCard";
 import NotFound from "./pages/NotFound";
 import Checkout from "./pages/order/Checkout";
 import SignOut from "./pages/profile/SignOut";
-import OrderHistory from "./pages/products/OrderHistory";
+import OrderHistory from "./pages/profile/OrderHistory";
 import EditProfile from "./pages/profile/EditProfile";
 import MyAddresses from "./pages/profile/MyAddresses";
 import AddAddress from "./pages/profile/AddAddress";
