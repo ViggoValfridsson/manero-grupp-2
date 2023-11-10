@@ -1,13 +1,15 @@
 import useFetch from "../../hooks/useFetch";
 import { apiDomain } from "../../helpers/apiDomain";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import getCookieByName from "../../helpers/getCookieByName";
+import { Check, PackageOpen, Truck } from "lucide-react";
 
 function OrderHistory() {
   const orders = useFetch(`${apiDomain.https}/api/orders`);
   const authToken = getCookieByName("Authorization");
   const navigate = useNavigate();
+  const [openOrderId, setOpenOrderId] = useState(null);
 
   useEffect(() => {
     // Login failed
@@ -20,7 +22,70 @@ function OrderHistory() {
     }
   }, [authToken, orders, navigate]);
 
-  return <div>OrderHistory</div>;
+  const formatDateString = (inputDateString) => {
+    const options = {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+      hour: "numeric",
+      minute: "numeric",
+      hour12: false,
+    };
+
+    const inputDate = new Date(inputDateString);
+    const formattedDate = inputDate.toLocaleDateString("en-US", options);
+
+    return formattedDate;
+  };
+
+  const getIcon = (status) => {
+    switch (status) {
+      case "Processing":
+        return <PackageOpen size={16} />;
+      case "Shipped":
+        return <Truck size={16} />;
+      case "Done":
+        return <Check size={16} />;
+    }
+  };
+
+  return (
+    <div className="order-history-page">
+      <ul>
+        {orders?.data?.map((order) => (
+          <li key={order.orderDate}>
+            <div
+              className="order-details"
+              onClick={() => setOpenOrderId(order.id === openOrderId ? null : order.id)}
+            >
+              <div className="left-container">
+                <p className="id">#{order.id}</p>
+                <p className="date">{formatDateString(order.orderDate)}</p>
+              </div>
+              <div className="right-container">
+                <p className={`status ${order.status}`}>
+                  {order.status} {getIcon(order.status)}
+                </p>
+                <p className="total">${order.totalPrice}</p>
+              </div>
+            </div>
+            <div className={`product-container ${openOrderId == order.id ? "active" : ""}`}>
+              {order.items.map((item) => (
+                <div className="product" key={item.product.id + crypto.randomUUID()}>
+                  <p>
+                    {item.product.name}, {item.size}
+                  </p>
+                  <p>
+                    {item.quantity} x ${item.product.price}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
 }
 
 export default OrderHistory;

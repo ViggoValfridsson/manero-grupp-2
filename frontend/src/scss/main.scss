@@ -34,6 +34,7 @@
 @use "pages/order/order-confirmation";
 @use "pages/order/shipping-details";
 @use "pages/order/add-payment-card";
+@use "pages/order/order-history";
 @use "pages/profile/sign-in";
 @use "pages/profile/sign-up";
 @use "pages/profile/forgot-password";
@@ -43,4 +44,4 @@
 @use "pages/profile/add-address";
 @use "pages/profile/my-addresses";
 @use "pages/profile/update-address";
-@use "pages/profile/user-payment-methods";  
+@use "pages/profile/user-payment-methods";
