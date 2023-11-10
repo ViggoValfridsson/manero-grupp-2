@@ -25,6 +25,7 @@ public class OrderEntity
     {
         var dto = new OrderDto
         {
+            Id = entity.Id,
             OrderDate = entity.OrderDate,
             TotalPrice = entity.TotalPrice,
             Status = entity.Status.Name,
