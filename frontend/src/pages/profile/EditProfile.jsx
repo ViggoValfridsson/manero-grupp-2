@@ -123,10 +123,14 @@ function EditProfile() {
             maxLength={20}
             minLength={10}
           ></ThemedInput>
-
-          <button className="button button-black" type="submit">
-            Save Changes
-          </button>
+          <div className="button-container">
+            <Link to={"/profile/edit/changepassword"} className="button change-password-button">
+              Change Password
+            </Link>
+            <button className="button button-black" type="submit">
+              Save Changes
+            </button>
+          </div>
         </form>
       )}
     </div>

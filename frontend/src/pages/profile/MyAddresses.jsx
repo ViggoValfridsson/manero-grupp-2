@@ -6,8 +6,6 @@ import { MapPin, PencilLine, Plus } from "lucide-react";
 function MyAddresses() {
   const addresses = useFetch(`${apiDomain.https}/api/addresses`);
 
-  console.log(addresses);
-
   return (
     <div className="my-addresses-page">
       <div className="heading">
