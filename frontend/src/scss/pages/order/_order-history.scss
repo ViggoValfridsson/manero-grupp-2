@@ -5,7 +5,7 @@
 
     .order-details {
       border-bottom: 3px solid var(--color-blue);
-      padding-inline: var(--section-padding-inline);
+      padding-inline: 1.25rem;
       padding-block: 1rem;
       display: flex;
       justify-content: space-between;
@@ -65,7 +65,7 @@
       }
 
       .product {
-        padding-inline: var(--section-padding-inline);
+        padding-inline: 1.25rem;
         display: flex;
         justify-content: space-between;
         color: var(--color-text-light);
