@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import getCookieByName from "../helpers/getCookieByName";
 
 export default function useFetch(url) {
@@ -7,7 +7,7 @@ export default function useFetch(url) {
   const [isLoading, setIsLoading] = useState(true);
   const authToken = getCookieByName("Authorization");
 
-  const headers = new Headers();
+  const headers = useMemo(() => new Headers(), []);
   headers.append("Content-Type", "application/json");
 
   if (authToken) {
@@ -34,7 +34,7 @@ export default function useFetch(url) {
       }
     };
     getData();
-  }, [url]);
+  }, [url, headers]);
 
   return { data, error, isLoading };
 }
