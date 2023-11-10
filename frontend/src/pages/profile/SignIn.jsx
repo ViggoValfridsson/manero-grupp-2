@@ -1,4 +1,4 @@
-import { Check, EyeOff, Facebook, Twitter } from "lucide-react";
+import { Check, EyeOff, Facebook, Twitter, Eye } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import ThemedInput from "../../components/ThemedInput";
 import { useState, useEffect } from "react";
@@ -10,6 +10,7 @@ export default function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
+  const [passwordIsHidden, setPasswordIsHidden] = useState(true);
   const navigate = useNavigate();
   const authToken = getCookieByName("Authorization");
   const toast = useToast();
@@ -91,13 +92,13 @@ export default function SignIn() {
             </ThemedInput>
             <ThemedInput
               label="Password"
-              type="password"
+              type={passwordIsHidden ? "password" : "text"}
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             >
-              <button type="button">
-                <EyeOff />
+              <button type="button" onClick={() => setPasswordIsHidden(!passwordIsHidden)}>
+                {passwordIsHidden ? <EyeOff /> : <Eye />}
               </button>
             </ThemedInput>
           </div>
