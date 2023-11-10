@@ -1,9 +1,10 @@
 import useFetch from "../../hooks/useFetch";
 import { apiDomain } from "../../helpers/apiDomain";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import getCookieByName from "../../helpers/getCookieByName";
-import { Check, PackageOpen, Truck } from "lucide-react";
+import { Check, PackageOpen, ShoppingBag, Truck } from "lucide-react";
+import PageIconCircle from "../../components/PageIconCircle";
 
 function OrderHistory() {
   const orders = useFetch(`${apiDomain.https}/api/orders`);
@@ -48,6 +49,21 @@ function OrderHistory() {
         return <Check size={16} />;
     }
   };
+
+  if (orders?.data?.length === 0) {
+    return (
+      <div className="cart-page empty">
+        <PageIconCircle icon={<ShoppingBag />} />
+        <div>
+          <h2>You haven{"'"}t place an order.</h2>
+          <p>You can start shopping by pressing the button below!</p>
+        </div>
+        <Link to="/products" className="button button-black">
+          Shop now
+        </Link>
+      </div>
+    );
+  }
 
   return (
     <div className="order-history-page">
