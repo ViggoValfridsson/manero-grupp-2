@@ -1,6 +1,6 @@
-namespace WebAPI.Models.Schemas;
+﻿namespace WebAPI.Models.Schemas;
 
-public class OrderCustomerCreateSchema
+public class OrderCreateSchema
 {
     // Send same id multiple times if you wish to purchase multiple of the same item
     public List<OrderItemSchema> Products { get; set; } = new();

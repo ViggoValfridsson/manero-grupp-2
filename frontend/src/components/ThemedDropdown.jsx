@@ -21,15 +21,15 @@ export default function ThemedDropdown({ options, value = "", onChange }) {
 
   return (
     <div className="themed-dropdown" onClick={() => setExpanded(!expanded)}>
-      <button className="selected">
-        {value} <ChevronDown style={expanded ? { rotate: "-180deg" } : {}} />
+      <button type="button" className="selected">
+        <span>{value}</span> <ChevronDown style={expanded ? { rotate: "-180deg" } : {}} />
       </button>
 
       <div className={`dropdown ${expanded ? "expanded" : ""}`}>
         <div className="dropdown-inner">
           <div className="options">
             {options?.map((option) => (
-              <button key={option} onClick={() => updateState(option)}>
+              <button type="button" key={option} onClick={() => updateState(option)}>
                 {option}
               </button>
             ))}
