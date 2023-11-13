@@ -16,6 +16,10 @@ Our API was built using ASP.NET Core. We used Entity Framework Core as our datab
 
 The frontend was built using React and SCSS. Since we used Vite as our dev server we also chose to use vitest for testing the frontend.
 
+### Screenshots
+
+![Screenshot](screenshots/manero_readme.png)
+
 ---
 
 ## Running the app locally 🏃
