@@ -1,5 +1,4 @@
 ﻿using Moq;
-using System.Runtime.CompilerServices;
 using WebAPI.Helpers.Services;
 using WebAPI.Interface.Repositories;
 using WebAPI.Models.Entities;

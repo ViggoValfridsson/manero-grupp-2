@@ -1,8 +1,6 @@
-﻿using System.Linq.Expressions;
-using WebAPI.Interface.Repositories;
+﻿using WebAPI.Interface.Repositories;
 using WebAPI.Interface.Services;
 using WebAPI.Models.Dtos;
-using WebAPI.Models.Entities;
 using WebAPI.Models.QueryParameters;
 
 namespace WebAPI.Helpers.Services;
