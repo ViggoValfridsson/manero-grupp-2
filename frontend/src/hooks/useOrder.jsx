@@ -56,7 +56,7 @@ export function OrderContextProvider({ children }) {
       products: cart.map((item) => ({
         productId: item.id,
         size: item.size,
-        amount: item.amount,
+        quantity: item.amount,
       })),
       orderComment: orderComment,
     };
