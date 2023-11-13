@@ -39,31 +39,30 @@ function UserPaymentMethods() {
             />
           </Link>
         ))}
-
-        </div>
-        <div className="linklist">
-          <Link to={"/profile/payment/apple-pay"}>
-            <div className="left-side">
-            <p>Appel Pay </p> 
+      </div>
+      <div className="linklist">
+        <Link to={"/profile/payment/apple-pay"}>
+          <div className="left-side">
+            <p>Appel Pay </p>
             <Check />
-            </div>
-            <PencilLine />
-          </Link>
+          </div>
+          <PencilLine />
+        </Link>
 
-          <Link to={"/profile/payment/pay-pal"}>
-            <div className="left-side">
-            <p>Pay Pal </p> 
+        <Link to={"/profile/payment/pay-pal"}>
+          <div className="left-side">
+            <p>Pay Pal </p>
             <Check />
-            </div>
-            <PencilLine />
-          </Link>
+          </div>
+          <PencilLine />
+        </Link>
 
-          <Link to={"/profile/payment/payoneer"}>
-            <div className="left-side">
-            <p>Payoneer </p> 
-            </div>
-            <Plus />
-          </Link>
+        <Link to={"/profile/payment/payoneer"}>
+          <div className="left-side">
+            <p>Payoneer </p>
+          </div>
+          <Plus />
+        </Link>
       </div>
     </div>
   );

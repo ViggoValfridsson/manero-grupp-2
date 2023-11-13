@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 import hideCreditCardNumber from "../../helpers/hideCreditCardNumber";
 
 function Checkout() {
-  const { cart } = useCart();
+  const { cart, emptyCart } = useCart();
   const { placeOrder, address, customer, paymentCard, setOrderComment, orderComment } = useOrder();
   const navigate = useNavigate();
   const [shippingError, setShippingError] = useState(false);
@@ -32,6 +32,7 @@ function Checkout() {
 
     if (address && customer && paymentCard) {
       placeOrder();
+      emptyCart();
       navigate("/checkout/order-confirmation");
     }
   };
