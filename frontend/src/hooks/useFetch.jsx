@@ -8,10 +8,10 @@ export default function useFetch(url) {
   const authToken = getCookieByName("Authorization");
 
   const headers = useMemo(() => new Headers(), []);
-  headers.append("Content-Type", "application/json");
+  headers.set("Content-Type", "application/json");
 
   if (authToken) {
-    headers.append("Authorization", `Bearer ${authToken}`);
+    headers.set("Authorization", `Bearer ${authToken}`);
   }
 
   useEffect(() => {
