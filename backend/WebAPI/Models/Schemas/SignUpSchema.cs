@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using WebAPI.Models.Dtos;
 using WebAPI.Models.Identity;
 
 namespace WebAPI.Models.Schemas;
