@@ -13,7 +13,7 @@ export function OrderContextProvider({ children }) {
   const [address, _setAddress] = useState(null);
   const [paymentCard, _setPaymentCard] = useState(null);
   const [orderComment, setOrderComment] = useState(null);
-  const [isOrderSuccessful, _setIsOrderSuccessful] = useState(false);
+  const [isOrderSuccessful, _setIsOrderSuccessful] = useState(null);
   const { cart } = useCart();
   const authToken = getCookieByName("Authorization");
 
