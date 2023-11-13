@@ -57,3 +57,4 @@ $ npm run dev
 - [Leon Lagergren](https://github.com/Lwonla/)
 - [Erik Östemark](https://github.com/fenetreVRT/)
 - [Mohammad Nabi](https://github.com/MohammadNabi01/)
+- [Jimmie Öst](https://github.com/Jimmieost)
