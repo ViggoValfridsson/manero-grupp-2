@@ -36,6 +36,10 @@ export function CartContextProvider({ children }) {
     toast.add(`Added ${incomingProduct.name} to cart!`);
   };
 
+  const emptyCart = () => {
+    setCart([]);
+  };
+
   const removeFromCart = (itemId) => {
     setCart([...cart.filter((x) => x.itemId !== itemId)]);
   };
@@ -74,6 +78,7 @@ export function CartContextProvider({ children }) {
         removeProductFromCart,
         incrementCartItemAmount,
         decrementCartItemAmount,
+        emptyCart,
         isInCart,
       }}
     >

@@ -177,8 +177,8 @@ function EditCard() {
           <div className="form-actions">
             <button className="button button-black">Save card</button>
             <button className="button button-delete" type="button" onClick={handleDelete}>
-            Delete
-          </button>
+              Delete
+            </button>
           </div>
         </form>
       )}

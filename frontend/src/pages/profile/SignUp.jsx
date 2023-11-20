@@ -154,7 +154,10 @@ function SignUp() {
             maxLength={100}
             minLength={8}
           >
-            <button type="button" onClick={() => setConfirmPasswordIsHidden(!confirmPasswordIsHidden)}>
+            <button
+              type="button"
+              onClick={() => setConfirmPasswordIsHidden(!confirmPasswordIsHidden)}
+            >
               {confirmPasswordIsHidden ? <EyeOff /> : <Eye />}
             </button>
           </ThemedInput>

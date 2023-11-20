@@ -6,6 +6,8 @@ import { useOrder } from "../../hooks/useOrder";
 export default function OrderConfirmation() {
   const { isOrderSuccessful } = useOrder();
 
+  if (isOrderSuccessful === null) return null;
+
   return (
     <div className="order-confirmation-page">
       {isOrderSuccessful ? (

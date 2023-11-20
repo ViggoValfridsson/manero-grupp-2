@@ -1,11 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using WebAPI.Helpers.Extensions;
-using WebAPI.Helpers.Services;
 using WebAPI.Interface.Services;
-using WebAPI.Models.Identity;
 using WebAPI.Models.Schemas;
 
 namespace WebAPI.Controllers;

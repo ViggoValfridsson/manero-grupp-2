@@ -13,8 +13,9 @@ export function OrderContextProvider({ children }) {
   const [address, _setAddress] = useState(null);
   const [paymentCard, _setPaymentCard] = useState(null);
   const [orderComment, setOrderComment] = useState(null);
-  const [isOrderSuccessful, _setIsOrderSuccessful] = useState(false);
+  const [isOrderSuccessful, _setIsOrderSuccessful] = useState(null);
   const { cart } = useCart();
+  const authToken = getCookieByName("Authorization");
 
   const setCustomer = (firstName, lastName, email, phone) => {
     _setCustomer(new Customer(firstName, lastName, email, phone));
@@ -55,7 +56,7 @@ export function OrderContextProvider({ children }) {
       products: cart.map((item) => ({
         productId: item.id,
         size: item.size,
-        amount: item.amount,
+        quantity: item.amount,
       })),
       orderComment: orderComment,
     };
@@ -65,13 +66,18 @@ export function OrderContextProvider({ children }) {
       ? `${apiDomain.https}/api/orders/user`
       : `${apiDomain.https}/api/orders`;
 
+    const headers = new Headers();
+    headers.append("Content-Type", "application/json");
+
+    if (authToken) {
+      headers.append("Authorization", `Bearer ${authToken}`);
+    }
+
     // Send data to the backend via POST
     const response = await fetch(fetchUrl, {
       method: "POST",
       mode: "cors",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: headers,
       body: JSON.stringify(orderData),
     });
     console.log(response);
